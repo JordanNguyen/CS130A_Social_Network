@@ -4,8 +4,8 @@
 template <class T> class NodeT {
   private:
 	T data;
-	NodeT *prev;
-	NodeT *next;
+	NodeT<T> *prev;
+	NodeT<T> *next;
 	//static int count;
 
   public:

@@ -7,13 +7,14 @@
 
 /* This is the constructor that will most often be used.
  */
-NodeT::NodeT(T d)
+template <typename T>
+NodeT<T>::NodeT(T d)
 {
 	data = d;
 	prev = NULL;
 	next = NULL;
-	count++;
-	//cout << "Node Created!" << endl;
+	//count++;
+	std::cout << "Node Created!" << std::endl;
 }
 
 /* here is another constructor in case someone wants to make the 
@@ -21,50 +22,59 @@ NodeT::NodeT(T d)
  * You can have multiple constructors as long as each has a different
  * set of input parameter types.  The names don't matter.
  */
-NodeT::NodeT()
+template <typename T>
+NodeT<T>::NodeT()
 {
 	data = 0;
 	prev = NULL;
 	next = NULL;
-	count++;
+	//count++;
 }
 
-NodeT::~NodeT()
+template <typename T>
+NodeT<T>::~NodeT()
 {
-	count--;
+	//count--;
 }
 
-T NodeT::getCount()
-{
-	return count;
-}
+//T NodeT<T>::getCount()
+//{
+//	return count;
+//}
 
-void NodeT::setValue(T v)
+template <typename T>
+void NodeT<T>::setValue(T v)
 {
 	data = v;
 }
-void NodeT::setNext(NodeT *t)
+
+template <typename T>
+void NodeT<T>::setNext(NodeT *t)
 {
 	next = t;
 }
 
-T NodeT::getValue()
-{
-	return value;
-}
+// template <typename T>
+// T NodeT<T>::getData()
+// {
+// 	return data;
+// }
 
-NodeT* NodeT::getPrev()
-{
-	return prev;
-}
+// template <typename T>
+// NodeT<T>* NodeT<T>::getPrev()
+// {
+// 	return prev;
+// }
 
-NodeT* NodeT::getNext()
-{
-	return next;
-}
+// template <typename T>
+// NodeT<T>* NodeT<T>::getNext()
+// {
+// 	return next;
+// }
 
-void NodeT::printNodeT()
+template <typename T>
+void NodeT<T>::printNodeT()
 {
-	cout << data << endl;
+	std::cout << data << std::endl;
 }
 
