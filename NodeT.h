@@ -6,7 +6,7 @@ template <class T> class NodeT {
 	T data;
 	NodeT *prev;
 	NodeT *next;
-	static int count;
+	//static int count;
 
   public:
 	NodeT(T value);
@@ -16,10 +16,11 @@ template <class T> class NodeT {
 	void setValue(T value);
 	void setNext(NodeT *next);
 	T getValue();
+	NodeT *getPrev();
 	NodeT *getNext();
 	static int getCount();
 
-	void printIntNode(FILE *f);
+	void printNodeT();
 };
 
 #endif
