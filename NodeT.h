@@ -1,0 +1,25 @@
+#ifndef LINK_H
+#define LINK_H
+
+template <class T> class NodeT {
+  private:
+	T data;
+	NodeT *prev;
+	NodeT *next;
+	static int count;
+
+  public:
+	NodeT(T value);
+	NodeT();
+	~NodeT();
+
+	void setValue(T value);
+	void setNext(NodeT *next);
+	T getValue();
+	NodeT *getNext();
+	static int getCount();
+
+	void printIntNode(FILE *f);
+};
+
+#endif
