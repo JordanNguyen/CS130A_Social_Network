@@ -2,12 +2,11 @@
 #include <cstdio>
 #include <iostream>
 using namespace std;
-#include "NodeT.h"
-#include "NodeT.cpp"
+#include "Node.h"
 
 int main(int argc, char *argv[])
 {
-	NodeT<int> *test = new NodeT<int>(5);
-	test->printNodeT();
+	Node<string> *test = new Node<string>("test");
+	test->printNode();
 	return 0;
 }
