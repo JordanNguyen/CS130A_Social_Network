@@ -14,8 +14,8 @@ LinkedList<T>::LinkedList()
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
-	NodeT<T> *pOld;
-  	NodeT<T> *p = head;
+	Node<T> *pOld;
+  	Node<T> *p = head;
   	for(p = head; p != NULL; delete pOld)
     {
       pOld = p;

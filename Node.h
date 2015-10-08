@@ -1,11 +1,11 @@
-#ifndef LINK_H
-#define LINK_H
+#ifndef NODE_H
+#define NODE_H
 
 template <class T> class Node {
   private:
 	T data;
-	Node<T> *prev;
-	Node<T> *next;
+	Node *prev;
+	Node *next;
 
   public:
 	Node(T v)
