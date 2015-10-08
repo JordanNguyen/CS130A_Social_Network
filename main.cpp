@@ -2,13 +2,14 @@
 #include <cstdio>
 #include <iostream>
 #include "LinkedList.h"
+#include "wallPost.h"
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	//Node<string> *test = new Node<string>("test");
 	//test->printNode();
-
+	/*
 	LinkedList<string> *test = new LinkedList<string>;
 	test->addTail("one");
 	test->addTail("two");
@@ -37,5 +38,11 @@ int main(int argc, char *argv[])
 	test->getHead()->printNode();
 	cout << "there are " << test->getCount() << " nodes" << endl;
 
+	delete test;
+	return 0;
+	*/
+
+	wallPost test("Here is my post", "Isla Vista");
+	test.printPost();
 	return 0;
 }

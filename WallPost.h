@@ -1,5 +1,6 @@
 #ifndef WALLPOST_H
 #define WALLPOST_H
+using namespace std;
 
 class wallPost {
 
@@ -15,11 +16,13 @@ public:
 	wallPost(string t, string l);
 	~wallPost();
 
-	string printPost();
-	string getPost();
-	void setPost(string t);
+	void printPost();
+	string getText();
+	void setText(string t);
 	//get time
 	string getLocation();
-	string setLocation(string l);
+	void setLocation(string l);
 
-}
+};
+
+#endif

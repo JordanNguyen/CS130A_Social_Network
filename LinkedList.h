@@ -26,9 +26,11 @@ template <class T> class LinkedList {
   		Node<T> *p = head;
   		for(p = head; p != NULL; delete pOld)
     		{
+    			//std::cout << p->getData() << " destroyed" << std::endl;
       			pOld = p;
       			p = p->getNext();
     		}
+    	//std::cout << "LinkedList destroyed" << std::endl;	
 		}
 
 		/* add a new Node to the end
