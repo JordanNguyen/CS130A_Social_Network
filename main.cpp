@@ -9,12 +9,12 @@ int main(int argc, char *argv[])
 	//Node<string> *test = new Node<string>("test");
 	//test->printNode();
 
-	LinkedList<string> *test = new LinkedList<string>;
-	test->addTail("Here is the head");
-	test->addTail("1");
-	test->addTail("2");
-	test->addTail("3");
-	test->addTail("Tail here");
+	LinkedList<int> *test = new LinkedList<int>;
+	test->addTail(100);
+	test->addTail(101);
+	test->addTail(103);
+	test->addTail(104);
+	test->addTail(6969);
 	test->getHead()->printNode();
 	test->getTail()->printNode();
 	test->getTail()->getPrev()->printNode();
