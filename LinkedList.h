@@ -9,6 +9,8 @@ template <class T> class LinkedList {
 		int count;
 
 	public:
+		/* default constructor 
+		initializes head and tail to NULL*/
 		LinkedList()
 		{
 		head = NULL;
@@ -16,6 +18,8 @@ template <class T> class LinkedList {
 		count = 0;
 		}
 
+		/* destructor iterates through whole 
+		list and deletes each node */
 		~LinkedList()
 		{
 		Node<T> *pOld;
@@ -27,6 +31,8 @@ template <class T> class LinkedList {
     		}
 		}
 
+		/* add a new Node to the end
+		of the LinkedList */
 		void addTail(T v)
 		{
 			Node<T> *endNode = new Node<T>(v);
@@ -53,10 +59,10 @@ template <class T> class LinkedList {
 			}
 		}
 
-		/* this function removes the node
-		specified by input position 'pos.'
-		remove() starts counting the first node
-		as index 0, followed by 1, etc */
+		/* removes the node specified by 
+		input position 'pos.' remove() starts 
+		counting the first node as index 0, 
+		followed by 1, etc */
 		void remove(int pos)
 		{
 			//empty list
@@ -116,8 +122,19 @@ template <class T> class LinkedList {
 			return;
 		}
 
-		int getCount()	 { return count; }
+		/* this functions does
+		I don't know... Iterates
+		through all nodes for now */
+		void iterateAll()
+		{
+			Node<T> *temp = head;
+			while (temp->getNext() != NULL)
+				temp=temp->getNext();
+			return;
+		}
 
+
+		int getCount()	 { return count; }
 		Node<T> *getHead()  { return head; }
 		Node<T> *getTail()  { return tail; }
 
