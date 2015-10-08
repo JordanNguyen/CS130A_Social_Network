@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
+#include <ctime>
 #include "LinkedList.h"
 #include "wallPost.h"
 using namespace std;
@@ -43,6 +44,6 @@ int main(int argc, char *argv[])
 	*/
 
 	wallPost test("Here is my post", "Isla Vista");
-	test.printPost();
+	test.getPost();
 	return 0;
 }

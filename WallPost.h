@@ -7,7 +7,7 @@ class wallPost {
 private:
 
 	string text;
-	//time of post
+	string timeOfPost;
 	string location;
 
 public:
@@ -16,10 +16,11 @@ public:
 	wallPost(string t, string l);
 	~wallPost();
 
-	void printPost();
+	string getPost();
 	string getText();
 	void setText(string t);
-	//get time
+	string getTimeOfPost();
+	void setTimeOfPost(string t);
 	string getLocation();
 	void setLocation(string l);
 
