@@ -17,14 +17,12 @@ wall::~wall() {
 }
 
 void wall::newPost(wallPost *p) {
-  if(w == NULL)
-    w->addTail(p);
-  
 
+  w->addTail(p);
 }
 
 void wall::deletePost(int i) {
-
+  w->remove(i);
 }
 
 string wall::getUsername() {
@@ -35,8 +33,16 @@ void wall::setUsername(string t) {
   username = t;
 }
 
-void wall::displayWall() {
-
+string wall::displayWall() {
+  string wholeWall = "";
+  Node<wallPost> *temp = w->getHead();
+  while (temp->getNext() != NULL)
+    {
+      wholeWall += temp->getPost();
+      temp=temp->getNext();
+    }
+  //std::cout << wholeWall;
+  return wholeWall;
 }
 
 void wall::readWall(string t) {

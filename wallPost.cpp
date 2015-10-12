@@ -38,11 +38,9 @@ string wallPost::getPost()
 	wholePost = text + "\n" + "Time of post: " + timeOfPost
 	+ "Location: " + location + "\n";
 
-	std::cout << wholePost;
+	//std::cout << wholePost;
 	return wholePost;
-	//std::cout << text << endl
-	//<< "Time of post: " << timeOfPost
-	//<< "Location: " << location << endl;
+       
 }
 
 string wallPost::getText()

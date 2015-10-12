@@ -17,7 +17,7 @@ class wall {
   void deletePost(int i);
   string getUsername();
   void setUsername(string t);
-  void displayWall();
+  string displayWall();
   void readWall(string t);
   
 };
