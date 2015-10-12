@@ -1,9 +1,9 @@
 #include <cstdlib>
-#include <cstido>
+#include <cstdio>
 #include <iostream>
 #include "wallPost.h"
 #include "wall.h"
-#include "User.h"
+#include "user.h"
 using namespace std;
 
 user::user()
@@ -11,12 +11,22 @@ user::user()
   username = "";
   password = "";
   realName = "";
-  age = 0;
+  dob = "";
 }
 
-user::~user() {
-
+user::user(string u, string p, string r, string d)
+{
+  username = u;
+  password = p;
+  realName = r;
+  dob = d;
 }
+
+user::~user()
+{
+  
+}
+
 
 void user::setUsername(string t) {
   username = t;
@@ -30,16 +40,29 @@ void user::setRealName(string t) {
   realName = t;
 }
 
-void user::setAge(int i) {
-  age = i;
+void user::setDOB(string t) {
+  dob = t;
 }
 
 string user::userInfo() {
   string info;
-  info = "\n" + "username: " + username + "\n"
-  + "password: " + password + "\n" + "real name: "
-  + realName + "\n" + "age: " + age + "\n";
+  info = "Username: " + username + "\n"
+  + "Password: " + password + "\n" + "Real name: "
+  + realName + "\n" + "Birthday: " + dob + "\n";
 
   std::cout << info;
   return info;
+}
+
+void user::addToWall(wallPost wallpost) {
+  w.newPost(wallpost);
+}
+
+void user::deleteWallPost(int i) {
+  w.deletePost(i);
+}
+
+
+wall user::getWall() {
+  return w;
 }

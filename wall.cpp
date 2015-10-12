@@ -7,7 +7,7 @@ using namespace std;
 
 wall::wall() {
 
-  w = new LinkedList<wallPost>;
+  wp = new LinkedList<wallPost>;
   username = "";
   cout << "Wall created!" << endl;
 
@@ -20,12 +20,12 @@ wall::~wall() {
 
 void wall::newPost(wallPost p) {
 
-  w->addTail(p);
+  wp->addTail(p);
   cout << "New post added" << endl;
 }
 
 void wall::deletePost(int i) {
-  w->remove(i);
+  wp->remove(i);
 }
 
 string wall::getUsername() {
@@ -37,9 +37,9 @@ void wall::setUsername(string t) {
 }
 
 string wall::displayWall() {
-  int count = w->getCount();
+  int count = wp->getCount();
   string wholeWall = "";
-  Node<wallPost> *temp = w->getHead();
+  Node<wallPost> *temp = wp->getHead();
   for (int i=0; i < count; temp=temp->getNext(), i++)
     {
     wholeWall += temp->getData().getPost();
@@ -58,5 +58,5 @@ void wall::readWall(string t) {
 }
 
 LinkedList<wallPost>* wall::getLL() {
-  return w;
+  return wp;
 }

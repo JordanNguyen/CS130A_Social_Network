@@ -7,7 +7,7 @@ using namespace std;
 class wall {
 
  private:
-  LinkedList<wallPost> *w; 
+  LinkedList<wallPost> *wp; 
   string username;
 
  public:

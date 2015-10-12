@@ -10,17 +10,19 @@ class user {
   string username;
   string password;
   string realName;
-  int age;
+  string dob;
 
  public:
   user();
+  user(string u, string p, string r, string d);
   ~user();
   void setUsername(string t);
   void setPassword(string t);
   void setRealName(string t);
-  void setAge(int i);
-  void addtoWall(wallPost *w);
-  void deletePost(wallPost *w);
+  void setDOB(string t);
+  void addToWall(wallPost w);
+  void deleteWallPost(int i);
+  wall getWall();
   string userInfo();
   void readUser();
 };
