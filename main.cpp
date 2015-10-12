@@ -4,6 +4,7 @@
 #include <ctime>
 #include "LinkedList.h"
 #include "wallPost.h"
+#include "wall.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -43,7 +44,14 @@ int main(int argc, char *argv[])
 	return 0;
 	*/
 
-	wallPost test("Here is my post", "Isla Vista");
-	test.getPost();
-	return 0;
+	//wallPost test("Here is my post", "Isla Vista");
+	//test.getPost();
+  
+  wall test;
+  wallPost post1("Here is my first post", "Isla Vista");
+  wallPost post2("Here is another post!", "Goleta, CA");
+  test.newPost(post1);
+  test.newPost(post2);
+  test.displayWall();
+  return 0;
 }

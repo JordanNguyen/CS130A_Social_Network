@@ -13,7 +13,7 @@ class wall {
  public:
   wall();
   ~wall();
-  void newPost(wallPost *p);
+  void newPost(wallPost p);
   void deletePost(int i);
   string getUsername();
   void setUsername(string t);

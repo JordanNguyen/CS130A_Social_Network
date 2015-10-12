@@ -5,9 +5,11 @@
 #include "wall.h"
 using namespace std;
 
-wall:wall() {
-  w = NULL;
+wall::wall() {
+
+  w = new LinkedList<wallPost>;
   username = "";
+  cout << "Wall created!" << endl;
 
 }
 
@@ -16,9 +18,10 @@ wall::~wall() {
 
 }
 
-void wall::newPost(wallPost *p) {
+void wall::newPost(wallPost p) {
 
   w->addTail(p);
+  cout << "New post added" << endl;
 }
 
 void wall::deletePost(int i) {
@@ -36,12 +39,12 @@ void wall::setUsername(string t) {
 string wall::displayWall() {
   string wholeWall = "";
   Node<wallPost> *temp = w->getHead();
-  while (temp->getNext() != NULL)
+  while (temp != NULL)
     {
-      wholeWall += temp->getPost();
+      wholeWall = wholeWall + temp->getData().getPost();
       temp=temp->getNext();
     }
-  //std::cout << wholeWall;
+  std::cout << wholeWall;
   return wholeWall;
 }
 

@@ -26,6 +26,7 @@ wallPost::wallPost(string t, string l)
 	time(&currentTime);
 	timeinfo = localtime(&currentTime);
 	timeOfPost = asctime(timeinfo);
+	cout << "wallPost created!" << endl;
 }
 
 wallPost::~wallPost() {
