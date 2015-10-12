@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include <ctime>
+#include <fstream>
 #include "LinkedList.h"
 #include "wallPost.h"
 #include "wall.h"
@@ -74,9 +75,15 @@ int main(int argc, char *argv[])
   newUser.addToWall(post2);
   wallPost post3("dont delete me!!!", "ucsb");
   newUser.addToWall(post3);
-  newUser.getWall().displayWall();
-  newUser.deleteWallPost(1);
   //newUser.getWall().displayWall();
-  newUser.userInfo();
+  //newUser.deleteWallPost(1);
+  //newUser.getWall().displayWall();
+  string info = newUser.userInfo();
+
+  ofstream outfile;
+  outfile.open("userInfo.txt");
+  outfile << info << endl;
+  outfile.close();
+  
   return 0;
 }
