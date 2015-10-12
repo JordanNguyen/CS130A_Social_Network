@@ -37,17 +37,26 @@ void wall::setUsername(string t) {
 }
 
 string wall::displayWall() {
+  int count = w->getCount();
   string wholeWall = "";
   Node<wallPost> *temp = w->getHead();
-  while (temp != NULL)
+  for (int i=0; i < count; temp=temp->getNext(), i++)
     {
-      wholeWall = wholeWall + temp->getData().getPost();
-      temp=temp->getNext();
+    wholeWall += temp->getData().getPost();
     }
+  //while (temp != NULL)
+  //{
+  //  wholeWall = wholeWall + temp->getData().getPost();
+  //  temp=temp->getNext();
+  //}
   std::cout << wholeWall;
   return wholeWall;
 }
 
 void wall::readWall(string t) {
 
+}
+
+LinkedList<wallPost>* wall::getLL() {
+  return w;
 }

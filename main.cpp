@@ -47,11 +47,23 @@ int main(int argc, char *argv[])
 	//wallPost test("Here is my post", "Isla Vista");
 	//test.getPost();
   
-  wall test;
+  wall *test = new wall();
   wallPost post1("Here is my first post", "Isla Vista");
   wallPost post2("Here is another post!", "Goleta, CA");
-  test.newPost(post1);
-  test.newPost(post2);
-  test.displayWall();
+  wallPost post3("Im going to get deleted!", "Hell");
+  test->newPost(post1);
+  test->newPost(post2);
+  test->newPost(post3);
+  cout << "number of posts: " << test->getLL()->getCount() << endl;
+  test->getLL()->getHead()->getData().getPost();
+  //test->getLL()->getTail()->getData().getPost();
+  test->displayWall();
+  test->deletePost(2);
+  test->displayWall();
+  cout << "number of posts: " << test->getLL()->getCount() << endl;
+  //test->getLL()->getTail()->getData().getPost();
+  //test->deletePost(0);
+  //test->getLL()->getTail()->getData().getPost();
+  //cout << "number of posts: " << test->getLL()->getCount() << endl;
   return 0;
 }

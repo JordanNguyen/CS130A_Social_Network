@@ -19,6 +19,7 @@ class wall {
   void setUsername(string t);
   string displayWall();
   void readWall(string t);
+  LinkedList<wallPost>* getLL();
   
 };
 
