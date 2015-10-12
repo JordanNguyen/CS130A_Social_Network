@@ -20,6 +20,7 @@ class user {
   void setPassword(string t);
   void setRealName(string t);
   void setDOB(string t);
+  string getUsername();
   void addToWall(wallPost w);
   void deleteWallPost(int i);
   wall getWall();

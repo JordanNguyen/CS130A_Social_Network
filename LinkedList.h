@@ -135,8 +135,9 @@ template <class T> class LinkedList {
 			return;
 		}
 
-
-		int getCount()	 { return count; }
+		void addCount()     { count++; }
+		void subCount()     { count--; }
+		int getCount()	    { return count; }
 		Node<T> *getHead()  { return head; }
 		Node<T> *getTail()  { return tail; }
 

@@ -54,6 +54,11 @@ string user::userInfo() {
   return info;
 }
 
+string user::getUsername()
+{
+  return username;
+}
+
 void user::addToWall(wallPost wallpost) {
   w.newPost(wallpost);
 }
