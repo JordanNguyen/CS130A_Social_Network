@@ -14,7 +14,7 @@ wall::wall() {
 }
 
 wall::~wall() {
-
+  delete wp;
 
 }
 

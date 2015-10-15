@@ -12,7 +12,7 @@ userNetwork::userNetwork()
 
 userNetwork::~userNetwork()
 {
-
+  delete users;
 }
 
 void userNetwork::addUser(user u);
