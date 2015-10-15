@@ -85,7 +85,13 @@ int main(int argc, char *argv[])
   //outfile << info << endl;
   //outfile.close();
 
-  delete test;
+  //delete test;
+
+  string testing = "Post 1\n 10:30\n IV\n\n Post 2\n 9:20\n Goleta\n\n Post 3\n 4:30\n the beach\n\n";
+  test->readWall(testing);
+  cout << "number of posts: " << test->getLL()->getCount() << endl;
+
+
   
   return 0;
 }

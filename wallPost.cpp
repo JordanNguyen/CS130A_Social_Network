@@ -26,7 +26,14 @@ wallPost::wallPost(string t, string l)
 	time(&currentTime);
 	timeinfo = localtime(&currentTime);
 	timeOfPost = asctime(timeinfo);
-	cout << "wallPost created!" << endl;
+	//cout << "wallPost created!" << endl;
+}
+
+wallPost::wallPost(string t, string ToP, string l)
+{
+	text = t;
+	timeOfPost = ToP;
+	location = l;
 }
 
 wallPost::~wallPost() {
