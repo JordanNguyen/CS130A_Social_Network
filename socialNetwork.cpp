@@ -43,6 +43,8 @@ void socialNetwork::start()
   
   if (selection == 1)
     return createNewUser();
+  if (selection == 2)
+    return login();
   if (selection == 3)
     return;
 }
@@ -72,3 +74,30 @@ void socialNetwork::createNewUser()
   return start();
 
 }
+
+void socialNetwork::login()
+{
+  std::cout<<"Enter your username:"<<endl;
+  string username;
+  std::cin>>username;
+  
+  std::cout<<"Enter your password:"<<endl;
+  string password;
+  std::cin>>password;
+
+  if (un->checkUsername(username, password))
+    return userPage();
+  else
+    {
+      std::cout<<"Invalid username or password"<<endl;
+      return start();
+    }
+
+}
+
+void socialNetwork::userPage()
+{
+  std::cout<<"You have logged in!!"<<endl;
+  return;
+}
+  

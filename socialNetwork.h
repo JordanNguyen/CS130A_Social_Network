@@ -15,7 +15,9 @@ class socialNetwork {
   void welcome();
   void start();
   void createNewUser();
-  //bool checkUsername(string un);
+  void login();
+  void userPage();
+
 
 };
 

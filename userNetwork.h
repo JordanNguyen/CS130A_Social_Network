@@ -16,6 +16,7 @@ class userNetwork {
   void writeUserNetwork();
   void readUsers(const char* filename);
   void printUsernames();
+  bool checkUsername(string user, string pw);
   LinkedList<user>* getULL();
 
 };

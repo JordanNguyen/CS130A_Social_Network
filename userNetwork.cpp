@@ -106,6 +106,24 @@ void userNetwork::printUsernames()
 	}
 }
 
+bool userNetwork::checkUsername(string usr, string pw)
+{
+  Node<user> *temp = users->getHead();
+  
+  while (temp != NULL)
+    {
+      if (temp->getData().getUsername() == usr)
+	{
+	if (temp->getData().getPassword() == pw)
+	  return true;
+	else
+	  return false;
+	}
+      temp = temp->getNext();
+    }
+  return false;
+}
+
 LinkedList<user>* userNetwork::getULL()
 {
 	return users;

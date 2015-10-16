@@ -31,8 +31,8 @@ Gauchos gauchos
 Time of post: 1:45 pmLocation: UCSB
 
 
-Username: gogo
-Password: 2354
-Real name: go go go
-Birthday: 103423
+Username: testing
+Password: testing
+Real name: testing testing
+Birthday: testing
 
