@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
   // cout << newUser.userInfo() << endl;
 
   userNetwork *un = new userNetwork();
-  un->readUsers("userNetworkInput.txt");
+  un->readUsers();
   //un->printUsernames();
   //user newUser("jnguyen","password1","Jordan Nguyen","March 3");
   //user newUser1("bwicka","password2","Brandon Wicka","Oct 13");
@@ -125,7 +125,8 @@ int main(int argc, char *argv[])
   //cout << un->getULL()->getTail()->getPrev()->getData().getUsername() << endl;
   //un->printUsernames();
   //un->deleteUser("user2");
-  //cout << un->getULL()->getTail()->getData().getUsername() << endl;
+  cout << un->getULL()->getHead()->getData().userInfo() << endl;
+  //cout << un->getULL()->getHead()->getNext()->getData().getUsername() << endl;
   //un->printUsernames();
   //un->deleteUser("billy");
   //un->printUsernames();

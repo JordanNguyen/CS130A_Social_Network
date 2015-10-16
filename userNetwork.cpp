@@ -135,9 +135,9 @@ void userNetwork::writeUserNetwork()
 	
 }
 
-void readUsers(const char *filename)
+void userNetwork::readUsers()
 {
-	ifstream infile(filename);
+	ifstream infile("userNetworkInput.txt");
 	//ifstream infile(file);
 	string s = "";
 	s.assign( (istreambuf_iterator<char>(infile) ), (istreambuf_iterator<char>() ));
@@ -180,7 +180,7 @@ void readUsers(const char *filename)
 	{
 		//save all the text to userToken
 		userToken = s.substr(0, posUser);
-		cout << userToken << endl;
+		//cout << userToken << endl;
 		//read in userToken and find the end of user info
 		while ((posInfo = userToken.find(infoDelim)) != string::npos )
 		{
@@ -231,7 +231,7 @@ void readUsers(const char *filename)
 		wallPost newPost(wp,top,loc);
 		newUser.addToWall(newPost);
 		s.erase(0, posUser + userDelim.length());
-
+		users->addTail(newUser);
 	}
 	//users->addTail(newUser);
 	infile.close();
