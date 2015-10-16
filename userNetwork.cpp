@@ -185,43 +185,70 @@ void userNetwork::readUsers()
 		while ((posInfo = userToken.find(infoDelim)) != string::npos )
 		{
 			infoToken = userToken.substr(0,posInfo);
+			//cout << infoToken << endl;
 			//parse through the user info
 			infoCounter = 0;
 			while ((pos1 = infoToken.find(newlDelim)) != string::npos)
 			{
 				token1 = infoToken.substr(0,pos1);
+				//cout << token1 << endl;
 				if (infoCounter == 0)
+				{
 					un = token1;
+					//cout << un << endl;
+				}
 				if (infoCounter == 1)
+				{	
 					pw = token1;
+					//cout << pw << endl;
+				}
 				if (infoCounter == 2)
+				{
 					rn = token1;
+					//cout << rn << endl;
+				}
 
 				infoCounter++;
 				infoToken.erase(0, pos1+newlDelim.length());
 			}
+			dob = token1;
+			//cout << dob << endl;
 			userToken.erase(0, posInfo + infoDelim.length());
-			dob = token2;
+			
 			
 		}
 		user newUser(un,pw,rn,dob);
-
+		postCounter = 0;
 		//start parsing through the wall posts
 		while ((posPost = userToken.find(postDelim)) != string::npos)
 		{
 			//get the whole string of wall posts
 			postToken = userToken.substr(0, posPost);
+			//cout << postToken << endl;
 			//parse through the wall posts
-			postCounter = 0;
+			//postCounter = 0;
+			
 			while ((pos2 = postToken.find(newlDelim)) != string::npos)
 			{
 				token2 = postToken.substr(0,pos2);
+				cout << postCounter << endl;
 				if (postCounter == 0)
+				{	
+					//cout << token2 << endl;
 					wp = token2;
+					//cout << wp << endl;
+				}
 				if (postCounter == 1)
+				{
 					top = token2;
+					//cout << top << endl;
+				}
 
 				postCounter++;
+				if (postCounter >= 2)
+				{
+					postCounter = 0;
+				}
 				postToken.erase(0,pos2+newlDelim.length());
 			}
 			userToken.erase(0, posPost + postDelim.length());
@@ -231,7 +258,7 @@ void userNetwork::readUsers()
 		wallPost newPost(wp,top,loc);
 		newUser.addToWall(newPost);
 		s.erase(0, posUser + userDelim.length());
-		users->addTail(newUser);
+		addUser(newUser);
 	}
 	//users->addTail(newUser);
 	infile.close();

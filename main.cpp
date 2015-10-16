@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
   //cout << un->getULL()->getTail()->getPrev()->getData().getUsername() << endl;
   //un->printUsernames();
   //un->deleteUser("user2");
-  cout << un->getULL()->getHead()->getData().userInfo() << endl;
+  //cout << un->getULL()->getHead()->getData().userInfo() << endl;
   //cout << un->getULL()->getHead()->getNext()->getData().getUsername() << endl;
   //un->printUsernames();
   //un->deleteUser("billy");
