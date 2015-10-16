@@ -49,14 +49,14 @@ int main(int argc, char *argv[])
 	//wallPost test("Here is my post", "Isla Vista");
 	//test.getPost();
   
-  wall *test = new wall();
-  wallPost post1("Here is my first post", "Isla Vista");
-  wallPost post2("Here is another post!", "Goleta, CA");
-  wallPost post3("Im going to get deleted!", "Hell");
-  test->newPost(post1);
-  test->newPost(post2);
-  test->newPost(post3);
-  test->displayWall();
+  //wall *test = new wall();
+  // wallPost post1("Here is my first post", "Isla Vista");
+  // wallPost post2("Here is another post!", "Goleta, CA");
+  // wallPost post3("Im going to get deleted!", "Hell");
+  // test->newPost(post1);
+  // test->newPost(post2);
+  // test->newPost(post3);
+  // test->displayWall();
   //cout << "number of posts: " << test->getLL()->getCount() << endl;
   //test->getLL()->getHead()->getData().getPost();
   //test->getLL()->getTail()->getData().getPost();
@@ -69,17 +69,18 @@ int main(int argc, char *argv[])
   //test->getLL()->getTail()->getData().getPost();
   //cout << "number of posts: " << test->getLL()->getCount() << endl;
 
-  //user newUser("jordannguyen","password","Jordan Nguyen","3/11/95");
-  //wallPost post1("test post", "iv");
-  //wallPost post2("another test post", "csil");
-  //newUser.addToWall(post1);
-  //newUser.addToWall(post2);
-  //wallPost post3("dont delete me!!!", "ucsb");
-  //newUser.addToWall(post3);
+  // user newUser("jordannguyen","password","Jordan Nguyen","3/11/95");
+  // wallPost post1("test post", "iv");
+  // wallPost post2("another test post", "csil");
+  // newUser.addToWall(post1);
+  // newUser.addToWall(post2);
+  // wallPost post3("dont delete me!!!", "ucsb");
+  // newUser.addToWall(post3);
   //newUser.getWall().displayWall();
   //newUser.deleteWallPost(1);
   //newUser.getWall().displayWall();
-  //string info = newUser.userInfo();
+  // string info = newUser.userInfo();
+  // cout << info << endl;
 
   //ofstream outfile;
   //outfile.open("userInfo.txt");
@@ -88,11 +89,16 @@ int main(int argc, char *argv[])
 
   //delete test;
 
-  string testing = "Post 1\n10:30\nIV\n \n\nPost 2\n9:20\nGoleta\n \n\nPost 3\n4:30\nthe beach\n \n\n";
+  //string testing = "Post 1\n10:30\nIV\n \nPost 2\n9:20\nGoleta\n \nPost 3\n4:30\nthe beach\n \n";
   
-  test->readWall(testing);
-  cout << "number of posts: " << test->getLL()->getCount() << endl;
-  test->displayWall();
+  //test->readWall(testing);
+  //cout << "number of posts: " << test->getLL()->getCount() << endl;
+  //cout << test->WallToString();
+
+  string userinfo = "Jordannguyen\npassword\nJordan Nguyen\n03/11/95\n  \n"; //I am making my first post\n";
+  //userinfo += "10:50 AM\nGoleta\n \nHere is another post\n3:14 PM\nCA\n \n";
+  user newUser(userinfo);
+  cout << newUser.userInfo() << endl;
 
 
   

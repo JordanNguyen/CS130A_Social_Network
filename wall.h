@@ -17,7 +17,7 @@ class wall {
   void deletePost(int i);
   string getUsername();
   void setUsername(string t);
-  string displayWall();
+  string WallToString();
   void readWall(string t);
   LinkedList<wallPost>* getLL();
   

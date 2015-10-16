@@ -36,7 +36,7 @@ void wall::setUsername(string t) {
   username = t;
 }
 
-string wall::displayWall() {
+string wall::WallToString() {
   int count = wp->getCount();
   string wholeWall = "";
   Node<wallPost> *temp = wp->getHead();
@@ -44,7 +44,7 @@ string wall::displayWall() {
     {
     wholeWall += temp->getData().getPost();
     }
-  std::cout << wholeWall;
+  //std::cout << wholeWall;
   return wholeWall;
 }
 
@@ -57,7 +57,7 @@ void wall::readWall(string t) {
 
   string s = t;
   // first delimiter to divide up wall posts
-  string delimiter1 = "\n\n";
+  string delimiter1 = " \n";
   // second delimiter to divide up each element of wall post
   string delimiter2 = "\n";
 
@@ -92,11 +92,11 @@ void wall::readWall(string t) {
         timeOfPost = token2 + "\n";
         //token1.erase(0, pos2 + delimiter2.length());
       }
-      if (counter == 2)
-      {
-        location = token2;
+      //if (counter == 2)
+      //{
+        //location = token2;
         //token1.erase(0, pos2 + delimiter2.length());
-      }  
+      //}  
       counter++;
       token1.erase(0, pos2 + delimiter2.length());
 
@@ -104,6 +104,7 @@ void wall::readWall(string t) {
   }
     //cout << "TOKEN2 AT END OF WHILE LOOP: " << token2 << endl;
     s.erase(0, pos1 + delimiter1.length());
+    cout << s << endl;
     location = token2;
     wallPost newPost(post,timeOfPost,location);
     wp->addTail(newPost);
