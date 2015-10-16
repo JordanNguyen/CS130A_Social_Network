@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 
   userNetwork *un = new userNetwork();
   un->readUsers("userNetworkInput.txt");
-  un->printUsernames();
+  //un->printUsernames();
   //user newUser("jnguyen","password1","Jordan Nguyen","March 3");
   //user newUser1("bwicka","password2","Brandon Wicka","Oct 13");
   //wallPost post1("Here is my first post!", "Isla Vista");

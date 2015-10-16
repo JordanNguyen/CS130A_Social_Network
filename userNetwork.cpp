@@ -135,9 +135,10 @@ void userNetwork::writeUserNetwork()
 	
 }
 
-void readUsers(string file)
+void readUsers(const char *filename)
 {
-	ifstream infile(file);
+	ifstream infile(filename);
+	//ifstream infile(file);
 	string s = "";
 	s.assign( (istreambuf_iterator<char>(infile) ), (istreambuf_iterator<char>() ));
 
@@ -179,6 +180,7 @@ void readUsers(string file)
 	{
 		//save all the text to userToken
 		userToken = s.substr(0, posUser);
+		cout << userToken << endl;
 		//read in userToken and find the end of user info
 		while ((posInfo = userToken.find(infoDelim)) != string::npos )
 		{
@@ -200,8 +202,9 @@ void readUsers(string file)
 			}
 			userToken.erase(0, posInfo + infoDelim.length());
 			dob = token2;
-			user newUser(un,pw,rn,dob);
+			
 		}
+		user newUser(un,pw,rn,dob);
 
 		//start parsing through the wall posts
 		while ((posPost = userToken.find(postDelim)) != string::npos)
@@ -218,18 +221,20 @@ void readUsers(string file)
 				if (postCounter == 1)
 					top = token2;
 
-				postCounter++
+				postCounter++;
 				postToken.erase(0,pos2+newlDelim.length());
 			}
 			userToken.erase(0, posPost + postDelim.length());
 			loc = token2;
-			wallPost newPost(wp,top,loc);
-			newUser.addToWall(newPost);
+			
 		}
+		wallPost newPost(wp,top,loc);
+		newUser.addToWall(newPost);
 		s.erase(0, posUser + userDelim.length());
-		users.addTail(newUser);
 
 	}
+	//users->addTail(newUser);
+	infile.close();
 
 }
 
