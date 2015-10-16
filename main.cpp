@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 
   userNetwork *un = new userNetwork();
   un->readUsers();
-  //un->printUsernames();
+  un->printUsernames();
   //user newUser("jnguyen","password1","Jordan Nguyen","March 3");
   //user newUser1("bwicka","password2","Brandon Wicka","Oct 13");
   //wallPost post1("Here is my first post!", "Isla Vista");
@@ -121,21 +121,24 @@ int main(int argc, char *argv[])
   //un->addUser(newUser2);
   //un->addUser(newUser3);
   //un->addUser(newUser4);
-  //cout << un->getULL()->getTail()->getData().getUsername() << endl;
+  //out << un->getULL()->getTail()->getData().getUsername() << endl;
   //cout << un->getULL()->getTail()->getPrev()->getData().getUsername() << endl;
   //un->printUsernames();
   //un->deleteUser("user2");
-  //cout << un->getULL()->getHead()->getData().userInfo() << endl;
-  //cout << un->getULL()->getHead()->getNext()->getData().getUsername() << endl;
+  cout << un->getULL()->getHead()->getData().userInfo() << endl;
+  cout << un->getULL()->getHead()->getNext()->getData().userInfo() << endl;
+  cout << un->getULL()->getTail()->getData().userInfo() << endl;
   //un->printUsernames();
-  //un->deleteUser("billy");
+  //un->deleteUser("jordannguyen");
   //un->printUsernames();
   //un->deleteUser("user3");
   //un->printUsernames();
   //cout << un->getULL()->getTail()->getData().getUsername() << endl;
   //un->deleteUser("user1");
   //un->printUsernames();
-  //cout << un->getULL()->getHead()->getData().getUsername() << endl;
+  //cout << un->getULL()->getHead()->getData().userInfo() << endl;
+  //un->deleteUser("bwicka");
+  //cout << un->getULL()->getHead()->getData().userInfo() << endl;
   //cout << un->getULL()->getHead()->getNext()->getData().getPassword() << endl;
   //cout << un->getULL()->getTail()->getData().getPassword() << endl;
 

@@ -143,9 +143,10 @@ void userNetwork::readUsers()
 	s.assign( (istreambuf_iterator<char>(infile) ), (istreambuf_iterator<char>() ));
 
 	// delimiters to parse string
-	string userDelim = "[/enduser]";
+	string userDelim = "[/enduser]\n";
 	string infoDelim = "[/endinfo]";
 	string postDelim = "[/endwallposts]";
+	string eachPost  = "[/endpost]";
 	string newlDelim = "\n";
 
 	// byte size
@@ -154,6 +155,7 @@ void userNetwork::readUsers()
 	size_t posPost = 0;
 	size_t pos1    = 0;
 	size_t pos2    = 0;
+	size_t pos3    = 0;
 
 	// tokens to split up string
 	string userToken;
@@ -161,6 +163,7 @@ void userNetwork::readUsers()
 	string postToken;
 	string token1;
 	string token2;
+	string token3;
 
 	// counters
 	int infoCounter = 0;
@@ -192,6 +195,7 @@ void userNetwork::readUsers()
 			{
 				token1 = infoToken.substr(0,pos1);
 				//cout << token1 << endl;
+				//cout << infoCounter << endl;
 				if (infoCounter == 0)
 				{
 					un = token1;
@@ -213,57 +217,66 @@ void userNetwork::readUsers()
 			}
 			dob = token1;
 			//cout << dob << endl;
+			//user newUser(un,pw,rn,dob);
 			userToken.erase(0, posInfo + infoDelim.length());
 			
 			
 		}
 		user newUser(un,pw,rn,dob);
-		postCounter = 0;
+		
 		//start parsing through the wall posts
 		while ((posPost = userToken.find(postDelim)) != string::npos)
 		{
-			//get the whole string of wall posts
+			//get the whole string of wall posts per each user
 			postToken = userToken.substr(0, posPost);
-			//cout << postToken << endl;
-			//parse through the wall posts
-			//postCounter = 0;
+			//parse through the wall posts and divide it into individual posts
 			
-			while ((pos2 = postToken.find(newlDelim)) != string::npos)
+			while ((pos2 = postToken.find(eachPost)) != string::npos)
 			{
+				// get each individual post
 				token2 = postToken.substr(0,pos2);
-				cout << postCounter << endl;
-				if (postCounter == 0)
-				{	
-					//cout << token2 << endl;
-					wp = token2;
-					//cout << wp << endl;
-				}
-				if (postCounter == 1)
+				//cout << token2 << endl;
+				postCounter = 0;
+				while ((pos3 = token2.find(newlDelim)) != string::npos)
 				{
-					top = token2;
-					//cout << top << endl;
+					//divide up each post into parts separated by newlines
+					token3 = token2.substr(0,pos3);
+					//cout<<token3<<endl<<endl;
+					//cout << postCounter  << endl;
+					if (postCounter == 1)
+					{	
+						wp = token3;
+						//cout << wp << endl << endl;
+					}
+					if (postCounter == 2)
+					{
+						top = token3;
+						//cout << top << endl << endl;
+					}
+					
+					postCounter++;
+					token2.erase(0, pos3+newlDelim.length());
 				}
 
-				postCounter++;
-				if (postCounter >= 2)
-				{
-					postCounter = 0;
-				}
-				postToken.erase(0,pos2+newlDelim.length());
+				loc = token3;
+				//cout << loc << endl << endl;
+				postToken.erase(0,pos2+eachPost.length());
+				wallPost newPost(wp,top,loc);
+				newUser.addToWall(newPost);
 			}
 			userToken.erase(0, posPost + postDelim.length());
-			loc = token2;
+			
 			
 		}
-		wallPost newPost(wp,top,loc);
-		newUser.addToWall(newPost);
-		s.erase(0, posUser + userDelim.length());
 		addUser(newUser);
-	}
-	//users->addTail(newUser);
-	infile.close();
+		s.erase(0, posUser + userDelim.length());
+	}		
 
+	infile.close();
 }
+	
+
+
 
 
 
