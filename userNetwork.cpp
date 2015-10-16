@@ -17,7 +17,20 @@ userNetwork::~userNetwork()
 
 void userNetwork::addUser(user u)
 {
-  users->addTail(u);
+	string un = u.getUsername();
+	Node<user> *temp = users->getHead();
+	
+	while (temp != NULL)
+	{
+		if (un == temp->getData().getUsername())
+		{
+			cout << "Username " << un << " already taken." << endl;
+			return;
+		}
+		temp = temp->getNext();
+	}
+
+  	users->addTail(u);
 }
 
 void userNetwork::deleteUser(string t) 
