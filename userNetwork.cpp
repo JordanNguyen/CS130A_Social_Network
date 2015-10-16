@@ -135,9 +135,9 @@ void userNetwork::writeUserNetwork()
 	
 }
 
-void userNetwork::readUsers()
+void userNetwork::readUsers(const char* filename)
 {
-	ifstream infile("userNetworkInput.txt");
+	ifstream infile(filename);
 	//ifstream infile(file);
 	string s = "";
 	s.assign( (istreambuf_iterator<char>(infile) ), (istreambuf_iterator<char>() ));

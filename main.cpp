@@ -8,6 +8,7 @@
 #include "wall.h"
 #include "user.h"
 #include "userNetwork.h"
+#include "socialNetwork.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -101,9 +102,9 @@ int main(int argc, char *argv[])
   // user newUser(userinfo);
   // cout << newUser.userInfo() << endl;
 
-  userNetwork *un = new userNetwork();
-  un->readUsers();
-  un->printUsernames();
+  //userNetwork *un = new userNetwork();
+  //un->readUsers("userNetworkInput.txt");
+  //un->printUsernames();
   //user newUser("jnguyen","password1","Jordan Nguyen","March 3");
   //user newUser1("bwicka","password2","Brandon Wicka","Oct 13");
   //wallPost post1("Here is my first post!", "Isla Vista");
@@ -125,9 +126,9 @@ int main(int argc, char *argv[])
   //cout << un->getULL()->getTail()->getPrev()->getData().getUsername() << endl;
   //un->printUsernames();
   //un->deleteUser("user2");
-  cout << un->getULL()->getHead()->getData().userInfo() << endl;
-  cout << un->getULL()->getHead()->getNext()->getData().userInfo() << endl;
-  cout << un->getULL()->getTail()->getData().userInfo() << endl;
+  //cout << un->getULL()->getHead()->getData().userInfo() << endl;
+  //cout << un->getULL()->getHead()->getNext()->getData().userInfo() << endl;
+  //cout << un->getULL()->getTail()->getData().userInfo() << endl;
   //un->printUsernames();
   //un->deleteUser("jordannguyen");
   //un->printUsernames();
@@ -142,7 +143,8 @@ int main(int argc, char *argv[])
   //cout << un->getULL()->getHead()->getNext()->getData().getPassword() << endl;
   //cout << un->getULL()->getTail()->getData().getPassword() << endl;
 
-
+  socialNetwork sn;
+  sn.start();
 
   
   return 0;
