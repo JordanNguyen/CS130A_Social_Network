@@ -12,6 +12,7 @@ user::user()
   password = "";
   realName = "";
   dob = "";
+  
 }
 
 user::user(string u, string p, string r, string d)
@@ -126,6 +127,11 @@ string user::userInfo() {
 string user::getUsername()
 {
   return username;
+}
+
+string user::getPassword()
+{
+  return password;
 }
 
 void user::addToWall(wallPost wallpost) {

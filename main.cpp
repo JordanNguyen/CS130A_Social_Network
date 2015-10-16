@@ -7,6 +7,7 @@
 #include "wallPost.h"
 #include "wall.h"
 #include "user.h"
+#include "userNetwork.h"
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -95,10 +96,37 @@ int main(int argc, char *argv[])
   //cout << "number of posts: " << test->getLL()->getCount() << endl;
   //cout << test->WallToString();
 
-  string userinfo = "Jordannguyen\npassword\nJordan Nguyen\n03/11/95\n  \n"; //I am making my first post\n";
-  //userinfo += "10:50 AM\nGoleta\n \nHere is another post\n3:14 PM\nCA\n \n";
-  user newUser(userinfo);
-  cout << newUser.userInfo() << endl;
+  // string userinfo = "Jordannguyen\npassword\nJordan Nguyen\n03/11/95\n  \nI am making my first post\n";
+  // userinfo += "10:50 AM\nGoleta\n \nHere is another post\n3:14 PM\nCA\n \n";
+  // user newUser(userinfo);
+  // cout << newUser.userInfo() << endl;
+
+  userNetwork *un = new userNetwork();
+  user newUser("user1","password1","realname","march 3");
+  user newUser1("user2","password2","realname","march 3");
+  user newUser2("user3","password3","realname","march 3");
+  user newUser3("billy","password4","realname","march 3");
+  un->addUser(newUser);
+  un->addUser(newUser1);
+  un->addUser(newUser2);
+  un->addUser(newUser3);
+  //cout << un->getULL()->getTail()->getData().getUsername() << endl;
+  //cout << un->getULL()->getTail()->getPrev()->getData().getUsername() << endl;
+  //un->printUsernames();
+  un->deleteUser("user2");
+  //cout << un->getULL()->getTail()->getData().getUsername() << endl;
+  //un->printUsernames();
+  un->deleteUser("billy");
+  //un->printUsernames();
+  un->deleteUser("user3");
+  //un->printUsernames();
+  //cout << un->getULL()->getTail()->getData().getUsername() << endl;
+  un->deleteUser("user1");
+  un->printUsernames();
+  //cout << un->getULL()->getHead()->getData().getUsername() << endl;
+  //cout << un->getULL()->getHead()->getNext()->getData().getPassword() << endl;
+  //cout << un->getULL()->getTail()->getData().getPassword() << endl;
+
 
 
   

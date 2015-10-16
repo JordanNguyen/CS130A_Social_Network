@@ -118,6 +118,7 @@ template <class T> class LinkedList {
 				//link the two nodes surrounding temp
 				temp->getPrev()->setNext(temp->getNext());
 				temp->getNext()->setPrev(temp->getPrev());
+				delete temp;
 				count--;
 			}
 
@@ -130,16 +131,18 @@ template <class T> class LinkedList {
 		void iterateAll()
 		{
 			Node<T> *temp = head;
-			while (temp->getNext() != NULL)
+			while (temp != NULL)
 				temp=temp->getNext();
 			return;
 		}
 
-		void addCount()     { count++; }
-		void subCount()     { count--; }
-		int getCount()	    { return count; }
-		Node<T> *getHead()  { return head; }
-		Node<T> *getTail()  { return tail; }
+		void addCount()          { count++; }
+		void subCount()          { count--; }
+		int getCount()	         { return count; }
+		Node<T> *getHead()       { return head; }
+		Node<T> *getTail()       { return tail; }
+		void setHead(Node<T> *h) { head = h; }
+		void setTail(Node<T> *t) { tail = t; }
 
 };
 

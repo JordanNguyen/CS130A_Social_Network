@@ -22,6 +22,7 @@ class user {
   void setRealName(string t);
   void setDOB(string t);
   string getUsername();
+  string getPassword();
   void addToWall(wallPost w);
   void deleteWallPost(int i);
   wall getWall();

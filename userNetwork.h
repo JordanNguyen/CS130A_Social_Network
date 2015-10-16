@@ -15,6 +15,8 @@ class userNetwork {
   void deleteUser(string t);
   void writeUsers();
   void readUsers(const char *filename);
+  void printUsernames();
+  LinkedList<user>* getULL();
 
 };
 
