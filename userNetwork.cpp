@@ -32,6 +32,7 @@ void userNetwork::addUser(user u)
 	}
 
   	users->addTail(u);
+	cout << "New user successfully created!" << endl;
 }
 
 void userNetwork::deleteUser(string t) 

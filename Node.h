@@ -17,7 +17,7 @@ template <class T> class Node {
 	  }
 	Node()
 	  {
-	    data = 0;
+	    //data = 0;
 	    prev = NULL;
 	    next = NULL;
 	  }

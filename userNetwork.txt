@@ -1,13 +1,38 @@
-Username: jnguyen
+Username: jordannguyen
 Password: password1
-Real name: Jordan Nguyen
-Birthday: March 3
-Here is my first post!
-Time of post: Fri Oct 16 00:54:47 2015
-Location: Isla Vista
+Real name: Jordan nguyen
+Birthday: 03/11/95
+this is my first post
+Time of post: 12:34 pmLocation: csil
 
-I love coding
-Time of post: Fri Oct 16 00:54:47 2015
-Location: CodersSB
+this is my second post
+Time of post: 1:45 pmLocation: goleta
 
+
+Username: bwicka
+Password: password1
+Real name: Brandon Wicka
+Birthday: 12/25/95
+this is brandons first post
+Time of post: 12:34 pmLocation: csil
+
+this is brandons second post
+Time of post: 1:45 pmLocation: goleta
+
+
+Username: bobgaucho
+Password: password1
+Real name: The Gaucho
+Birthday: 1/1/1990
+Ole ole ole ole
+Time of post: 12:34 pmLocation: Thunderdome
+
+Gauchos gauchos
+Time of post: 1:45 pmLocation: UCSB
+
+
+Username: gogo
+Password: 2354
+Real name: go go go
+Birthday: 103423
 

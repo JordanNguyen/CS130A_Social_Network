@@ -19,9 +19,15 @@ socialNetwork::~socialNetwork()
   delete un;
 }
 
-void socialNetwork::start()
+void socialNetwork::welcome()
 {
   std::cout << "Welcome to your social network!" << std::endl;
+  return start();
+}
+
+void socialNetwork::start()
+{
+
   std::cout << "Please choose an option: " << std::endl;
   std::cout << "1.) Create a new user" << std::endl;
   std::cout << "2.) Log in" << std::endl;
@@ -37,6 +43,8 @@ void socialNetwork::start()
   
   if (selection == 1)
     return createNewUser();
+  if (selection == 3)
+    return;
 }
 
 void socialNetwork::createNewUser()
@@ -44,26 +52,23 @@ void socialNetwork::createNewUser()
   std::cout << "Enter a username:" << std::endl;
   string username;
   std::cin >> username;
-  if (checkUsername(username))
-    {
-      std::cout<<"Available"<<endl;
-      std::cout<<"Username taken"<<endl;
-    }
-  return;
+  
+  std::cout << "Enter a password:" << std::endl;
+  string password;
+  std::cin >> password;
+  
+  std::cout << "Enter your real name:" << std::endl;
+  string realname;
+  std::getline(std::cin, realname);
+  std::getline(std::cin, realname);
+  
+  std::cout << "Enter your birthday:" << std::endl;
+  string dob;
+  std::getline(std::cin, dob);
 
-}
+  user newUser(username,password,realname,dob);
+  un->addUser(newUser);
+  un->writeUserNetwork();
+  return start();
 
-bool socialNetwork::checkUsername(string username)
-{
-  //use to iterate through usernetwork
-  Node<user> *temp = new Node<user>;
-  temp = un->getULL()->getHead();
-
-  while (temp != NULL)
-    {
-      if (username == temp->getData().getUsername())
-	return false;
-    }
-
-  return true;
 }

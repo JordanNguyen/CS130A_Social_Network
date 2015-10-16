@@ -12,9 +12,10 @@ class socialNetwork {
  public:
   socialNetwork();
   ~socialNetwork();
+  void welcome();
   void start();
   void createNewUser();
-  bool checkUsername(string un);
+  //bool checkUsername(string un);
 
 };
 

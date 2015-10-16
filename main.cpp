@@ -144,7 +144,7 @@ int main(int argc, char *argv[])
   //cout << un->getULL()->getTail()->getData().getPassword() << endl;
 
   socialNetwork sn;
-  sn.start();
+  sn.welcome();
 
   
   return 0;
