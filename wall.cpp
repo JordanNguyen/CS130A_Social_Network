@@ -49,16 +49,12 @@ string wall::displayWall() {
 }
 
 void wall::readWall(string t) {
-  
+
   //empty linkedlist of wallposts and recreate it
   delete wp;
-
-  cout << "checkpoint";
   wp = new LinkedList<wallPost>;
+  
 
-  std::cout << "I made to 1";
-
-  // need two while loops
   string s = t;
   // first delimiter to divide up wall posts
   string delimiter1 = "\n\n";
@@ -66,7 +62,8 @@ void wall::readWall(string t) {
   string delimiter2 = "\n";
 
   size_t pos1 = 0;
-  int counter;
+  size_t pos2 = 0;
+  int counter = 0;
 
   string post;
   string timeOfPost;
@@ -75,29 +72,43 @@ void wall::readWall(string t) {
   string token1;
   string token2;
 
-  std::cout << "I made it before the while loop";
+  //divide up the posts
   while ((pos1 = s.find(delimiter1)) != string::npos) {
     token1 = s.substr(0, pos1);
-    size_t pos2 = 0;
     counter = 0;
+    //cout << token1 << endl << "BREAK" << endl;
     while ((pos2 = token1.find(delimiter2)) != string::npos) {
       
       token2 = token1.substr(0, pos2);
+      //cout << token2 << endl << "BREAK" << endl;
+
       if (counter == 0)
       {
         post = token2;
+        //token1.erase(0, pos2 + delimiter2.length());
       }
       if (counter == 1)
       {
-        timeOfPost = token2;
+        timeOfPost = token2 + "\n";
+        //token1.erase(0, pos2 + delimiter2.length());
       }
       if (counter == 2)
       {
         location = token2;
-        wallPost newPost(post,timeOfPost,location);
-        wp->addTail(newPost);
-      }
-    }
+        //token1.erase(0, pos2 + delimiter2.length());
+      }  
+      counter++;
+      token1.erase(0, pos2 + delimiter2.length());
+
+
+  }
+    //cout << "TOKEN2 AT END OF WHILE LOOP: " << token2 << endl;
+    s.erase(0, pos1 + delimiter1.length());
+    location = token2;
+    wallPost newPost(post,timeOfPost,location);
+    wp->addTail(newPost);
+
+
   }
 
 }

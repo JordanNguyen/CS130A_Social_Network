@@ -56,7 +56,8 @@ int main(int argc, char *argv[])
   test->newPost(post1);
   test->newPost(post2);
   test->newPost(post3);
-  cout << "number of posts: " << test->getLL()->getCount() << endl;
+  test->displayWall();
+  //cout << "number of posts: " << test->getLL()->getCount() << endl;
   //test->getLL()->getHead()->getData().getPost();
   //test->getLL()->getTail()->getData().getPost();
   //test->displayWall();
@@ -87,9 +88,11 @@ int main(int argc, char *argv[])
 
   //delete test;
 
-  string testing = "Post 1\n 10:30\n IV\n\n Post 2\n 9:20\n Goleta\n\n Post 3\n 4:30\n the beach\n\n";
+  string testing = "Post 1\n10:30\nIV\n \n\nPost 2\n9:20\nGoleta\n \n\nPost 3\n4:30\nthe beach\n \n\n";
+  
   test->readWall(testing);
   cout << "number of posts: " << test->getLL()->getCount() << endl;
+  test->displayWall();
 
 
   
