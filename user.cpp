@@ -22,6 +22,11 @@ user::user(string u, string p, string r, string d)
   dob = d;
 }
 
+user::user(string info)
+{
+  // string of format 
+}
+
 user::~user()
 {
   

@@ -15,6 +15,7 @@ class user {
  public:
   user();
   user(string u, string p, string r, string d);
+  user(string info);
   ~user();
   void setUsername(string t);
   void setPassword(string t);
@@ -25,7 +26,7 @@ class user {
   void deleteWallPost(int i);
   wall getWall();
   string userInfo();
-  void readUser();
+  //void readUser();
 };
 
 #endif
