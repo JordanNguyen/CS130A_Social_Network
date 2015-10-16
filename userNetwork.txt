@@ -1,0 +1,13 @@
+Username: jnguyen
+Password: password1
+Real name: Jordan Nguyen
+Birthday: March 3
+Here is my first post!
+Time of post: Fri Oct 16 00:54:47 2015
+Location: Isla Vista
+
+I love coding
+Time of post: Fri Oct 16 00:54:47 2015
+Location: CodersSB
+
+

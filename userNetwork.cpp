@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include <ctime>
+#include <fstream>
 #include "userNetwork.h"
 using namespace std;
 
@@ -109,6 +110,30 @@ LinkedList<user>* userNetwork::getULL()
 	return users;
 }
 
+void userNetwork::writeUserNetwork()
+{
+	if (users->getHead() == NULL)
+	{
+		cout << "Error: No users to write" << endl;
+		return;
+	}
+
+	ofstream outfile;
+	outfile.open("userNetwork.txt");
+
+	// need username, pw, realname, dob, and all wallposts
+	string wholeUserNetwork = "";
+	Node<user> *temp = users->getHead();
+	while (temp != NULL)
+	{
+		outfile << temp->getData().userInfo() << endl;
+		temp = temp->getNext();
+	}
+
+	outfile.close();
+	return;
+	
+}
 
 
 

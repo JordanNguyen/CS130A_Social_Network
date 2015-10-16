@@ -13,7 +13,7 @@ class userNetwork {
   ~userNetwork();
   void addUser(user u);
   void deleteUser(string t);
-  void writeUsers();
+  void writeUserNetwork();
   void readUsers(const char *filename);
   void printUsernames();
   LinkedList<user>* getULL();
