@@ -6,10 +6,11 @@ Jordan nguyen
 this is my first post
 12:34 pm
 csil
+[/endpost]
 this is my second post
 1:45 pm
 goleta
-[/endwallposts][/enduser]
+[/endpost][/endwallposts][/enduser]
 bwicka
 password1
 Brandon Wicka
@@ -18,7 +19,8 @@ Brandon Wicka
 this is brandons first post
 12:34 pm
 csil
+[/endpost]
 this is brandons second post
 1:45 pm
 goleta
-[/endwallposts][/enduser]
+[/endpost][/endwallposts][/enduser]
