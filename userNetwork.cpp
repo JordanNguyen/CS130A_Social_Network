@@ -135,5 +135,103 @@ void userNetwork::writeUserNetwork()
 	
 }
 
+void readUsers(string file)
+{
+	ifstream infile(file);
+	string s = "";
+	s.assign( (istreambuf_iterator<char>(infile) ), (istreambuf_iterator<char>() ));
+
+	// delimiters to parse string
+	string userDelim = "[/enduser]";
+	string infoDelim = "[/endinfo]";
+	string postDelim = "[/endwallposts]";
+	string newlDelim = "\n";
+
+	// byte size
+	size_t posUser = 0;
+	size_t posInfo = 0;
+	size_t posPost = 0;
+	size_t pos1    = 0;
+	size_t pos2    = 0;
+
+	// tokens to split up string
+	string userToken;
+	string infoToken;
+	string postToken;
+	string token1;
+	string token2;
+
+	// counters
+	int infoCounter = 0;
+	int postCounter = 0;
+
+	// data members to save to usernetwork
+	string un;  //username
+	string pw;  //passwowrd
+	string rn;  //real name
+	string dob; //date of birth
+	string wp;  //wall post
+	string top; //time of post
+	string loc; //location
+
+	// find the end of first user
+	while ((posUser = s.find(userDelim)) != string::npos) 
+	{
+		//save all the text to userToken
+		userToken = s.substr(0, posUser);
+		//read in userToken and find the end of user info
+		while ((posInfo = userToken.find(infoDelim)) != string::npos )
+		{
+			infoToken = userToken.substr(0,posInfo);
+			//parse through the user info
+			infoCounter = 0;
+			while ((pos1 = infoToken.find(newlDelim)) != string::npos)
+			{
+				token1 = infoToken.substr(0,pos1);
+				if (infoCounter == 0)
+					un = token1;
+				if (infoCounter == 1)
+					pw = token1;
+				if (infoCounter == 2)
+					rn = token1;
+
+				infoCounter++;
+				infoToken.erase(0, pos1+newlDelim.length());
+			}
+			userToken.erase(0, posInfo + infoDelim.length());
+			dob = token2;
+			user newUser(un,pw,rn,dob);
+		}
+
+		//start parsing through the wall posts
+		while ((posPost = userToken.find(postDelim)) != string::npos)
+		{
+			//get the whole string of wall posts
+			postToken = userToken.substr(0, posPost);
+			//parse through the wall posts
+			postCounter = 0;
+			while ((pos2 = postToken.find(newlDelim)) != string::npos)
+			{
+				token2 = postToken.substr(0,pos2);
+				if (postCounter == 0)
+					wp = token2;
+				if (postCounter == 1)
+					top = token2;
+
+				postCounter++
+				postToken.erase(0,pos2+newlDelim.length());
+			}
+			userToken.erase(0, posPost + postDelim.length());
+			loc = token2;
+			wallPost newPost(wp,top,loc);
+			newUser.addToWall(newPost);
+		}
+		s.erase(0, posUser + userDelim.length());
+		users.addTail(newUser);
+
+	}
+
+}
+
 
 
