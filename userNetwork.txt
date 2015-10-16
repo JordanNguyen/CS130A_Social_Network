@@ -3,10 +3,10 @@ Password: password1
 Real name: Jordan nguyen
 Birthday: 03/11/95
 this is my first post
-Time of post: 12:34 pmLocation: csil
+Time of post: 12:34 pm Location: csil
 
 this is my second post
-Time of post: 1:45 pmLocation: goleta
+Time of post: 1:45 pm Location: goleta
 
 
 Username: bwicka
@@ -14,10 +14,10 @@ Password: password1
 Real name: Brandon Wicka
 Birthday: 12/25/95
 this is brandons first post
-Time of post: 12:34 pmLocation: csil
+Time of post: 12:34 pm Location: csil
 
 this is brandons second post
-Time of post: 1:45 pmLocation: goleta
+Time of post: 1:45 pm Location: goleta
 
 
 Username: bobgaucho
@@ -25,14 +25,14 @@ Password: password1
 Real name: The Gaucho
 Birthday: 1/1/1990
 Ole ole ole ole
-Time of post: 12:34 pmLocation: Thunderdome
+Time of post: 12:34 pm Location: Thunderdome
 
 Gauchos gauchos
-Time of post: 1:45 pmLocation: UCSB
+Time of post: 1:45 pm Location: UCSB
 
 
-Username: testing
-Password: testing
-Real name: testing testing
-Birthday: testing
+Username: bobby
+Password: bobby
+Real name: bobby
+Birthday: bobby
 

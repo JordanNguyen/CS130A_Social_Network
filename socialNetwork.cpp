@@ -86,7 +86,10 @@ void socialNetwork::login()
   std::cin>>password;
 
   if (un->checkUsername(username, password))
-    return userPage();
+    {
+    std::cout<<"Login Successful"<<endl;
+    return userPage(un->getUserNode(username));
+    }
   else
     {
       std::cout<<"Invalid username or password"<<endl;
@@ -95,9 +98,31 @@ void socialNetwork::login()
 
 }
 
-void socialNetwork::userPage()
+void socialNetwork::userPage(Node<user>* usr)
 {
-  std::cout<<"You have logged in!!"<<endl;
-  return;
+  std::cout<<"Select an option"<<endl;
+  std::cout<<"1.) Display entire wall"<<endl;
+  std::cout<<"2.) Logout"<<endl;
+
+  int selection = 1;
+
+  do{
+    std::cin >> selection;
+    if (selection != 1 && selection != 2)
+      std::cout << "Invalid selection" << std::endl;
+  } while (selection != 1 && selection != 2);
+
+  if (selection == 1)
+    return displayWall(usr);
+
+  if (selection == 2)
+    return start();
+    
+}
+
+void socialNetwork::displayWall(Node<user>* usr)
+{
+  std::cout<<usr->getData().getWall().WallToString();
+  return userPage(usr);
 }
   
