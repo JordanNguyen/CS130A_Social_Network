@@ -9,3 +9,4 @@ Instructions:
 1.) Type 'make' in terminal
 2.) Type './a.out' in terminal to run
 3.) Follow the prompt given by the program
+4.) UserNetwork is generated from userNetworkInput.txt
