@@ -18,6 +18,7 @@ public:
 	~wallPost();
 
 	string getPost();
+	string getPostWrite();
 	string getText();
 	void setText(string t);
 	string getTimeOfPost();

@@ -36,7 +36,8 @@ void wall::setUsername(string t) {
   username = t;
 }
 
-string wall::WallToString() {
+string wall::WallToString() 
+{
   int count = wp->getCount();
   string wholeWall = "";
   Node<wallPost> *temp = wp->getHead();
@@ -48,6 +49,28 @@ string wall::WallToString() {
     }
   //std::cout << wholeWall;
   return wholeWall;
+}
+
+string wall::WallToStringWrite()
+{
+  int count = wp->getCount();
+  string wholeWall = "";
+  Node<wallPost> *temp = wp->getHead();
+  
+  if (temp == NULL)
+    return wholeWall;
+
+  for (int i=0; i<count; temp=temp->getNext(), i++)
+  {
+    wholeWall += temp->getData().getPostWrite();
+    if (i == count - 1)
+      wholeWall += "[/endwallposts]";
+    else
+      wholeWall += "\n";
+  }
+
+  return wholeWall;
+
 }
 
 void wall::readWall(string t) {

@@ -27,6 +27,7 @@ class user {
   void deleteWallPost(int i);
   wall getWall();
   string userInfo();
+  string userInfoWrite();
   //void readUser();
 };
 

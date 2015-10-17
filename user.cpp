@@ -96,23 +96,28 @@ user::~user()
 }
 
 
-void user::setUsername(string t) {
+void user::setUsername(string t) 
+{
   username = t;
 }
 
-void user::setPassword(string t) {
+void user::setPassword(string t) 
+{
   password = t;
 }
 
-void user::setRealName(string t) {
+void user::setRealName(string t) 
+{
   realName = t;
 }
 
-void user::setDOB(string t) {
+void user::setDOB(string t) 
+{
   dob = t;
 }
 
-string user::userInfo() {
+string user::userInfo() 
+{
   string info;
   info = "Username: " + username + "\n"
   + "Password: " + password + "\n" + "Real name: "
@@ -125,6 +130,16 @@ string user::userInfo() {
   return info;
 }
 
+string user::userInfoWrite() 
+{
+  string info;
+  info = username + "\n" + password + "\n" + realName 
+  + "\n" + dob + "\n" + "[/endinfo]\n";
+
+  return info;
+
+}
+
 string user::getUsername()
 {
   return username;
@@ -135,15 +150,18 @@ string user::getPassword()
   return password;
 }
 
-void user::addToWall(wallPost wallpost) {
+void user::addToWall(wallPost wallpost) 
+{
   w.newPost(wallpost);
 }
 
-void user::deleteWallPost(int i) {
+void user::deleteWallPost(int i) 
+{
   w.deletePost(i);
 }
 
 
-wall user::getWall() {
+wall user::getWall() 
+{
   return w;
 }

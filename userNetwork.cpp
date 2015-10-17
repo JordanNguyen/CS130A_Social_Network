@@ -157,6 +157,32 @@ LinkedList<user>* userNetwork::getULL()
 	return users;
 }
 
+// void userNetwork::writeUserNetwork()
+// {
+// 	if (users->getHead() == NULL)
+// 	{
+// 		cout << "Error: No users to write" << endl;
+// 		return;
+// 	}
+
+// 	ofstream outfile;
+// 	outfile.open("userNetwork.txt");
+
+// 	// need username, pw, realname, dob, and all wallposts
+// 	string wholeUserNetwork = "";
+// 	Node<user> *temp = users->getHead();
+// 	while (temp != NULL)
+// 	{
+// 		outfile << temp->getData().userInfo() << endl;
+// 		temp = temp->getNext();
+// 	}
+
+// 	outfile.close();
+// 	return;
+	
+// }
+
+//write to userNetworkInput.txt in the correct format to be read back
 void userNetwork::writeUserNetwork()
 {
 	if (users->getHead() == NULL)
@@ -166,20 +192,20 @@ void userNetwork::writeUserNetwork()
 	}
 
 	ofstream outfile;
-	outfile.open("userNetwork.txt");
+	outfile.open("userNetworkInput.txt");
 
-	// need username, pw, realname, dob, and all wallposts
 	string wholeUserNetwork = "";
 	Node<user> *temp = users->getHead();
 	while (temp != NULL)
 	{
-		outfile << temp->getData().userInfo() << endl;
+		outfile << temp->getData().userInfoWrite();
+		outfile << temp->getData().getWall().WallToStringWrite();
+		outfile << "[/enduser]\n";
 		temp = temp->getNext();
 	}
 
 	outfile.close();
 	return;
-	
 }
 
 void userNetwork::readUsers(const char* filename)

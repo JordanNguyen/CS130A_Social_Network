@@ -51,6 +51,13 @@ string wallPost::getPost()
        
 }
 
+string wallPost::getPostWrite()
+{
+	string wholePost;
+	wholePost = text + "\n" + timeOfPost + "\n" + location + "\n" + "[/endpost]";
+	return wholePost;
+}
+
 string wallPost::getText()
 {
 	return text;
