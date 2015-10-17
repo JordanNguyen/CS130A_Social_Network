@@ -32,7 +32,7 @@ void userNetwork::addUser(user u)
 	}
 
   	users->addTail(u);
-	cout << "New user successfully created!" << endl;
+	//cout << "New user successfully created!" << endl;
 }
 
 void userNetwork::deleteUser(string t) 
@@ -106,19 +106,32 @@ void userNetwork::printUsernames()
 	}
 }
 
-bool userNetwork::checkUsername(string usr, string pw)
+bool userNetwork::checkUsername(string usr)
+{
+	Node<user> *temp = users->getHead();
+	while (temp != NULL)
+	{
+		if (temp->getData().getUsername() == usr)
+			return true;
+		temp = temp->getNext();
+	}
+
+	return false;
+}
+
+bool userNetwork::checkLogin(string usr, string pw)
 {
   Node<user> *temp = users->getHead();
   
   while (temp != NULL)
     {
       if (temp->getData().getUsername() == usr)
-	{
-	if (temp->getData().getPassword() == pw)
-	  return true;
-	else
-	  return false;
-	}
+		{
+			if (temp->getData().getPassword() == pw)
+	  			return true;
+			else
+	  			return false;
+		}
       temp = temp->getNext();
     }
   return false;

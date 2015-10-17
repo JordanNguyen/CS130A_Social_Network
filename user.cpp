@@ -21,6 +21,7 @@ user::user(string u, string p, string r, string d)
   password = p;
   realName = r;
   dob = d;
+  w.setUsername(u);
 }
 
 user::user(string info)

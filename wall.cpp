@@ -9,7 +9,7 @@ wall::wall() {
 
   wp = new LinkedList<wallPost>;
   username = "";
-  cout << "Wall created!" << endl;
+  //cout << "Wall created!" << endl;
 
 }
 
@@ -21,7 +21,7 @@ wall::~wall() {
 void wall::newPost(wallPost p) {
 
   wp->addTail(p);
-  cout << "New post added" << endl;
+  //cout << "New post added" << endl;
 }
 
 void wall::deletePost(int i) {
@@ -40,6 +40,8 @@ string wall::WallToString() {
   int count = wp->getCount();
   string wholeWall = "";
   Node<wallPost> *temp = wp->getHead();
+  if (temp == NULL)
+    wholeWall = "Your wall is empty.\n";
   for (int i=0; i < count; temp=temp->getNext(), i++)
     {
     wholeWall += temp->getData().getPost();

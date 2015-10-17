@@ -46,6 +46,7 @@ void socialNetwork::start()
   if (selection == 2)
     return login();
   if (selection == 3)
+    std::cout <<"Goodbye!"<<endl;
     return;
 }
 
@@ -68,9 +69,17 @@ void socialNetwork::createNewUser()
   string dob;
   std::getline(std::cin, dob);
 
-  user newUser(username,password,realname,dob);
-  un->addUser(newUser);
-  un->writeUserNetwork();
+  if (!(un->checkUsername(username)))
+  {
+    user newUser(username,password,realname,dob);
+    un->addUser(newUser);
+    un->writeUserNetwork();
+    std::cout<<"New user successfully created!"<<std::endl;
+  }
+
+  else
+    std::cout<<"Username is already taken."<<std::endl;
+
   return start();
 
 }
@@ -85,7 +94,7 @@ void socialNetwork::login()
   string password;
   std::cin>>password;
 
-  if (un->checkUsername(username, password))
+  if (un->checkLogin(username, password))
     {
     std::cout<<"Login Successful"<<endl;
     return userPage(un->getUserNode(username));

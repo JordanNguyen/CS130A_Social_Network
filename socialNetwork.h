@@ -19,7 +19,6 @@ class socialNetwork {
   void userPage(Node<user> *usr);
   void displayWall(Node<user> *usr);
 
-
 };
 
 #endif

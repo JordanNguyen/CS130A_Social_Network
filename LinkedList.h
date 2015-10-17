@@ -30,7 +30,7 @@ template <class T> class LinkedList {
       			pOld = p;
       			p = p->getNext();
     		}
-	       std::cout << "LinkedList destroyed" << std::endl;	
+	       //std::cout << "LinkedList destroyed" << std::endl;	
 		}
 
 		/* add a new Node to the end

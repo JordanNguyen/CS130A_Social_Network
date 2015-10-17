@@ -13,7 +13,7 @@ template <class T> class Node {
 	    data = v;
 	    prev = NULL;
 	    next = NULL;
-	    std::cout << "Node Created!" << std::endl;
+	    //std::cout << "Node Created!" << std::endl;
 	  }
 	Node()
 	  {

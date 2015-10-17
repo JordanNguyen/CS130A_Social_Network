@@ -31,8 +31,9 @@ Gauchos gauchos
 Time of post: 1:45 pm Location: UCSB
 
 
-Username: bobby
-Password: bobby
-Real name: bobby
-Birthday: bobby
+Username: curtis
+Password: paine
+Real name: curtis pain
+Birthday: 12345
+Your wall is empty.
 
