@@ -1,8 +1,8 @@
 #ifndef LIST_H
 #define LIST_H
 
-template class<T>
-class list {
+template <class T>
+class List {
 
 public:
 
