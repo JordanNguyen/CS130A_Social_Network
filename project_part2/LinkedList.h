@@ -45,7 +45,7 @@ class LinkedList: public List {
     if (pos > count || pos < 0)
       {
 	std::cout << "Invalid position. Must be between 0 and "
-		  << count << endl;
+		  << count << std::endl;
 	return;
       }
 
@@ -183,13 +183,13 @@ class LinkedList: public List {
      if (pos > count-1 || pos < 0)
       {
 	std::cout << "Invalid position. Must be between 0 and "
-		  << count - 1 << endl;
+		  << count - 1 << std::endl;
 	return;
       }
 
     if (head == NULL && pos = 0)
       {
-	std:: cout << "Empty list, nothing to set" << endl;
+	std::cout << "Empty list, nothing to set" << std::endl;
 	return;
       }
 
@@ -216,13 +216,13 @@ class LinkedList: public List {
      if (pos > count-1 || pos < 0)
       {
 	std::cout << "Invalid position. Must be between 0 and "
-		  << count - 1 << endl;
+		  << count - 1 << std::endl;
 	return;
       }
 
     if (head == NULL && pos = 0)
       {
-	std:: cout << "Empty list, nothing to get" << endl;
+	std::cout << "Empty list, nothing to get" << std::endl;
 	return;
       }
 
@@ -276,4 +276,9 @@ class LinkedList: public List {
   Node<T> *getTail()       { return tail; }
   void setHead(Node<T> *h) { head = h; }
   void setTail(Node<T> *t) { tail = t; }
-    
+
+
+};
+
+#endif
+
