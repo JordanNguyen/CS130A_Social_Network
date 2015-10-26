@@ -6,9 +6,10 @@ template <class T> class Array: public List<T> {
 
  private:
 
-  T *pa;        // pointer to the beginning of array type T
-  int length;   // length of available spots in array
-  int nextOpen; // next open index of array
+  T *pa;          // pointer to the beginning of array type T
+  int length;     // length of available spots in array
+  //int nextOpen; // next open index of array
+  //int spotsTaken; // number of spots taken in array
 
   
  public:
@@ -25,10 +26,12 @@ template <class T> class Array: public List<T> {
       length = 10;
       nextOpen = 0;
       */
-      pa = new T[1];
+      pa = new T[2];
       pa[0] = 0;
-      length = 1;
-      nextOpen = 0;
+      pa[1] = 0;
+      length = 2;
+      //spotsTaken = 0;
+      //nextOpen = 0;
       
     }
 
@@ -38,7 +41,8 @@ template <class T> class Array: public List<T> {
       pa = new T[1];
       pa[0] = item;
       length = 2;
-      nextOpen = 1;
+      //spotsTaken = 1;
+      //nextOpen = 1;
     }
 
   //destructor
@@ -77,39 +81,58 @@ template <class T> class Array: public List<T> {
    */
   void insert(int pos, const T & item)
   {
-    if (pos >= length || pos < 0)
+    if (pos > length || pos < 0)
       {
       std::cout << "Invalid index. Must be between 0 and "
-		<< length - 1 << std::endl;
+		<< length  << std::endl;
+      return;
       }
 
-    // empty array
-    // (pos == 0 && nextOpen == 0)
-      //
-	//[0] = item;
-	//ngth = 1;
-	//xtOpen = 1;
-	//
-
-    // delcare new array with more space
-    T *pnew = new T[length * 2];
-    for (int i = 0; i < length*2; i++)
+    // delcare new array with more space when necessary
+    // this is only if the last element is not 0
+    // OR when adding to the end of the array
+    if (pa[length - 1] != 0 || pos == length)
       {
-	if (i < pos)
-	  pnew[i] = pa[i];
-	if (i == pos)
-	  pnew[i] = item;
-	if (i > pos && i <= length)
-	  pnew[i] = pa[i-1];
-	if (i > pos && i > length)
-	  pnew[i] = 0;
-	std::cout<< pnew[i] << std::endl;
+	T *pnew = new T[length * 2];
+	std:: cout<<"array length has doubled" <<std::endl;
+	for (int i = 0; i < length*2; i++)
+	  {
+	    if (i < pos)
+	      pnew[i] = pa[i];
+	    if (i == pos)
+	      pnew[i] = item;
+	    if (i > pos && i <= length)
+	      pnew[i] = pa[i-1];
+	    if (i > pos && i > length)
+	      pnew[i] = 0;
+	    std::cout<< pnew[i] << std::endl;
+	  }
+	delete [] pa;
+	pa = pnew;
+	length = length*2;
+       }
+
+    // else the last element is blank, so just shift
+    // everything over 1 spot.
+    else
+      {
+	T *pnew = new T[length];
+	for (int i = 0; i < length; i++)
+	  {
+	    if (i < pos)
+	      pnew[i] = pa[i];
+	    if (i == pos)
+	      pnew[i] = item;
+	    if (i > pos && i <= length)
+	      pnew[i] = pa[i-1];
+	    if (i > pos && i > length)
+	      pnew[i] = 0;
+	    std::cout<< pnew[i] << std::endl;
+	  }
+	delete [] pa;
+	pa = pnew;
       }
 
-    // set pa = to new bigger array
-    delete [] pa;
-    pa = pnew;
-    length = length*2;
     std::cout<<"end of array"<<std::endl;
     return;
     
@@ -120,7 +143,34 @@ template <class T> class Array: public List<T> {
 	*/
   void remove(int pos)
   {
+    if (pos < 0 || pos >= length)
+      {
+	std::cout << "Invalid index. Must be between 0 and "
+		<< length - 1 << std::endl;
+	return;
+      }
+
+   
+    // create a new array of length - 1
+    // copy current array into new one, except for deleted position
+
+    T *pnew = new T[length-1];
+    for (int i = 0; i < length-1; i++)
+      {
+	if (i < pos)
+	  pnew[i] = pa[i];
+	if (i >= pos)
+	  pnew[i] = pa[i + 1];
+	std::cout << pnew[i] << std::endl;
+      }
+
+    delete [] pa;
+    pa = pnew;
+    length--;
+    std::cout << "deletion complete" << std::endl;
     return;
+
+    
   }
 
 	/* overwrites position pos in the list with item.
@@ -128,9 +178,14 @@ template <class T> class Array: public List<T> {
 	*  pos must be between 0 and the current length of the list minus 1.
 	*/
   void set(int pos, const T & item)
-	{
-	  return;
-	}
+  {
+    if (pos < 0 || pos >= length)
+      {
+	std::cout << "Invalid index. Must be between 0 and "
+		  << length - 1 << std::endl;
+	return;
+      }
+  }
 
 	/* returns the item at position pos, not changing the list.
 	*  pos must be between 0 and the current length of the list minus 1.

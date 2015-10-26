@@ -4,7 +4,7 @@
 #include "List.h"
 
 template <class T>
-class LinkedList: public List {
+class LinkedList: public List<T> {
 
  private:
   

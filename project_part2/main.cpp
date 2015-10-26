@@ -22,6 +22,16 @@ int main(int argc, char *argv[])
   a->insert(1,8);
   a->insert(2,4);
   a->insert(1,60);
+  a->insert(4,100);
+  a->insert(6,40);
+  a->insert(7,21);
+
+  a->remove(0);
+  a->remove(0);
+  a->remove(0);
+  a->remove(2);
+  a->remove(5);
+  a->remove(3);
   
   return 0;
 }
