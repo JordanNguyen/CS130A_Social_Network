@@ -101,7 +101,7 @@ template <class T> class Array: public List<T> {
 	      pnew[i] = item;
 	    if (i > pos && i < nextOpen+1)
 	      pnew[i] = pa[i-1];
-	    //std::cout<< pnew[i] << std::endl;
+	    std::cout<< pnew[i] << std::endl;
 	  }
 	nextOpen++;
 	delete [] pa;
@@ -124,7 +124,7 @@ template <class T> class Array: public List<T> {
 	      pnew[i] = item;
 	    if (i > pos && i < nextOpen+1)
 	      pnew[i] = pa[i-1];
-	    // std::cout<< pnew[i] << std::endl;
+	    std::cout<< pnew[i] << std::endl;
 	  }
 	delete [] pa;
 	pa = pnew;
