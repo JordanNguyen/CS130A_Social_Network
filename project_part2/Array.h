@@ -185,6 +185,11 @@ template <class T> class Array: public List<T> {
 		  << length - 1 << std::endl;
 	return;
       }
+
+    pa[pos] = item;
+    for (int i = 0; i < length; i++)
+      std::cout<< pa[i] << std::endl;
+    return;
   }
 
 	/* returns the item at position pos, not changing the list.

@@ -28,10 +28,9 @@ int main(int argc, char *argv[])
 
   a->remove(0);
   a->remove(0);
-  a->remove(0);
-  a->remove(2);
-  a->remove(5);
-  a->remove(3);
-  
+  a->set(0,23);
+  a->set(1,24);
+  a->set(3,69);
+  a->set(5,222);
   return 0;
 }
