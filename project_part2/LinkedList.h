@@ -187,7 +187,7 @@ class LinkedList: public List<T> {
 	return;
       }
 
-    if (head == NULL && pos = 0)
+    if (head == NULL && pos == 0)
       {
 	std::cout << "Empty list, nothing to set" << std::endl;
 	return;
@@ -217,13 +217,13 @@ class LinkedList: public List<T> {
       {
 	std::cout << "Invalid position. Must be between 0 and "
 		  << count - 1 << std::endl;
-	return;
+	return 0;
       }
 
-    if (head == NULL && pos = 0)
+    if (head == NULL && pos == 0)
       {
 	std::cout << "Empty list, nothing to get" << std::endl;
-	return;
+	return 0;
       }
 
     Node<T> *temp = head;

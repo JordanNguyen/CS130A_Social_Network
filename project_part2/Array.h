@@ -8,7 +8,7 @@ template <class T> class Array: public List<T> {
 
   T *pa;          // pointer to the beginning of array type T
   int length;     // length of available spots in array
-  //int nextOpen; // next open index of array
+  int nextOpen; // next open index of array
   //int spotsTaken; // number of spots taken in array
 
   
@@ -27,9 +27,8 @@ template <class T> class Array: public List<T> {
       nextOpen = 0;
       */
       pa = new T[2];
-      pa[0] = 0;
-      pa[1] = 0;
       length = 2;
+      nextOpen = 0;
       //spotsTaken = 0;
       //nextOpen = 0;
       
@@ -40,6 +39,7 @@ template <class T> class Array: public List<T> {
     {
       pa = new T[1];
       pa[0] = item;
+      nextOpen = 1;
       length = 2;
       //spotsTaken = 1;
       //nextOpen = 1;
@@ -81,57 +81,56 @@ template <class T> class Array: public List<T> {
    */
   void insert(int pos, const T & item)
   {
-    if (pos > length || pos < 0)
+    if (pos > nextOpen || pos < 0)
       {
       std::cout << "Invalid index. Must be between 0 and "
-		<< length  << std::endl;
+		<< nextOpen  << std::endl;
       return;
       }
 
-    // delcare new array with more space when necessary
-    // this is only if the last element is not 0
-    // OR when adding to the end of the array
-    if (pa[length - 1] != 0 || pos == length)
+    // inserting into array when there is still space, dont
+    // allocate more space
+    if (nextOpen < length)
       {
-	T *pnew = new T[length * 2];
-	std:: cout<<"array length has doubled" <<std::endl;
-	for (int i = 0; i < length*2; i++)
+	T *pnew = new T[length];
+	for (int i = 0; i < nextOpen+1; i++)
 	  {
 	    if (i < pos)
 	      pnew[i] = pa[i];
 	    if (i == pos)
 	      pnew[i] = item;
-	    if (i > pos && i <= length)
+	    if (i > pos && i < nextOpen+1)
 	      pnew[i] = pa[i-1];
-	    if (i > pos && i > length)
-	      pnew[i] = 0;
-	    std::cout<< pnew[i] << std::endl;
+	    //std::cout<< pnew[i] << std::endl;
+	  }
+	nextOpen++;
+	delete [] pa;
+	pa = pnew;
+      }
+    
+
+    // delcare new array with more space when necessary
+    // if you insert to the array and there is no more space
+
+    else if (nextOpen  == length)
+      {
+	T *pnew = new T[length * 2];
+	std:: cout<<"array length has doubled" <<std::endl;
+	for (int i = 0; i < nextOpen+1; i++)
+	  {
+	    if (i < pos)
+	      pnew[i] = pa[i];
+	    if (i == pos)
+	      pnew[i] = item;
+	    if (i > pos && i < nextOpen+1)
+	      pnew[i] = pa[i-1];
+	    // std::cout<< pnew[i] << std::endl;
 	  }
 	delete [] pa;
 	pa = pnew;
 	length = length*2;
+	nextOpen++;
        }
-
-    // else the last element is blank, so just shift
-    // everything over 1 spot.
-    else
-      {
-	T *pnew = new T[length];
-	for (int i = 0; i < length; i++)
-	  {
-	    if (i < pos)
-	      pnew[i] = pa[i];
-	    if (i == pos)
-	      pnew[i] = item;
-	    if (i > pos && i <= length)
-	      pnew[i] = pa[i-1];
-	    if (i > pos && i > length)
-	      pnew[i] = 0;
-	    std::cout<< pnew[i] << std::endl;
-	  }
-	delete [] pa;
-	pa = pnew;
-      }
 
     std::cout<<"end of array"<<std::endl;
     return;
@@ -143,10 +142,10 @@ template <class T> class Array: public List<T> {
 	*/
   void remove(int pos)
   {
-    if (pos < 0 || pos >= length)
+    if (pos < 0 || pos > nextOpen)
       {
 	std::cout << "Invalid index. Must be between 0 and "
-		<< length - 1 << std::endl;
+		<< nextOpen - 1 << std::endl;
 	return;
       }
 
@@ -155,19 +154,20 @@ template <class T> class Array: public List<T> {
     // copy current array into new one, except for deleted position
 
     T *pnew = new T[length-1];
-    for (int i = 0; i < length-1; i++)
+    for (int i = 0; i < nextOpen-1; i++)
       {
 	if (i < pos)
 	  pnew[i] = pa[i];
 	if (i >= pos)
 	  pnew[i] = pa[i + 1];
-	std::cout << pnew[i] << std::endl;
+	//std::cout << pnew[i] << std::endl;
       }
 
     delete [] pa;
     pa = pnew;
     length--;
     std::cout << "deletion complete" << std::endl;
+    nextOpen--;
     return;
 
     
@@ -179,15 +179,15 @@ template <class T> class Array: public List<T> {
 	*/
   void set(int pos, const T & item)
   {
-    if (pos < 0 || pos >= length)
+    if (pos < 0 || pos > nextOpen)
       {
 	std::cout << "Invalid index. Must be between 0 and "
-		  << length - 1 << std::endl;
+		  << nextOpen - 1 << std::endl;
 	return;
       }
 
     pa[pos] = item;
-    for (int i = 0; i < length; i++)
+    for (int i = 0; i < nextOpen; i++)
       std::cout<< pa[i] << std::endl;
     return;
   }
@@ -195,7 +195,28 @@ template <class T> class Array: public List<T> {
 	/* returns the item at position pos, not changing the list.
 	*  pos must be between 0 and the current length of the list minus 1.
 	*/
-  //T const & get(int pos) const
+  T const & get(int pos) const
+  {
+    try
+      {
+	if (pos < 0 || pos >= length)
+	  {
+	    // std::cout << "Invalid index. Must be between 0 and "
+	    //	      << length - 1 << std::endl;
+	    throw pos;
+	  }
+      }
+
+    catch (int e)
+      {
+	std::cout << "An exception occured. Invalid input " << e << std::endl;
+	return 0;
+      }
+
+    std::cout << "Returned: " << pa[pos] << std::endl;
+    return pa[pos];
+    
+  }
   
   
 };
