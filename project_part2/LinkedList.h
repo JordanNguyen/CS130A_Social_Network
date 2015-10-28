@@ -1,5 +1,6 @@
 #ifndef LINKED_H
 #define LINKED_H
+#include <stdexcept>
 #include "Node.h"
 #include "List.h"
 
@@ -42,24 +43,31 @@ class LinkedList: public List<T> {
    */
   void insert(int pos, const T & item)
   {
-    if (pos > count || pos < 0)
-      {
-	std::cout << "Invalid position. Must be between 0 and "
-		  << count << std::endl;
-	return;
-      }
+    
+    
+     if (pos > count || pos < 0) 
+       { 
+     	std::cout << "Invalid position. Must be between 0 and " 
+    		  << count << std::endl; 
+	return; 
+       }
 
     Node<T> *insert = new Node<T>(item);
-    Node<T> *temp = head;
-    Node<T> *temp2 = head->getNext();
 
+    // inserting to empty list
     if (head == NULL && pos == 0)
       {
 	head = insert;
 	tail = insert;
 	count++;
+	return;
       }
+    
+    Node<T> *temp = head;
+    //std::cout<< "created temp" << std::endl;
+    //Node<T> *temp2 = head->getNext();
 
+    //insert to beginning
     if (pos == 0)
       {
 	insert->setNext(temp);
@@ -70,43 +78,55 @@ class LinkedList: public List<T> {
 	return;
       }
 
-    if (pos == 1)
+    //insert to end
+    if (pos == count)
       {
-	temp->setNext(insert);
-	insert->setPrev(temp);
-	insert->setNext(temp2);
-	temp2->setPrev(insert);
+    	tail->setNext(insert);
+	insert->setPrev(tail);
+	insert->setNext(NULL);
+	tail = insert;
 	count++;
-	return;
+    	return;
       }
 
-    int i = 1;
+    //insert anywhere else
+    //std::cout<<"entering while loop" << std::endl;
+    int i = 0;
     while (i <= pos)
       {
-	if (i == pos)
+	if (i == pos && temp->getNext() != NULL)
 	  {
-	    temp->setNext(insert);
-	    insert->setPrev(temp);
-	    insert->setNext(temp2);
-	    temp2->setPrev(insert);
+	    /* insert->setNext(temp->getNext()); */
+	    /* insert->setPrev(temp); */
+	    /* temp->getNext()->setPrev(insert); */
+	    /* temp->setNext(insert); */
+	    /* temp->setNext(insert); */
+	    /* insert->setPrev(temp); */
+	    /* insert->setNext(temp2); */
+	    /* temp2->setPrev(insert); */
+	    temp->getPrev()->setNext(insert);
+	    insert->setPrev(temp->getPrev());
+	    insert->setNext(temp);
+	    temp->setPrev(insert);
 	    count++;
 	    return;
 	  }
 
-	if (temp2 == NULL)
-	  {
-	    temp->setNext(insert);
-	    insert->setPrev(temp);
-	    insert->setNext(NULL);
-	    tail = insert;
-	    count++;
-	    return;
-	  }
+	/* else if (i == pos && temp->getNext() == NULL) */
+	/*   { */
+	/*     temp->setNext(insert); */
+	/*     insert->setPrev(temp); */
+	/*     insert->setNext(NULL); */
+	/*     tail = insert; */
+	/*     count++; */
+	/*     return; */
+	/*   } */
 
 	temp = temp->getNext();
-	temp2 = temp2->getNext();
 	i++;
       }
+      
+    
     
   }
 
@@ -115,62 +135,63 @@ class LinkedList: public List<T> {
   */
   void remove(int pos)
   {
-                        //empty list
-			if (head == NULL && tail == NULL)
-				return;
+    if (pos < 0)
+      {	
+	std::cout << "Invalid position: less than 0" << std::endl;
+	return;
+      }
 
-			//single entry
-			else if (head == tail)
-			{
-				delete head;
-				count--;
-			}
+    if (pos >= count)
+      {
+	std::cout << "Invalid position: must be less than or equal to " << 
+	  this->getCount()-1 << std::endl;
+	return;
+      }
 
-			//if pos is invalid
-			else if (pos < 0)
-			{	
-				std::cout << "Invalid position: less than 0" << std::endl;
-			}
+    //empty list
+    if (head == NULL && tail == NULL)
+      return;
 
-			else if (pos >= count)
-			{
-				std::cout << "Invalid position: greater than or equal to " << 
-				this->getCount() << std::endl;
-			}
+    //single entry
+    else if (head == tail)
+      {
+	delete head;
+	count--;
+      }
 
-			//removing positon 0
-			else if (pos == 0)
-			{
-				Node<T> *temp = head;
-				head = head->getNext();
-				delete temp;
-				count--;
-				return;
-			}
+    //removing positon 0
+    else if (pos == 0)
+      {
+	Node<T> *temp = head;
+	head = head->getNext();
+	delete temp;
+	count--;
+	return;
+      }
 
-			//removing last element
-			else if (pos == count - 1)
-			{
-				Node<T> *temp = tail;
-				tail = tail->getPrev();
-				delete temp;
-				count--;
-			}
+    //removing last element
+    else if (pos == count - 1)
+      {
+	Node<T> *temp = tail;
+	tail = tail->getPrev();
+	delete temp;
+	count--;
+      }
 
-			else
-			{
-				Node<T> *temp = head;
-				//move temp to node removing
-				for(int i = 0; i < pos; i++)
-					temp = temp->getNext();
-				//link the two nodes surrounding temp
-				temp->getPrev()->setNext(temp->getNext());
-				temp->getNext()->setPrev(temp->getPrev());
-				delete temp;
-				count--;
-			}
+    else
+      {
+	Node<T> *temp = head;
+	//move temp to node removing
+	for(int i = 0; i < pos; i++)
+	  temp = temp->getNext();
+	//link the two nodes surrounding temp
+	temp->getPrev()->setNext(temp->getNext());
+	temp->getNext()->setPrev(temp->getPrev());
+	delete temp;
+	count--;
+      }
 
-			return;
+    return;
   }
 
   
@@ -215,15 +236,7 @@ class LinkedList: public List<T> {
   {
      if (pos > count-1 || pos < 0)
       {
-	std::cout << "Invalid position. Must be between 0 and "
-		  << count - 1 << std::endl;
-	return 0;
-      }
-
-    if (head == NULL && pos == 0)
-      {
-	std::cout << "Empty list, nothing to get" << std::endl;
-	return 0;
+        throw std::out_of_range("Position out of acceptable range.");
       }
 
     Node<T> *temp = head;
@@ -265,6 +278,19 @@ class LinkedList: public List<T> {
 	tail = tail->getNext();
 	count++;
 	return;
+      }
+  }
+
+  void printList()
+  {
+    Node<T> *temp = head;
+    while (temp != NULL)
+      {
+	if (temp->getNext() != NULL)
+	  std::cout << temp->getData() << ", ";
+	else if (temp->getNext() == NULL)
+	  std::cout << temp->getData() << std::endl;
+	temp = temp->getNext();
       }
   }
 
