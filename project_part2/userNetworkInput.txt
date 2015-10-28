@@ -1,5 +1,5 @@
 jordannguyen
-password1
+ucsb
 Jordan nguyen
 03/11/95
 [/endinfo]
@@ -16,9 +16,9 @@ Tue Oct 27 19:18:20 201
 oakland,ca
 [/endpost][/endwallposts][/enduser]
 bwicka
-password1
-Brandon Wicka
-12/25/95
+pass
+B
+05/27/1995
 [/endinfo]
 this is brandons first post
 12:34 pm
