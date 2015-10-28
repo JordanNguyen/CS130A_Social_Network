@@ -27,6 +27,7 @@ user::user(string u, string p, string r, string d)
 user::user(string info)
 {
   // string of format "Username\nPassword\nRealName\nDob\n  \nPost1\nTimeOfPost\nLocation\n \n"
+  
   string s = info;
   string delimiter1 = "  \n";
   string delimiter2 = "\n";

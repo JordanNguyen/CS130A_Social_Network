@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <iostream>
 #include <ctime>
+#include <string>
+#include <sstream>
 #include "wall.h"
 using namespace std;
 
@@ -61,7 +63,11 @@ string wall::WallToString()
     wholeWall = "Your wall is empty.\n";
   for (int i=0; i < count; temp=temp->getNext(), i++)
     {
-    wholeWall += temp->getData().getPost();
+      ostringstream convert;
+      convert << i+1;
+      wholeWall += convert.str();
+      wholeWall += ".) ";
+      wholeWall += temp->getData().getPost();
     }
   //std::cout << wholeWall;
   return wholeWall;
