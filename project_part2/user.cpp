@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
+#include <fstream>
 #include "wallPost.h"
 #include "wall.h"
 #include "user.h"
@@ -12,6 +13,7 @@ user::user()
   password = "";
   realName = "";
   dob = "";
+  friends = new LinkedList<string>;
   
 }
 
@@ -22,11 +24,14 @@ user::user(string u, string p, string r, string d)
   realName = r;
   dob = d;
   w.setUsername(u);
+  friends = new LinkedList<string>;
 }
 
 user::user(string info)
 {
   // string of format "Username\nPassword\nRealName\nDob\n  \nPost1\nTimeOfPost\nLocation\n \n"
+
+  friends = new LinkedList<string>;
   
   string s = info;
   string delimiter1 = "  \n";
@@ -166,3 +171,5 @@ wall user::getWall()
 {
   return w;
 }
+
+

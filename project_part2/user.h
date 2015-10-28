@@ -11,6 +11,7 @@ class user {
   string password;
   string realName;
   string dob;
+  LinkedList<string> *friends;
 
  public:
   user();
@@ -28,6 +29,7 @@ class user {
   wall getWall();
   string userInfo();
   string userInfoWrite();
+  //void readFriends();
   //void readUser();
 };
 

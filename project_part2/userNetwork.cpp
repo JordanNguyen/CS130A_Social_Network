@@ -349,7 +349,51 @@ void userNetwork::readUsers(const char* filename)
 }
 	
 
+void userNetwork::readFriends(const char* filename)
+{
+
+  // read in input file
+  ifstream infile(filename);
+  string s = "";
+  s.assign( (istreambuf_iterator<char>(infile) ), (istreambuf_iterator<char>() ));
+
+  // delimiters to parse string
+  string userDelim   = "[/enduser]\n";    //identifies end of user list
+  string nameDelim   = "[/username]\n";   //identifies whose list you are looking at
+  string frndDelim   = "[/endfriends]\n"; //identifies end of friend list (not necessary?)
+  string newlDelim   = "\n";              //identifies end of each username
+
+  // byte size
+  size_t  pos1 = 0;
+  size_t  pos2 = 0;
+  size_t  pos3 = 0;
+
+  // tokens to split up string
+  string userToken;
+  string nameToken;
+  string frndToken;
+
+  // counters, dont think I need
+
+  // data members saved
+  string un; //username
+  string fr; //friend
+
+  // find the end of first user
+  while ((pos1 = s.find(userDelim)) != string::npos)
+    {
+      //save all the text to userToken
+      userToken = s.substr(0, pos1);
+
+      //read in userToken and find user name
+      while ((pos2 = userToken.find(nameDelim)) != string::npos)
+	{
+	  nameToken = userToken.substr(0,pos2);
+
+	  while 
 
 
+  
+}
 
 

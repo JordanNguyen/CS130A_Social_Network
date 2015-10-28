@@ -16,6 +16,7 @@ class userNetwork {
   void deleteUser(string t);
   void writeUserNetwork();
   void readUsers(const char* filename);
+  void readFriends(const char* filename);
   void printUsernames();
   bool checkUsername(string usr);
   bool checkLogin(string usr, string pw);

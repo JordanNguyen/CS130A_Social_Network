@@ -1,4 +1,13 @@
-jordannguyen[/username]
+jordannguyen
+[/username]
 bwicka
 bobgaucho
-[/enduser]
+[/endfriends][/enduser]
+bwicka
+[/username]
+jordannguyen
+[/endfriends][/enduser]
+bobgaucho
+[/username]
+jordannguyen
+[/endfriends][/enduser]
