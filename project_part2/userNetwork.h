@@ -2,6 +2,7 @@
 #define USERNETWORK_H
 #include "user.h"
 #include "LinkedList.h"
+#include "List.h"
 using namespace std;
 
 class userNetwork {

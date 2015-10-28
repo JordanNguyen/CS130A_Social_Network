@@ -18,24 +18,29 @@ wall::~wall() {
 
 }
 
+// new wall post to end of wall
 void wall::newPost(wallPost p) {
 
   wp->addTail(p);
   //cout << "New post added" << endl;
 }
 
+// delete wall post at index i
 void wall::deletePost(int i) {
   wp->remove(i);
 }
 
+// get username
 string wall::getUsername() {
   return username;
 }
 
+// change username
 void wall::setUsername(string t) {
   username = t;
 }
 
+// return the wall as a formated string
 string wall::WallToString() 
 {
   int count = wp->getCount();
@@ -51,6 +56,7 @@ string wall::WallToString()
   return wholeWall;
 }
 
+// write the wall as a formatted string for file
 string wall::WallToStringWrite()
 {
   int count = wp->getCount();
@@ -73,6 +79,7 @@ string wall::WallToStringWrite()
 
 }
 
+// read in a wall from a properly formatted string
 void wall::readWall(string t) {
 
   //empty linkedlist of wallposts and recreate it
@@ -139,6 +146,7 @@ void wall::readWall(string t) {
 
 }
 
+// return the pointer to the linked list
 LinkedList<wallPost>* wall::getLL() {
   return wp;
 }

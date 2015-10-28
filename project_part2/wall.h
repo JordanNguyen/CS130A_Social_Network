@@ -2,6 +2,7 @@
 #define WALL_H
 #include "wallPost.h"
 #include "LinkedList.h"
+#include "List.h"
 using namespace std;
 
 class wall {

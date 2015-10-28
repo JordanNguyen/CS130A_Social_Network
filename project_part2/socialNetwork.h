@@ -3,6 +3,7 @@
 #include "user.h"
 #include "LinkedList.h"
 #include "userNetwork.h"
+#include "List.h"
 
 class socialNetwork {
   

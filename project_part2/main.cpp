@@ -5,25 +5,25 @@
 #include <fstream>
 #include <stdexcept>
 #include "LinkedList.h"
-//#include "wallPost.h"
-//#include "wall.h"
-//#include "user.h"
-//#include "userNetwork.h"
-//#include "socialNetwork.h"
-#include "Array.h"
+#include "wallPost.h"
+#include "wall.h"
+#include "user.h"
+#include "userNetwork.h"
+#include "socialNetwork.h"
+//#include "Array.h"
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	
-  //socialNetwork sn;
-  // sn.welcome();
-  LinkedList<int> *a = new LinkedList<int>();
-  for (int i = 0; i < 100000; i++)
-    {
-      a->insert(i/2,1);
-    }
-  std::cout<<"done"<<std::endl;
+  socialNetwork sn;
+  sn.welcome();
+  //LinkedList<int> *a = new LinkedList<int>();
+  //for (int i = 0; i < 100000; i++)
+  //{
+  //  a->insert(i/2,1);
+  //}
+  //std::cout<<"done"<<std::endl;
   // a->insert(0,"iguodala");
   //a->printList();
   // a->insert(1,"jimmy");
