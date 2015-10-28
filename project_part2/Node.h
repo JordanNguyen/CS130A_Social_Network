@@ -26,7 +26,8 @@ template <class T> class Node {
 	void setValue(T v)      {data = v;}
 	void setNext(Node *n)   {next = n;}
 	void setPrev(Node *p)   {prev = p;}
-	T getData()             {return data;} 
+	T getData()             {return data;}
+	T* getDataToMod()       {return &data;}
 	Node *getPrev()         {return prev;}
 	Node *getNext()         {return next;}
 	void printNode()        {std::cout << data << std::endl;}

@@ -19,6 +19,7 @@ class socialNetwork {
   void login();
   void newPost(Node<user> *usr);
   void userPage(Node<user> *usr);
+  void changeInfo(Node<user> *usr);
   void displayWall(Node<user> *usr);
 
 };
