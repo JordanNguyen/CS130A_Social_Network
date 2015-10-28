@@ -32,25 +32,30 @@ int main(int argc, char *argv[])
   // a->insert(9,"dsfds");
   // a->insert(6,"i caused the array to double");
 
-  // a->remove(0);
-  // a->remove(0);
-  // a->remove(2);
-  // a->set(5,"BIG DICK DRAY!!!!!");
-  // a->set(6, "fuck me");
-  // a->printList();
+  a->remove(0);
+  a->remove(0);
+  a->remove(1);
+  //a->remove(2);
+  //a->remove(3);
+  //a->remove(-1);
+  //a->remove(4);
+  a->printList();
+  a->set(4,"BIG DICK DRAY!!!!!");
+  //a->set(6, "fuck me");
+  a->printList();
   // a->set(2,"i got changed too");
   // a->set(3,"haha");
   // a->set(5,"testing");
   // a->get(10);
-  // a->get(0);
-  // try{
-  //   a->get(6);
-  // }
+  // a->get(3);
+  try{
+      a->get(8);
+  }
 
-  // catch (const std::out_of_range& e){
-  //   std::cout<< "Index was out of range" << std::endl;
-  //   return 0;
-  // }
+  catch (const std::out_of_range& e){
+  std::cout<< "Index was out of range" << std::endl;
+  return 0;
+  }
 
   return 0;
 }

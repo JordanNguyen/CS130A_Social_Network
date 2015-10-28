@@ -144,7 +144,7 @@ class LinkedList: public List<T> {
     if (pos >= count)
       {
 	std::cout << "Invalid position: must be less than or equal to " << 
-	  this->getCount()-1 << std::endl;
+	  count - 1 << std::endl;
 	return;
       }
 
@@ -164,6 +164,7 @@ class LinkedList: public List<T> {
       {
 	Node<T> *temp = head;
 	head = head->getNext();
+	head->setPrev(NULL);
 	delete temp;
 	count--;
 	return;
@@ -174,6 +175,7 @@ class LinkedList: public List<T> {
       {
 	Node<T> *temp = tail;
 	tail = tail->getPrev();
+	tail->setNext(NULL);
 	delete temp;
 	count--;
       }
@@ -201,11 +203,12 @@ class LinkedList: public List<T> {
    */
   void set(int pos, const T & item)
   {
-     if (pos > count-1 || pos < 0)
+     if (pos > count || pos < 0)
       {
-	std::cout << "Invalid position. Must be between 0 and "
-		  << count - 1 << std::endl;
-	return;
+	//std::cout << "Invalid position. Must be between 0 and "
+	//	  << count-1 << std::endl;
+	//return;
+	throw std::out_of_range("Position out of acceptable range.");
       }
 
     if (head == NULL && pos == 0)
@@ -246,6 +249,7 @@ class LinkedList: public List<T> {
       {
 	if (i == pos)
 	  {
+	    //std::cout<< temp->getData() << std::endl;
 	    return temp->getData();
 	  }
 
