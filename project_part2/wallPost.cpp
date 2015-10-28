@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include <ctime>
+#include <string>
 #include "wallPost.h"
 using namespace std;
 
@@ -15,6 +16,8 @@ wallPost::wallPost()
 	time(&currentTime);
 	timeinfo = localtime(&currentTime);
 	timeOfPost = asctime(timeinfo);
+	timeOfPost.erase(timeOfPost.end()-1);
+	timeOfPost.erase(timeOfPost.end()-1);
 }
 
 wallPost::wallPost(string t, string l) 
@@ -26,7 +29,9 @@ wallPost::wallPost(string t, string l)
 	time(&currentTime);
 	timeinfo = localtime(&currentTime);
 	timeOfPost = asctime(timeinfo);
-	//cout << "wallPost created!" << endl;
+	timeOfPost.erase(timeOfPost.end()-1);
+	timeOfPost.erase(timeOfPost.end()-1);
+
 }
 
 wallPost::wallPost(string t, string ToP, string l)

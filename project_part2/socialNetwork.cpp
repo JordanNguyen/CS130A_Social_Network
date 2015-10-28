@@ -36,19 +36,35 @@ void socialNetwork::start()
   int selection = 1;
 
   do{
-    std::cin >> selection;
-    if (selection != 1 && selection != 2 && selection !=3)
-      std::cout << "Invalid selection" << std::endl;
+     std::cin >> selection;
+     if (selection != 1 && selection != 2 && selection !=3)
+       std::cout << "Invalid selection" << std::endl;
   } while (selection != 1 && selection != 2 && selection !=3);
   
-  if (selection == 1)
+  // if (selection == 1)
+  //   return createNewUser();
+  // if (selection == 2)
+  //   return login();
+  // if (selection == 3)
+  //   std::cout <<"Goodbye!"<<endl;
+  //   return;
+
+  //std:: cin>> selection;
+  switch(selection){
+  case 1:
     return createNewUser();
-  if (selection == 2)
+    break;
+  case 2:
     return login();
-  if (selection == 3)
-    std::cout <<"Goodbye!"<<endl;
+    break;
+  case 3:
+    std::cout<<"Goodbye!"<<endl;
     return;
+  }
+    
+  
 }
+
 
 void socialNetwork::createNewUser()
 {
@@ -86,22 +102,22 @@ void socialNetwork::createNewUser()
 
 void socialNetwork::login()
 {
-  std::cout<<"Enter your username:"<<endl;
+  std::cout<<"Enter your username:"<<std::endl;
   string username;
   std::cin>>username;
   
-  std::cout<<"Enter your password:"<<endl;
+  std::cout<<"Enter your password:"<<std::endl;
   string password;
   std::cin>>password;
 
   if (un->checkLogin(username, password))
     {
-    std::cout<<"Login Successful"<<endl;
+    std::cout<<"Login Successful"<<std::endl;
     return userPage(un->getUserNode(username));
     }
   else
     {
-      std::cout<<"Invalid username or password"<<endl;
+      std::cout<<"Invalid username or password"<<std::endl;
       return start();
     }
 
@@ -109,23 +125,31 @@ void socialNetwork::login()
 
 void socialNetwork::userPage(Node<user>* usr)
 {
-  std::cout<<"Select an option"<<endl;
-  std::cout<<"1.) Display entire wall"<<endl;
-  std::cout<<"2.) Logout"<<endl;
+  std::cout<<"Select an option"<<std::endl;
+  std::cout<<"1.) Display entire wall"<<std::endl;
+  std::cout<<"2.) Create new wall post"<<std::endl;
+  std::cout<<"3.) Logout"<<endl;
 
   int selection = 1;
 
   do{
     std::cin >> selection;
-    if (selection != 1 && selection != 2)
+    if (selection < 1 && selection > 3)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection != 1 && selection != 2);
+  } while (selection < 1 && selection > 3);
 
   if (selection == 1)
     return displayWall(usr);
 
   if (selection == 2)
-    return start();
+    return newPost(usr);
+  
+  if (selection == 3)
+    {
+      std::cout<<"You have logged out."<<std::endl;
+      un->writeUserNetwork();
+      return start();
+    }
     
 }
 
@@ -135,3 +159,24 @@ void socialNetwork::displayWall(Node<user>* usr)
   return userPage(usr);
 }
   
+
+void socialNetwork::newPost(Node<user> *usr)
+{
+
+  std::cout << "Enter your post: ";
+  string text;
+  std::getline(std::cin, text);
+  std::getline(std::cin, text);
+
+  std::cout << "Where are you posting from?" << std::endl;
+  string loc;
+  std::getline(std::cin, loc);
+  // std::getline(std::cin, loc);
+
+  wallPost npost(text,loc);
+  usr->getData().getWall().newPost(npost);
+  std::cout << "Post successful!" << std::endl;
+
+  return userPage(usr);
+  
+}

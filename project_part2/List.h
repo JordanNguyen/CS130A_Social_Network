@@ -25,7 +25,7 @@ public:
 	/* returns the item at position pos, not changing the list.
 	*  pos must be between 0 and the current length of the list minus 1.
 	*/
-	//virtual T const & get(int pos) const = 0;
+	virtual T const & get(int pos) const = 0;
 
 };
 

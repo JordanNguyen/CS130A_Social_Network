@@ -9,7 +9,6 @@ wall::wall() {
 
   wp = new LinkedList<wallPost>;
   username = "";
-  //cout << "Wall created!" << endl;
 
 }
 
@@ -38,6 +37,18 @@ string wall::getUsername() {
 // change username
 void wall::setUsername(string t) {
   username = t;
+}
+
+void wall::insertPost(int pos, wallPost p){
+  wp->insert(pos,p);
+}
+
+void wall::setPost(int pos, wallPost p){
+  wp->set(pos,p);
+}
+
+wallPost wall::getPost(int pos){
+  wp->get(pos);
 }
 
 // return the wall as a formated string
