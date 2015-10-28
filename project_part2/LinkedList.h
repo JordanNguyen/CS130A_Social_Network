@@ -205,10 +205,10 @@ class LinkedList: public List<T> {
   {
      if (pos > count || pos < 0)
       {
-	//std::cout << "Invalid position. Must be between 0 and "
-	//	  << count-1 << std::endl;
-	//return;
-	throw std::out_of_range("Position out of acceptable range.");
+	std::cout << "Invalid position. Must be between 0 and "
+		  << count-1 << std::endl;
+	return;
+	//throw std::out_of_range("Position out of acceptable range.");
       }
 
     if (head == NULL && pos == 0)
