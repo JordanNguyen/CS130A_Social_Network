@@ -64,7 +64,9 @@ string wall::WallToString()
   if (temp == NULL)
     {
       std::cout<<"the head is empty" << std::endl;
-      wholeWall = "Your wall is empty.\n";}
+      wholeWall = "Your wall is empty.\n";
+      return wholeWall;
+    }
   for (int i=0; i < count; temp=temp->getNext(), i++)
     {
       ostringstream convert;

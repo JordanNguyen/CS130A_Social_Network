@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include "Node.h"
 #include "List.h"
+#include <iostream>
 
 template <class T>
 class LinkedList: public List<T> {
@@ -149,18 +150,22 @@ class LinkedList: public List<T> {
       }
 
     //empty list
-    if (head == NULL && tail == NULL)
+    if (head == nullptr && tail == nullptr)
       return;
 
+    Node<T> *temp = head;
     //single entry
     //    else if (head == tail)
-    else if (count == 1)
+    if (count == 1)
       {
 	std::cout<<"DELETING WHEN COUNT IS 1" << std::endl;
-	Node<T> *temp = head;
+	//Node<T> *temp = head;
+	//delete temp;
+	//delete head;
+	//delete tail;
+	head == nullptr;
+	tail == nullptr;
 	delete temp;
-	head == NULL;
-	tail == NULL;
 	count--;
 	return;
       }
@@ -170,7 +175,7 @@ class LinkedList: public List<T> {
       {
 	Node<T> *temp = head;
 	head = temp->getNext();
-	head->setPrev(NULL);
+	head->setPrev(nullptr);
 	delete temp;
 	count--;
 	return;
@@ -181,9 +186,10 @@ class LinkedList: public List<T> {
       {
 	Node<T> *temp = tail;
 	tail = tail->getPrev();
-	tail->setNext(NULL);
+	tail->setNext(nullptr);
 	delete temp;
 	count--;
+	return;
       }
 
     else
@@ -197,6 +203,7 @@ class LinkedList: public List<T> {
 	temp->getNext()->setPrev(temp->getPrev());
 	delete temp;
 	count--;
+	return;
       }
 
     return;
@@ -298,16 +305,17 @@ class LinkedList: public List<T> {
   void printList()
   {
     Node<T> *temp = head;
-    if (count == 0)
+    std::cout<<"created temp"<<std::endl;
+    if (head == nullptr)
       {
       std::cout << "empty list" <<std::endl;
       return;
       }
-    while (temp != NULL)
+    while (temp != nullptr)
       {
-	if (temp->getNext() != NULL)
+	if (temp->getNext() != nullptr)
 	  std::cout << temp->getData() << ", ";
-	else if (temp->getNext() == NULL)
+	else if (temp->getNext() == nullptr)
 	  std::cout << temp->getData() << std::endl;
 	temp = temp->getNext();
       }

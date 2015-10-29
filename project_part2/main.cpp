@@ -16,31 +16,32 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	
-  //socialNetwork sn;
-  //sn.welcome();
+  socialNetwork sn;
+  sn.welcome();
   LinkedList<string> *a = new LinkedList<string>();
   //for (int i = 0; i < 100000; i++)
   //{
   //  a->insert(i/2,1);
   //}
   //std::cout<<"done"<<std::endl;
-  a->insert(0,"iguodala");
+  //a->insert(0,"iguodala");
   //a->printList();
-  a->insert(0,"jimmy");
-  a->insert(0,"westbrook");
+  //a->insert(0,"jimmy");
+  //a->insert(0,"westbrook");
   // a->insert(3,"KD");
   // a->insert(4,"draymond");
   // a->insert(2,"klay");
   // a->insert(0,"steph");
   // a->insert(5,"lebron");
-  a->printList();
+  //a->printList();
   // a->insert(9,"dsfds");
   // a->insert(6,"i caused the array to double");
 
-  a->remove(0);
-  a->remove(0);
-  a->remove(0);
-  a->printList();
+  //a->remove(0);
+  //a->printList();
+  //a->remove(0);
+  //a->remove(0);
+  //a->printList();
   //a->insert(0,"hello");
   //a->printList();
   //a->remove(0);
