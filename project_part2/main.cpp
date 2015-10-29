@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 	
   socialNetwork sn;
   sn.welcome();
-  LinkedList<string> *a = new LinkedList<string>();
+  // LinkedList<string> *a = new LinkedList<string>();
   //for (int i = 0; i < 100000; i++)
   //{
   //  a->insert(i/2,1);
