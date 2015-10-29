@@ -348,7 +348,7 @@ void userNetwork::readUsers(const char* filename)
 	infile.close();
 }
 	
-
+/*
 void userNetwork::readFriends(const char* filename)
 {
 
@@ -410,5 +410,6 @@ void userNetwork::readFriends(const char* filename)
       
   
 }
+*/
 
 
