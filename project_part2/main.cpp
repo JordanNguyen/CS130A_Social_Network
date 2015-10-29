@@ -16,30 +16,37 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	
-  socialNetwork sn;
-  sn.welcome();
-  //LinkedList<int> *a = new LinkedList<int>();
+  //socialNetwork sn;
+  //sn.welcome();
+  LinkedList<string> *a = new LinkedList<string>();
   //for (int i = 0; i < 100000; i++)
   //{
   //  a->insert(i/2,1);
   //}
   //std::cout<<"done"<<std::endl;
-  // a->insert(0,"iguodala");
+  a->insert(0,"iguodala");
   //a->printList();
-  // a->insert(1,"jimmy");
-  // a->insert(2,"westbrook");
+  a->insert(0,"jimmy");
+  a->insert(0,"westbrook");
   // a->insert(3,"KD");
   // a->insert(4,"draymond");
   // a->insert(2,"klay");
   // a->insert(0,"steph");
   // a->insert(5,"lebron");
-  // a->printList();
+  a->printList();
   // a->insert(9,"dsfds");
   // a->insert(6,"i caused the array to double");
 
-  // a->remove(0);
-  // a->remove(0);
-  // a->remove(1);
+  a->remove(0);
+  a->remove(0);
+  a->remove(0);
+  a->printList();
+  //a->insert(0,"hello");
+  //a->printList();
+  //a->remove(0);
+  //a->insert(0,"testing");
+  //a->addTail("more tests");
+  //a->printList();
   //a->remove(2);
   //a->remove(3);
   //a->remove(-1);

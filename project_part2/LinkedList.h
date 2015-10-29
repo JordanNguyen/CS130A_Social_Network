@@ -153,17 +153,23 @@ class LinkedList: public List<T> {
       return;
 
     //single entry
-    else if (head == tail)
+    //    else if (head == tail)
+    else if (count == 1)
       {
-	delete head;
+	std::cout<<"DELETING WHEN COUNT IS 1" << std::endl;
+	Node<T> *temp = head;
+	delete temp;
+	head == NULL;
+	tail == NULL;
 	count--;
+	return;
       }
 
     //removing positon 0
     else if (pos == 0)
       {
 	Node<T> *temp = head;
-	head = head->getNext();
+	head = temp->getNext();
 	head->setPrev(NULL);
 	delete temp;
 	count--;
@@ -265,10 +271,12 @@ class LinkedList: public List<T> {
     Node<T> *endNode = new Node<T>(v);
 
     //empty list
-    if (head == NULL)
+    if (head == NULL && tail == NULL)
       {
 	head = endNode;
 	tail = endNode;
+	endNode->setNext(NULL);
+	endNode->setPrev(NULL);
 	count++;
 	return;
       }
@@ -278,7 +286,9 @@ class LinkedList: public List<T> {
     else
       {
 	tail->setNext(endNode);
-	tail->getNext()->setPrev(tail);
+	//	tail->getNext()->setPrev(tail);
+	endNode->setPrev(tail);
+	endNode->setNext(NULL);
 	tail = tail->getNext();
 	count++;
 	return;
@@ -288,6 +298,11 @@ class LinkedList: public List<T> {
   void printList()
   {
     Node<T> *temp = head;
+    if (count == 0)
+      {
+      std::cout << "empty list" <<std::endl;
+      return;
+      }
     while (temp != NULL)
       {
 	if (temp->getNext() != NULL)
@@ -302,7 +317,14 @@ class LinkedList: public List<T> {
   void addCount()          { count++; }
   void subCount()          { count--; }
   int getCount()           { return count; }
-  Node<T> *getHead()       { return head; }
+  Node<T> *getHead()
+    {
+      if (head != NULL)
+	return head;
+      else
+	return NULL;
+    }
+  
   Node<T> *getTail()       { return tail; }
   void setHead(Node<T> *h) { head = h; }
   void setTail(Node<T> *t) { tail = t; }

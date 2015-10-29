@@ -147,7 +147,7 @@ void socialNetwork::userPage(Node<user>* usr)
     return newPost(usr);
 
   if(selection == 3)
-    return;
+    return deletePost(usr);
 
   if(selection == 4)
     return changeInfo(usr);
@@ -187,6 +187,19 @@ void socialNetwork::newPost(Node<user> *usr)
 
   return userPage(usr);
   
+}
+
+void socialNetwork::deletePost(Node<user> *usr) {
+
+  std::cout << "Enter the number corresponding to the wallpost you wish to delete" << std::endl;
+
+  int num;
+  std::cin >> num;
+  usr->getDataToMod()->deleteWallPost(num - 1);
+  std::cout << "Post successfully deleted!" << std::endl;
+  return userPage(usr);
+  
+
 }
 
 void socialNetwork::changeInfo(Node<user> *usr) {
