@@ -153,16 +153,12 @@ class LinkedList: public List<T> {
     if (head == nullptr && tail == nullptr)
       return;
 
-    Node<T> *temp = head;
+    
     //single entry
-    //    else if (head == tail)
     if (count == 1)
       {
-	std::cout<<"DELETING WHEN COUNT IS 1" << std::endl;
-	//Node<T> *temp = head;
-	//delete temp;
-	//delete head;
-	//delete tail;
+	
+	Node<T> *temp = head;
 	head = nullptr;
 	tail = nullptr;
 	delete temp;
@@ -305,7 +301,6 @@ class LinkedList: public List<T> {
   void printList()
   {
     Node<T> *temp = head;
-    std::cout<<"created temp"<<std::endl;
     if (head == nullptr)
       {
       std::cout << "empty list" <<std::endl;
@@ -325,14 +320,7 @@ class LinkedList: public List<T> {
   void addCount()          { count++; }
   void subCount()          { count--; }
   int getCount()           { return count; }
-  Node<T> *getHead()
-    {
-      if (head != NULL)
-	return head;
-      else
-	return NULL;
-    }
-  
+  Node<T> *getHead()       { return head; }
   Node<T> *getTail()       { return tail; }
   void setHead(Node<T> *h) { head = h; }
   void setTail(Node<T> *t) { tail = t; }

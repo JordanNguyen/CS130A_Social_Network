@@ -56,14 +56,11 @@ wallPost wall::getPost(int pos){
 // return the wall as a formated string
 string wall::WallToString() 
 {
-  std::cout<<"starting wallToString()" << std::endl;
   int count = wp->getCount();
   string wholeWall = "";
   Node<wallPost> *temp = wp->getHead();
-  std::cout<< wp->getCount() <<std::endl;
   if (temp == NULL)
     {
-      std::cout<<"the head is empty" << std::endl;
       wholeWall = "Your wall is empty.\n";
       return wholeWall;
     }
