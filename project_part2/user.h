@@ -29,6 +29,8 @@ class user {
   wall getWall();
   string userInfo();
   string userInfoWrite();
+  void addFriend(string s);
+  string displayFriends();
   //void readFriends();
   //void readUser();
 };

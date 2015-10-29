@@ -11,6 +11,7 @@ socialNetwork::socialNetwork()
   un = new userNetwork();
   //fill up usernetwork from file
   un->readUsers("userNetworkInput.txt");
+  un->readFriends("friendList.txt");
 
 }
 
@@ -130,7 +131,8 @@ void socialNetwork::userPage(Node<user>* usr)
   std::cout<<"2.) Create new wall post"<<std::endl;
   std::cout<<"3.) Delete a wall post" << std::endl;
   std::cout<<"4.) Change account information" << std::endl;
-  std::cout<<"5.) Logout"<<endl;
+  std::cout<<"5.) View friends list" << std::endl;
+  std::cout<<"6.) Logout"<<endl;
 
   int selection = 1;
 
@@ -151,8 +153,11 @@ void socialNetwork::userPage(Node<user>* usr)
 
   if(selection == 4)
     return changeInfo(usr);
-  
+
   if (selection == 5)
+    return displayFriends(usr);
+  
+  if (selection == 6)
     {
       std::cout<<"You have logged out."<<std::endl;
       un->writeUserNetwork();
@@ -189,7 +194,8 @@ void socialNetwork::newPost(Node<user> *usr)
   
 }
 
-void socialNetwork::deletePost(Node<user> *usr) {
+void socialNetwork::deletePost(Node<user> *usr)
+{
 
   std::cout << "Enter the number corresponding to the wallpost you wish to delete" << std::endl;
 
@@ -202,6 +208,12 @@ void socialNetwork::deletePost(Node<user> *usr) {
 
 }
 
+void socialNetwork::displayFriends(Node<user> *usr)
+{
+  std::cout << "FRIENDS" <<std::endl;
+  std::cout << usr->getData().displayFriends();
+  return userPage(usr);
+}
 void socialNetwork::changeInfo(Node<user> *usr) {
   
   std::cout << "1.) Change password" << std::endl;

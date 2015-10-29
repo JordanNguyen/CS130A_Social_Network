@@ -348,7 +348,7 @@ void userNetwork::readUsers(const char* filename)
 	infile.close();
 }
 	
-/*
+
 void userNetwork::readFriends(const char* filename)
 {
 
@@ -360,7 +360,7 @@ void userNetwork::readFriends(const char* filename)
   // delimiters to parse string
   string userDelim   = "[/enduser]\n";    //identifies end of user list
   string nameDelim   = "[/username]\n";   //identifies whose list you are looking at
-  string frndDelim   = "[/endfriends]\n"; //identifies end of friend list (not necessary?)
+  string frndDelim   = "[/endfriends]"; //identifies end of friend list (not necessary?)
   string newlDelim   = "\n";              //identifies end of each username
 
   // byte size
@@ -368,7 +368,8 @@ void userNetwork::readFriends(const char* filename)
   size_t pos2 = 0;
   size_t pos3 = 0;
   size_t pos4 = 0;
-
+  size_t pos5 = 0;
+  
   // tokens to split up string
   string userToken;
   string nameToken;
@@ -392,25 +393,53 @@ void userNetwork::readFriends(const char* filename)
       //read in userToken and find user name
       while ((pos2 = userToken.find(nameDelim)) != string::npos)
 	{
+	  // save the text to nameToken
 	  nameToken = userToken.substr(0,pos2);
 
 	  //get the user name
+	  int counter = 0;
 	  while ((pos3 = nameToken.find(newlDelim)) != string::npos)
 	    {
-	      username = nameToken.substr(0,pos3);
+	      if (counter == 0)
+		username = nameToken.substr(0,pos3);
 
+	      counter++;
 	      nameToken.erase(0, pos3+newlDelim.length());
 	    }
 
 	  userToken.erase(0, pos2+nameDelim.length());
 	}
 
+      //set temp equal to the node of the user so we can modify it
       temp = getUserNode(username);
 
-      
-  
+      //parse and find the friend delimiter
+      while ((pos4 = userToken.find(frndDelim)) != string::npos)
+	{
+	  //save the string to friendToken
+	  frndToken = userToken.substr(0,pos4);
+
+	  // get friend names
+	  while ((pos5 = frndToken.find(newlDelim)) != string::npos)
+	    {
+	      frnd = frndToken.substr(0,pos5);
+	      if (frnd != "\n")
+		temp->getDataToMod()->addFriend(frnd);
+
+	      frndToken.erase(0, pos5+newlDelim.length());
+	    }
+
+	  userToken.erase(0, pos4+frndDelim.length());
+	}
+
+      s.erase(0, pos1+userDelim.length());
+
+    }
+
+  infile.close();
 }
-*/
+	    
+
 
 
 

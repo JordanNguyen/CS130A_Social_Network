@@ -146,6 +146,22 @@ string user::userInfoWrite()
 
 }
 
+string user::displayFriends()
+{
+  string frnds;
+  Node<string> *temp = friends->getHead();
+  while (temp != NULL)
+    {
+      frnds += temp->getData();
+      frnds += "\n";
+      temp = temp->getNext();
+    }
+
+  return frnds;
+  
+}
+  
+
 string user::getUsername()
 {
   return username;
@@ -170,6 +186,11 @@ void user::deleteWallPost(int i)
 wall user::getWall() 
 {
   return w;
+}
+
+void user::addFriend(string s)
+{
+  friends->addTail(s);
 }
 
 
