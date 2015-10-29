@@ -259,12 +259,14 @@ class LinkedList: public List<T> {
 	if (i == pos)
 	  {
 	    //std::cout<< temp->getData() << std::endl;
-	    return temp->getData();
+	    return temp->getDataConst();
 	  }
 
 	temp = temp->getNext();
 	i++;
       }
+
+    return temp->getDataConst();
   }
 
   /* add a new Node to the end

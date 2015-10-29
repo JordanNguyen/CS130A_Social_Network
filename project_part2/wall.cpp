@@ -50,7 +50,7 @@ void wall::setPost(int pos, wallPost p){
 }
 
 wallPost wall::getPost(int pos){
-  wp->get(pos);
+  return wp->get(pos);
 }
 
 // return the wall as a formated string

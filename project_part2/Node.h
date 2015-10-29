@@ -27,6 +27,7 @@ template <class T> class Node {
 	void setNext(Node *n)   {next = n;}
 	void setPrev(Node *p)   {prev = p;}
 	T getData()             {return data;}
+	T const & getDataConst() const  { return data; }
 	T* getDataToMod()       {return &data;}
 	Node *getPrev()         {return prev;}
 	Node *getNext()         {return next;}
