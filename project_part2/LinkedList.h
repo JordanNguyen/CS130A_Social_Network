@@ -163,8 +163,8 @@ class LinkedList: public List<T> {
 	//delete temp;
 	//delete head;
 	//delete tail;
-	head == nullptr;
-	tail == nullptr;
+	head = nullptr;
+	tail = nullptr;
 	delete temp;
 	count--;
 	return;
