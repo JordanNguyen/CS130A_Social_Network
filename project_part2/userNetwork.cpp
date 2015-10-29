@@ -364,14 +364,17 @@ void userNetwork::readFriends(const char* filename)
   string newlDelim   = "\n";              //identifies end of each username
 
   // byte size
-  size_t  pos1 = 0;
-  size_t  pos2 = 0;
-  size_t  pos3 = 0;
+  size_t pos1 = 0;
+  size_t pos2 = 0;
+  size_t pos3 = 0;
+  size_t pos4 = 0;
 
   // tokens to split up string
   string userToken;
   string nameToken;
   string frndToken;
+  string username;
+  string frnd;
 
   // counters, dont think I need
 
@@ -384,15 +387,27 @@ void userNetwork::readFriends(const char* filename)
     {
       //save all the text to userToken
       userToken = s.substr(0, pos1);
+      Node<user> *temp;
 
       //read in userToken and find user name
       while ((pos2 = userToken.find(nameDelim)) != string::npos)
 	{
 	  nameToken = userToken.substr(0,pos2);
 
-	  while 
+	  //get the user name
+	  while ((pos3 = nameToken.find(newlDelim)) != string::npos)
+	    {
+	      username = nameToken.substr(0,pos3);
 
+	      nameToken.erase(0, pos3+newlDelim.length());
+	    }
 
+	  userToken.erase(0, pos2+nameDelim.length());
+	}
+
+      temp = getUserNode(username);
+
+      
   
 }
 
