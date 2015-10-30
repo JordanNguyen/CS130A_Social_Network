@@ -132,7 +132,7 @@ void socialNetwork::userPage(Node<user>* usr)
   std::cout<<"2.) Create new wall post"<<std::endl;
   std::cout<<"3.) Delete a wall post" << std::endl;
   std::cout<<"4.) Change account information" << std::endl;
-  std::cout<<"5.) View friends" << std::endl;
+  std::cout<<"5.) View friends menu" << std::endl;
   std::cout<<"6.) Logout"<<endl;
 
   int selection = 1;
@@ -197,11 +197,16 @@ void socialNetwork::newPost(Node<user> *usr)
 
 void socialNetwork::deletePost(Node<user> *usr)
 {
-
-  std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
-
+ 
   int num;
-  std::cin >> num;
+  
+  do{
+    std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
+    std::cin >> num;
+    if (num < 1 || num > usr->getData().getWall().getLL()->getCount())
+      std::cout << "Invalid selection" << std::endl;
+  } while (num < 1 || num > usr->getData().getWall().getLL()->getCount());
+
   usr->getDataToMod()->deleteWallPost(num - 1);
   std::cout << "Post successfully deleted!" << std::endl;
   return userPage(usr);
@@ -211,7 +216,7 @@ void socialNetwork::deletePost(Node<user> *usr)
 
 void socialNetwork::friendMenu(Node<user> *usr)
 {
-
+  std::cout << "Select an option" << std::endl;
   std::cout << "1.) Display friends" << std::endl;
   std::cout << "2.) Delete a friend" << std::endl;
   std::cout << "3.) View friend requests" <<std::endl;
@@ -222,7 +227,7 @@ void socialNetwork::friendMenu(Node<user> *usr)
   do{
     std::cin >> selection;
     if (selection < 1 || selection > 4)
-      std::cout << "Invalid selectoin" << std::endl;
+      std::cout << "Invalid selection" << std::endl;
   } while (selection < 1 || selection > 4);
 
   if (selection == 1)
@@ -272,6 +277,8 @@ void socialNetwork::deleteFriend(Node<user> *usr)
   
 
 void socialNetwork::changeInfo(Node<user> *usr) {
+
+  std::cout << "Select an option" << std::endl;
   
   std::cout << "1.) Change password" << std::endl;
   std::cout << "2.) Change birthday" << std::endl;
@@ -306,7 +313,7 @@ void socialNetwork::changeInfo(Node<user> *usr) {
       std::cout << "Confirm your new password:";
       std::cin >> newpass2;
       if (newpass1 != newpass2)
-	std::cout<<"Conflicting entries, please try again"<<std::endl;
+	std::cout<<"The passwords you entered did not match. Please try again."<<std::endl;
     }
     while(newpass1 != newpass2);
     
@@ -319,7 +326,7 @@ void socialNetwork::changeInfo(Node<user> *usr) {
   if (selection == 2) {
 
     string dob;
-    std::cout << "Enter new birthday (mm/dd/yyyy):";
+    std::cout << "Enter your birthday:";
     std::cin >> dob;
     usr->getDataToMod()->setDOB(dob);
     std::cout << "Successfully changed your birthday!" << std::endl;
