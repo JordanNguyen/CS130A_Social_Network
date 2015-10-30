@@ -19,10 +19,12 @@ class userNetwork {
   void readFriends(const char* filename, int option);
   void printUsernames();
   bool checkUsername(string usr);
+  int getUserIndex(string usr);
   bool checkLogin(string usr, string pw);
   Node<user>* getUserNode(string usr);
   void removeFriend(string usr1, string usr2);
   LinkedList<user>* getULL();
+  Node<user>* getHead();
 
 };
 

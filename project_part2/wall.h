@@ -25,6 +25,7 @@ class wall {
   string WallToStringWrite();
   void readWall(string t);
   LinkedList<wallPost>* getLL();
+  Node<wallPost>* getHead();
   
 };
 

@@ -23,6 +23,7 @@ class socialNetwork {
   void changeInfo(Node<user> *usr);
   void friendMenu(Node<user> *usr);
   void deleteFriend(Node<user> *usr);
+  void deleteUser(Node<user> *usr);
   void displayWall(Node<user> *usr);
 
 };

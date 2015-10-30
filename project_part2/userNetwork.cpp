@@ -119,6 +119,21 @@ bool userNetwork::checkUsername(string usr)
 	return false;
 }
 
+int userNetwork::getUserIndex(string usr)
+{
+	Node<user> *temp = users->getHead();
+	int i = 0;
+	while (temp != NULL)
+	{
+		if (temp->getData().getUsername() == usr)
+			return i;
+		temp = temp->getNext();
+		i++;
+	}
+
+	return -1;
+}
+
 bool userNetwork::checkLogin(string usr, string pw)
 {
   Node<user> *temp = users->getHead();
@@ -176,30 +191,10 @@ LinkedList<user>* userNetwork::getULL()
 	return users;
 }
 
-// void userNetwork::writeUserNetwork()
-// {
-// 	if (users->getHead() == NULL)
-// 	{
-// 		cout << "Error: No users to write" << endl;
-// 		return;
-// 	}
-
-// 	ofstream outfile;
-// 	outfile.open("userNetwork.txt");
-
-// 	// need username, pw, realname, dob, and all wallposts
-// 	string wholeUserNetwork = "";
-// 	Node<user> *temp = users->getHead();
-// 	while (temp != NULL)
-// 	{
-// 		outfile << temp->getData().userInfo() << endl;
-// 		temp = temp->getNext();
-// 	}
-
-// 	outfile.close();
-// 	return;
-	
-// }
+Node<user>* userNetwork::getHead()
+{
+	return users->getHead();
+}
 
 //write to userNetworkInput.txt in the correct format to be read back
 void userNetwork::writeUserNetwork()

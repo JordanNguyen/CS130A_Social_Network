@@ -205,7 +205,7 @@ class LinkedList: public List<T> {
     return;
   }
 
-  /* remove data by value */
+  /* remove data by value, only works for comparable classes */
   void remove(T item)
   {
     Node<T> *temp = head;
@@ -216,7 +216,7 @@ class LinkedList: public List<T> {
       }
     while (temp != nullptr)
       {
-	if (temp->getDataConst() == item)
+	if (temp->getData() == item)
 	  {
 	    //if linkedlist only has 1 item
 	    if (count == 1)

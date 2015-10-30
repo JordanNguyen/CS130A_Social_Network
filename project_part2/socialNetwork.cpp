@@ -128,20 +128,21 @@ void socialNetwork::login()
 void socialNetwork::userPage(Node<user>* usr)
 {
   std::cout<<"Select an option"<<std::endl;
-  std::cout<<"1.) Display entire wall"<<std::endl;
+  std::cout<<"1.) View your wall"<<std::endl;
   std::cout<<"2.) Create new wall post"<<std::endl;
-  std::cout<<"3.) Delete a wall post" << std::endl;
-  std::cout<<"4.) Change account information" << std::endl;
-  std::cout<<"5.) View friends menu" << std::endl;
-  std::cout<<"6.) Logout"<<endl;
+  std::cout<<"3.) View friends menu" << std::endl;
+  std::cout<<"4.) Delete a wall post" << std::endl;
+  std::cout<<"5.) Edit account information" << std::endl;
+  std::cout<<"6.) Delete your account" <<std::endl;
+  std::cout<<"7.) Logout"<<endl;
 
   int selection = 1;
 
   do{
     std::cin >> selection;
-    if (selection < 1 || selection > 6)
+    if (selection < 1 || selection > 7)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 6);
+  } while (selection < 1 || selection > 7);
 
   if (selection == 1)
     return displayWall(usr);
@@ -149,16 +150,19 @@ void socialNetwork::userPage(Node<user>* usr)
   if (selection == 2)
     return newPost(usr);
 
-  if(selection == 3)
-    return deletePost(usr);
+  if (selection == 3)
+    return friendMenu(usr);
 
   if(selection == 4)
+    return deletePost(usr);
+
+  if(selection == 5)
     return changeInfo(usr);
 
-  if (selection == 5)
-    return friendMenu(usr);
-  
   if (selection == 6)
+    return deleteUser(usr);
+
+  if (selection == 7)
     {
       std::cout<<"You have logged out."<<std::endl;
       un->writeUserNetwork();
@@ -211,6 +215,32 @@ void socialNetwork::deletePost(Node<user> *usr)
   std::cout << "Post successfully deleted!" << std::endl;
   return userPage(usr);
   
+
+}
+
+void socialNetwork::deleteUser(Node<user> *usr)
+{
+  std::cout << "Are you sure you would like to delete your account and all its info? (yes/no)" << std::endl;
+  string answer;
+
+  do{
+    std::cin >> answer;
+    if (answer != "yes" && answer != "no")
+      std::cout << "Please select either 'yes' or 'no'" << std::endl;
+  } while (answer != "yes" && answer != "no");
+
+  if (answer == "no")
+    return userPage(usr);
+
+  else if (answer == "yes")
+  {
+    int index = un->getUserIndex(usr->getData().getUsername());
+    un->getULL()->remove(index);
+    std::cout << "Your account has been deleted." << std::endl;
+    un->writeUserNetwork();
+    return start();
+  }
+
 
 }
 

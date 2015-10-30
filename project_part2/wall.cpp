@@ -170,3 +170,9 @@ void wall::readWall(string t) {
 LinkedList<wallPost>* wall::getLL() {
   return wp;
 }
+
+// return the head pointer of the linked list
+Node<wallPost>* wall::getHead()
+{
+  return wp->getHead();
+}
