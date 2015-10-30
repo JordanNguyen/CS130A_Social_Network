@@ -1,5 +1,5 @@
 # CS130A_Social_Network
-CS130A Programming Project Part 1
+CS130A Programming Project Part 2
 
 Jordan Nguyen
 Brandon Wicka
