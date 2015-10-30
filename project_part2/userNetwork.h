@@ -21,6 +21,7 @@ class userNetwork {
   bool checkUsername(string usr);
   bool checkLogin(string usr, string pw);
   Node<user>* getUserNode(string usr);
+  void removeFriend(string usr1, string usr2);
   LinkedList<user>* getULL();
 
 };

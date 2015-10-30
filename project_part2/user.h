@@ -31,6 +31,7 @@ class user {
   string userInfoWrite();
   void addFriend(string s);
   string displayFriends();
+  LinkedList<string>* getFriends();
   //void readFriends();
   //void readUser();
 };

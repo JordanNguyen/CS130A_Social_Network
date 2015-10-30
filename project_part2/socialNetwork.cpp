@@ -138,9 +138,9 @@ void socialNetwork::userPage(Node<user>* usr)
 
   do{
     std::cin >> selection;
-    if (selection < 1 && selection > 5)
+    if (selection < 1 || selection > 6)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 && selection > 5);
+  } while (selection < 1 || selection > 6);
 
   if (selection == 1)
     return displayWall(usr);
@@ -197,7 +197,7 @@ void socialNetwork::newPost(Node<user> *usr)
 void socialNetwork::deletePost(Node<user> *usr)
 {
 
-  std::cout << "Enter the number corresponding to the wallpost you wish to delete" << std::endl;
+  std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
 
   int num;
   std::cin >> num;
@@ -210,10 +210,52 @@ void socialNetwork::deletePost(Node<user> *usr)
 
 void socialNetwork::displayFriends(Node<user> *usr)
 {
+
   std::cout << "FRIENDS" <<std::endl;
-  std::cout << usr->getData().displayFriends();
-  return userPage(usr);
+  std::cout << usr->getData().displayFriends()<<std::endl;
+
+  std::cout << "1.) Delete a friend" << std::endl;
+  std::cout << "2.) Return to previous menu" <<std::endl;
+
+  int selection = 1;
+  
+  do{
+    std::cin >> selection;
+    if (selection < 1 || selection > 2)
+      std::cout << "Invalid selectoin" << std::endl;
+  } while (selection < 1 || selection > 2);
+
+  if (selection == 1)
+    {
+      return deleteFriend(usr);
+    }
+  if (selection == 2)
+    {
+      return userPage(usr);
+    }
+  
 }
+
+void socialNetwork::deleteFriend(Node<user> *usr)
+{
+
+  if (usr->getData().getFriends()->getHead() == NULL)
+    {
+      std::cout<<"You have no friends to delete." << std::endl;
+      return userPage(usr);
+    }
+  
+  std::cout << "Please enter the username (case sensitive) of the friend you wish to delete:" << std::endl;
+  string frnd;
+  std::cin >> frnd;
+
+  un->removeFriend(usr->getData().getUsername(), frnd);
+
+  return displayFriends(usr);
+
+}
+  
+
 void socialNetwork::changeInfo(Node<user> *usr) {
   
   std::cout << "1.) Change password" << std::endl;
@@ -226,9 +268,9 @@ void socialNetwork::changeInfo(Node<user> *usr) {
 
   do{
     std::cin >> selection;
-    if (selection < 1 && selection > 4)
+    if (selection < 1 || selection > 4)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 && selection > 4);
+  } while (selection < 1 || selection > 4);
 
   if (selection == 1) {
 

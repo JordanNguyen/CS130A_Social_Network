@@ -205,6 +205,63 @@ class LinkedList: public List<T> {
     return;
   }
 
+  /* remove data by value */
+  void remove(T item)
+  {
+    Node<T> *temp = head;
+    if (head == nullptr)
+      {
+	std::cout << "Empty list" << std::endl;
+	return;
+      }
+    while (temp != nullptr)
+      {
+	if (temp->getDataConst() == item)
+	  {
+	    //if linkedlist only has 1 item
+	    if (count == 1)
+	      {
+		head = nullptr;
+		tail = nullptr;
+		delete temp;
+		count--;
+		return;
+	      }
+	    //if deleting at beginning
+	    else if (temp == head)
+	      {
+		head = temp->getNext();
+		head->setPrev(nullptr);
+		delete temp;
+		count--;
+		return;
+	      }
+	    //if deleting at end
+	    else if (temp->getNext() == nullptr)
+	      {
+		tail = tail->getPrev();
+		tail->setNext(nullptr);
+		delete temp;
+		count--;
+		return;
+	      }
+	    //deleting anywhere else
+	    else
+	      {
+		temp->getPrev()->setNext(temp->getNext());
+		temp->getNext()->setPrev(temp->getPrev());
+		delete temp;
+		count--;
+		return;
+	      }
+	  }
+	temp = temp->getNext();
+      }
+
+    //std::cout<<"Item not found."<<std::endl;
+    return;
+  }
+
   
   /* overwrites position pos in the list with item.
    *  does not change the length of the list.

@@ -150,6 +150,10 @@ string user::displayFriends()
 {
   string frnds;
   Node<string> *temp = friends->getHead();
+
+  if (temp == NULL)
+    frnds = "You have no friends :(";
+  
   while (temp != NULL)
     {
       frnds += temp->getData();
@@ -193,4 +197,8 @@ void user::addFriend(string s)
   friends->addTail(s);
 }
 
+LinkedList<string>* user::getFriends()
+{
+  return friends;
+}
 

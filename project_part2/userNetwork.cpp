@@ -152,6 +152,25 @@ Node<user>* userNetwork::getUserNode(string usr)
   return temp;
 }
 
+void userNetwork::removeFriend(string usr1, string usr2)
+{
+  Node<user> *temp1 = getUserNode(usr1);
+  Node<user> *temp2 = getUserNode(usr2);
+
+  if (checkUsername(usr1) && checkUsername(usr2))
+    {
+      temp1->getDataToMod()->getFriends()->remove(usr2);
+      temp2->getDataToMod()->getFriends()->remove(usr1);
+      return;
+    }
+
+  else
+    std::cout<<"Could not delete friend."<<std::endl;
+   
+  return;
+  
+}
+
 LinkedList<user>* userNetwork::getULL()
 {
 	return users;
