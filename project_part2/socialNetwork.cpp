@@ -115,7 +115,7 @@ void socialNetwork::login()
   if (un->checkLogin(username, password))
     {
     std::cout<<"Login Successful"<<std::endl;
-    return userPage(un->getUserNode(username));
+    return checkRequest(un->getUserNode(username));
     }
   else
     {
@@ -125,8 +125,34 @@ void socialNetwork::login()
 
 }
 
+void socialNetwork::checkRequest(Node<user>* usr)
+{
+  if (usr->getData().hasRequests())
+  { 
+    std::cout<<"You have a friend request!"<<std::endl;
+    std::cout<<"Would you like to view your friend requests? (yes/no)"<<std::endl;
+    string answer;
+
+    do{
+      std::cin >> answer;
+      if (answer != "yes" && answer != "no")
+        std::cout << "Please select either 'yes' or 'no'" << std::endl;
+    } while (answer != "yes" && answer != "no");
+
+    if (answer == "no")
+      return userPage(usr);
+    else if (answer == "yes")
+      return friendMenu(usr);
+  }
+
+  else
+    return userPage(usr);
+
+}
+
 void socialNetwork::userPage(Node<user>* usr)
 {
+
   std::cout<<"Select an option"<<std::endl;
   std::cout<<"1.) View your wall"<<std::endl;
   std::cout<<"2.) Create new wall post"<<std::endl;
