@@ -3,6 +3,8 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
+#include <string>
+#include <algorithm>
 #include "socialNetwork.h"
 
 socialNetwork::socialNetwork()
@@ -157,18 +159,19 @@ void socialNetwork::userPage(Node<user>* usr)
   std::cout<<"1.) View your wall"<<std::endl;
   std::cout<<"2.) Create new wall post"<<std::endl;
   std::cout<<"3.) View friends menu" << std::endl;
-  std::cout<<"4.) Delete a wall post" << std::endl;
-  std::cout<<"5.) Edit account information" << std::endl;
-  std::cout<<"6.) Delete your account" <<std::endl;
-  std::cout<<"7.) Logout"<<endl;
+  std::cout<<"4.) Search for users" << std::endl;
+  std::cout<<"5.) Delete a wall post" << std::endl;
+  std::cout<<"6.) Edit account information" << std::endl;
+  std::cout<<"7.) Delete your account" <<std::endl;
+  std::cout<<"8.) Logout"<<endl;
 
   int selection = 1;
 
   do{
     std::cin >> selection;
-    if (selection < 1 || selection > 7)
+    if (selection < 1 || selection > 8)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 7);
+  } while (selection < 1 || selection > 8);
 
   if (selection == 1)
     return displayWall(usr);
@@ -179,16 +182,19 @@ void socialNetwork::userPage(Node<user>* usr)
   if (selection == 3)
     return friendMenu(usr);
 
-  if(selection == 4)
+  if (selection == 4)
+    return searchUser(usr);
+
+  if (selection == 5)
     return deletePost(usr);
 
-  if(selection == 5)
+  if (selection == 6)
     return changeInfo(usr);
 
-  if (selection == 6)
+  if (selection == 7)
     return deleteUser(usr);
 
-  if (selection == 7)
+  if (selection == 8)
     {
       std::cout<<"You have logged out."<<std::endl;
       un->writeUserNetwork();
@@ -334,7 +340,8 @@ void socialNetwork::deleteFriend(Node<user> *usr)
 }
   
 
-void socialNetwork::changeInfo(Node<user> *usr) {
+void socialNetwork::changeInfo(Node<user> *usr) 
+{
 
   std::cout << "Select an option" << std::endl;
   
@@ -414,11 +421,34 @@ void socialNetwork::changeInfo(Node<user> *usr) {
 
 void socialNetwork::searchUser(Node<user> *usr)
 {
-  
+  std::cout << "Search for users:" << std::endl;
+  std::string input;
+  std::cin >> input;
+  std::transform(input.begin(),input.end(),input.begin(), ::tolower);
+
+  std::cout << "RESULTS:" << std::endl;
+  Node<user> *temp = un->getHead();
+  while (temp != NULL)
+  {
+    std::string result, result2;
+    result = temp->getData().getUsername();
+    result2 = result;
+    std::transform(result2.begin(),result2.end(),result2.begin(),::tolower);
+
+    if (result2.find(input) != std::string::npos)
+      std::cout<<result<<std::endl;
+
+    temp = temp->getNext();
+      
+  }
+
+  return userPage(usr);
 
 
-
-
-
-  
 }
+
+
+
+
+
+
