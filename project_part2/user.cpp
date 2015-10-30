@@ -154,7 +154,13 @@ string user::friendListWrite(int option)
   frnds += username;
   frnds += "\n[/username]\n";
 
-  Node<string> *temp = friends->getHead();
+  Node<string> *temp;
+  if (option == 0)
+    temp = friends->getHead();
+
+  else if (option == 1)
+    temp = requests->getHead();
+
   while (temp != NULL)
   {
     frnds += temp->getDataConst();

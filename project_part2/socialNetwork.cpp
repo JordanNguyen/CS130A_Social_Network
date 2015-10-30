@@ -9,7 +9,7 @@ socialNetwork::socialNetwork()
 {
   //instantiate new instance of usernetwork
   un = new userNetwork();
-  //fill up usernetwork from file
+  //fill up usernetwork from files
   un->readUsers("userNetworkInput.txt");
   un->readFriends("friendList.txt", 0);
   un->readFriends("friendRequests.txt", 1);
@@ -193,6 +193,7 @@ void socialNetwork::userPage(Node<user>* usr)
       std::cout<<"You have logged out."<<std::endl;
       un->writeUserNetwork();
       un->writeFriends(0);
+      un->writeFriends(1);
       return start();
     }
     
@@ -408,6 +409,15 @@ void socialNetwork::changeInfo(Node<user> *usr) {
   
   if(selection == 4)
     return userPage(usr);
+  
+}
+
+void socialNetwork::searchUser(Node<user> *usr)
+{
+  
+
+
+
 
 
   

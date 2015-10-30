@@ -235,7 +235,7 @@ void userNetwork::writeFriends(int option)
 	if (option == 0)
 		outfile.open("friendList.txt");
 	else if (option == 1)
-		outfile.open("test.txt");
+		outfile.open("friendRequests.txt");
 
 	Node<user> *temp = users->getHead();
 	while (temp != NULL)
