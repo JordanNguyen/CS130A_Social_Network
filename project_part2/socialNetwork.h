@@ -18,6 +18,7 @@ class socialNetwork {
   void createNewUser();
   void login();
   void newPost(Node<user> *usr);
+  void deleteProfile(Node<user> *usr);
   void deletePost(Node<user> *usr);
   void userPage(Node<user> *usr);
   void changeInfo(Node<user> *usr);

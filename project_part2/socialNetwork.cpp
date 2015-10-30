@@ -4,7 +4,7 @@
 #include <ctime>
 #include <fstream>
 #include "socialNetwork.h"
-
+#include <string>
 socialNetwork::socialNetwork()
 {
   //instantiate new instance of usernetwork
@@ -38,9 +38,9 @@ void socialNetwork::start()
 
   do{
      std::cin >> selection;
-     if (selection != 1 && selection != 2 && selection !=3)
+     if (selection < 1 || selection > 3)
        std::cout << "Invalid selection" << std::endl;
-  } while (selection != 1 && selection != 2 && selection !=3);
+  } while (selection < 1 || selection > 3);
   
   // if (selection == 1)
   //   return createNewUser();
@@ -132,15 +132,16 @@ void socialNetwork::userPage(Node<user>* usr)
   std::cout<<"3.) Delete a wall post" << std::endl;
   std::cout<<"4.) Change account information" << std::endl;
   std::cout<<"5.) View friends list" << std::endl;
-  std::cout<<"6.) Logout"<<endl;
+  std::cout<<"6.) Delete  profile" << std::endl;
+  std::cout<<"7.) Logout"<<endl;
 
   int selection = 1;
 
   do{
     std::cin >> selection;
-    if (selection < 1 || selection > 6)
+    if (selection < 1 || selection > 7)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 6);
+  } while (selection < 1 || selection > 7);
 
   if (selection == 1)
     return displayWall(usr);
@@ -157,7 +158,10 @@ void socialNetwork::userPage(Node<user>* usr)
   if (selection == 5)
     return displayFriends(usr);
   
-  if (selection == 6)
+  if(selection == 6)
+    return deleteProfile(usr);
+
+  if (selection == 7)
     {
       std::cout<<"You have logged out."<<std::endl;
       un->writeUserNetwork();
@@ -170,6 +174,45 @@ void socialNetwork::displayWall(Node<user>* usr)
 {
   std::cout<<usr->getData().getWall().WallToString();
   return userPage(usr);
+}
+
+void socialNetwork::deleteProfile(Node<user> *usr) {
+
+  std::cout << "Are you sure you wish to delete your profile? (Enter Yes or No)" << std::endl;
+  string input;
+  string Yes = "Yes";
+  string yes = "yes";
+  string No = "No";
+  string no = "no";
+  string s = "";
+
+  std::cin >> input;
+
+  if(input == yes || input == Yes) {
+    string s;
+    Node<user> *temp;
+    /*for(temp = un->getULL()->getHead(); temp != NULL; temp = temp->getNext()) {
+      s = temp->getData().getUsername();
+      un->removeFriend(usr->getData().getUsername(), s);
+    }
+    */
+    un->deleteUser(usr->getData().getUsername());
+
+    std::cout << "Successfully deleted your profile!" << std::endl;
+    un->writeUserNetwork();
+    return start();
+
+  }
+  
+  else if(input == no || input == No) 
+    return userPage(usr);
+  
+
+  else {
+    std::cout << "Invalid input, please try again" << std::endl;
+    return userPage(usr);
+  }
+
 }
 
 
@@ -273,8 +316,10 @@ void socialNetwork::changeInfo(Node<user> *usr) {
 
   do{
     std::cin >> selection;
-    if (selection < 1 || selection > 4)
+    if (selection < 1 || selection > 4) {
       std::cout << "Invalid selection" << std::endl;
+      return changeInfo(usr);
+    }
   } while (selection < 1 || selection > 4);
 
   if (selection == 1) {
