@@ -197,10 +197,15 @@ void socialNetwork::newPost(Node<user> *usr)
 void socialNetwork::deletePost(Node<user> *usr)
 {
 
-  std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
-
   int num;
-  std::cin >> num;
+  
+  do{
+    std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
+    std::cin >> num;
+    if (num < 1 || num > usr->getData().getWall().getLL()->getCount())
+      std::cout << "Invalid selection" << std::endl;
+  } while (num < 1 || num > usr->getData().getWall().getLL()->getCount());
+
   usr->getDataToMod()->deleteWallPost(num - 1);
   std::cout << "Post successfully deleted!" << std::endl;
   return userPage(usr);
@@ -222,7 +227,7 @@ void socialNetwork::displayFriends(Node<user> *usr)
   do{
     std::cin >> selection;
     if (selection < 1 || selection > 2)
-      std::cout << "Invalid selectoin" << std::endl;
+      std::cout << "Invalid selection" << std::endl;
   } while (selection < 1 || selection > 2);
 
   if (selection == 1)
@@ -257,7 +262,7 @@ void socialNetwork::deleteFriend(Node<user> *usr)
   
 
 void socialNetwork::changeInfo(Node<user> *usr) {
-  
+  std::cout << "Enter the number next to the information you wish to modify" << std::endl;
   std::cout << "1.) Change password" << std::endl;
   std::cout << "2.) Change birthday" << std::endl;
   std::cout << "3.) Change real name" << std::endl;

@@ -16,11 +16,14 @@ Tue Oct 27 19:18:20 201
 oakland,ca
 [/endpost][/endwallposts][/enduser]
 bwicka
-pass
+p
 B
 05/27/1995
 [/endinfo]
-[/enduser]
+new post dawg
+Thu Oct 29 20:12:42 201
+the barn
+[/endpost][/endwallposts][/enduser]
 bobgaucho
 password1
 The Gaucho
