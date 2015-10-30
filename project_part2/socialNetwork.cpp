@@ -144,7 +144,12 @@ void socialNetwork::checkRequest(Node<user>* usr)
     if (answer == "no")
       return userPage(usr);
     else if (answer == "yes")
-      return friendMenu(usr);
+    {
+    std::cout << "FRIEND REQUESTS" <<std::endl;
+    std::cout << usr->getData().displayRequests()<<std::endl;
+    return friendMenu(usr);
+    }
+      
   }
 
   else
@@ -419,34 +424,143 @@ void socialNetwork::changeInfo(Node<user> *usr)
   
 }
 
+
+// search for users by username or real name, not case sensitive
 void socialNetwork::searchUser(Node<user> *usr)
 {
-  std::cout << "Search for users:" << std::endl;
+  std::cout << "Select an option" << std::endl;
+  std::cout << "1.) Search by real name" << std::endl;
+  std::cout << "2.) Search by username" << std::endl;
+
+  int selection = 1;
+
+  do{
+     std::cin >> selection;
+     if (selection != 1 && selection != 2)
+       std::cout << "Invalid selection" << std::endl;
+  } while (selection != 1 && selection != 2);
+
+  
+  std::cout << "Enter your search:" << std::endl;
+
   std::string input;
-  std::cin >> input;
+
+  do{
+    std::cin >> input;
+    if (input.length() < 2)
+      std::cout << "Your search must be atleast 2 characters" <<std::endl;
+  } while (input.length() < 2);
+  // downcase the seaerch input
   std::transform(input.begin(),input.end(),input.begin(), ::tolower);
 
   std::cout << "RESULTS:" << std::endl;
   Node<user> *temp = un->getHead();
+  int counter = 0;
   while (temp != NULL)
   {
-    std::string result, result2;
-    result = temp->getData().getUsername();
+    //save the case sensitive and downcased version of usernames
+    std::string result, result2; 
+    if (selection == 1)
+      result = temp->getData().getRealName();
+    else if (selection == 2)
+      result = temp->getData().getUsername();
     result2 = result;
+    // downcase the usernames
     std::transform(result2.begin(),result2.end(),result2.begin(),::tolower);
 
+    // check if the input string is a substring of any username
+    // and return the case sensitive version
     if (result2.find(input) != std::string::npos)
+    {
       std::cout<<result<<std::endl;
+      counter++;
+    }
 
     temp = temp->getNext();
       
   }
 
-  return userPage(usr);
+  if (counter == 0)
+  {
+    std::cout<<"No matching results found"<<std::endl;
+    return userPage(usr);
+  }
 
+  string answer;
+
+  std::cout<<"Would you like to send a friend request? (yes/no)"<<std::endl;
+  
+  do{
+      std::cin >> answer;
+      if (answer != "yes" && answer != "no")
+        std::cout << "Please select either 'yes' or 'no'" << std::endl;
+    } while (answer != "yes" && answer != "no");
+
+    if (answer == "no")
+      return userPage(usr);
+    else if (answer == "yes")
+      return sendFriendRequest(usr);
 
 }
 
+void socialNetwork::sendFriendRequest(Node<user> *usr)
+{
+  std::cout << "Select an option" << std::endl;
+  std::cout << "1.) Send request by real name" << std::endl;
+  std::cout << "2.) Send request by username" << std::endl;
+
+  int selection = 1;
+
+  do{
+     std::cin >> selection;
+     if (selection != 1 && selection != 2)
+       std::cout << "Invalid selection" << std::endl;
+  } while (selection != 1 && selection != 2);
+
+  if (selection == 1)
+    std::cout << "Enter the name of whom you would like to send a request:" << std::endl;
+
+  if (selection == 2)
+    std::cout << "Enter the username of whom you would like to send a request:" << std::endl;
+
+  std::string input;
+  std::cin >> input;
+  
+  if (selection == 1)
+  {
+    if ((un->checkRealName(input)))
+    {
+      un->getUserNodeUsername(input)->getDataToMod()->addRequest(usr->getData().getUsername());
+      std::cout << "Friend request sent!" << std::endl;
+      return friendMenu(usr);
+    }
+
+    else
+    {
+      std::cout << "Person not found" <<std::endl;
+      return sendFriendRequest(usr); 
+    }
+  }
+
+  if (selection == 2)
+  {
+    if ((un->checkUsername(input)))
+    {
+      un->getUserNode(input)->getDataToMod()->addRequest(usr->getData().getUsername());
+      std::cout << "Friend request sent!" << std::endl;
+      return friendMenu(usr);
+    }
+
+    else
+    {
+      std::cout << "Person not found" <<std::endl;
+      return sendFriendRequest(usr); 
+    }
+  }
+
+
+
+}
 
 
 

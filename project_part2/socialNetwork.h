@@ -27,6 +27,7 @@ class socialNetwork {
   void deleteUser(Node<user> *usr);
   void displayWall(Node<user> *usr);
   void searchUser(Node<user> *usr);
+  void sendFriendRequest(Node<user> *usr);
 
 };
 

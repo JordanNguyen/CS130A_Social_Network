@@ -221,6 +221,16 @@ string user::getPassword()
   return password;
 }
 
+string user::getRealName()
+{
+  return realName;
+}
+
+string user::getDob()
+{
+  return dob;
+}
+
 void user::addToWall(wallPost wallpost) 
 {
   w.newPost(wallpost);

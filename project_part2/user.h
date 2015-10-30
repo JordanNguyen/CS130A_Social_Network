@@ -25,6 +25,8 @@ class user {
   void setDOB(string t);
   string getUsername();
   string getPassword();
+  string getRealName();
+  string getDob();
   void addToWall(wallPost w);
   void deleteWallPost(int i);
   wall getWall();
@@ -38,8 +40,7 @@ class user {
   LinkedList<string>* getFriends();
   LinkedList<string>* getRequests();
   bool hasRequests();
-  //void readFriends();
-  //void readUser();
+  
 };
 
 #endif

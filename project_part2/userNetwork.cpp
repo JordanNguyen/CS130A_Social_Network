@@ -119,6 +119,20 @@ bool userNetwork::checkUsername(string usr)
 	return false;
 }
 
+bool userNetwork::checkRealName(string rn)
+{
+	Node<user> *temp = users->getHead();
+	while (temp != NULL)
+	{
+		if (temp->getData().getRealName() == rn)
+			return true;
+		temp = temp->getNext();
+	}
+
+	return false;
+
+}
+
 int userNetwork::getUserIndex(string usr)
 {
 	Node<user> *temp = users->getHead();
@@ -165,6 +179,22 @@ Node<user>* userNetwork::getUserNode(string usr)
       temp = temp->getNext();
     }
   return temp;
+}
+
+Node<user>* userNetwork::getUserNodeUsername(string usr)
+{
+	Node<user> *temp = users->getHead();
+
+	while (temp != NULL)
+	{
+		if (temp->getData().getRealName()==usr)
+		{
+		  return temp;
+		}
+	      temp = temp->getNext();
+	}
+	
+	return temp;
 }
 
 void userNetwork::removeFriend(string usr1, string usr2)
