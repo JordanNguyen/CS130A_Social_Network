@@ -15,6 +15,7 @@ class userNetwork {
   void addUser(user u);
   void deleteUser(string t);
   void writeUserNetwork();
+  void writeFriends(int option);
   void readUsers(const char* filename);
   void readFriends(const char* filename, int option);
   void printUsernames();

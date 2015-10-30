@@ -208,7 +208,7 @@ void userNetwork::writeUserNetwork()
 	ofstream outfile;
 	outfile.open("userNetworkInput.txt");
 
-	string wholeUserNetwork = "";
+	//string wholeUserNetwork = "";
 	Node<user> *temp = users->getHead();
 	while (temp != NULL)
 	{
@@ -220,6 +220,34 @@ void userNetwork::writeUserNetwork()
 
 	outfile.close();
 	return;
+}
+
+// option 0 = friends list
+// option 1 = friend requests
+void userNetwork::writeFriends(int option)
+{
+	if (users->getHead() == NULL)
+	{
+		cout << "Error: No users to write" << endl;
+	}
+
+	ofstream outfile;
+	if (option == 0)
+		outfile.open("friendList.txt");
+	else if (option == 1)
+		outfile.open("test.txt");
+
+	Node<user> *temp = users->getHead();
+	while (temp != NULL)
+	{
+		outfile << temp->getData().friendListWrite(option);
+		outfile << "[/enduser]\n";
+		temp = temp->getNext();
+	}
+
+	outfile.close();
+	return;
+
 }
 
 void userNetwork::readUsers(const char* filename)

@@ -30,6 +30,7 @@ class user {
   wall getWall();
   string userInfo();
   string userInfoWrite();
+  string friendListWrite(int option);
   void addFriend(string s);
   void addRequest(string s);
   string displayFriends();

@@ -148,6 +148,24 @@ string user::userInfoWrite()
 
 }
 
+string user::friendListWrite(int option)
+{
+  string frnds;
+  frnds += username;
+  frnds += "\n[/username]\n";
+
+  Node<string> *temp = friends->getHead();
+  while (temp != NULL)
+  {
+    frnds += temp->getDataConst();
+    frnds += "\n";
+    temp=temp->getNext();
+  }
+
+  frnds += "[/endfriends]";
+  return frnds;
+}
+
 string user::displayFriends()
 {
   string frnds;

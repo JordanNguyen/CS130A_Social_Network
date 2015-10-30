@@ -192,6 +192,7 @@ void socialNetwork::userPage(Node<user>* usr)
     {
       std::cout<<"You have logged out."<<std::endl;
       un->writeUserNetwork();
+      un->writeFriends(0);
       return start();
     }
     
