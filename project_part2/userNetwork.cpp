@@ -367,8 +367,12 @@ void userNetwork::readUsers(const char* filename)
 	infile.close();
 }
 	
-
-void userNetwork::readFriends(const char* filename)
+/* readFriends takes in a formated text file
+*  as well as an option to read a friend list or
+*  a friend request list. 
+*  0 = friends list, 1 = friend request
+*/
+void userNetwork::readFriends(const char* filename, int option)
 {
 
   // read in input file
@@ -420,7 +424,7 @@ void userNetwork::readFriends(const char* filename)
 	  while ((pos3 = nameToken.find(newlDelim)) != string::npos)
 	    {
 	      if (counter == 0)
-		username = nameToken.substr(0,pos3);
+			username = nameToken.substr(0,pos3);
 
 	      counter++;
 	      nameToken.erase(0, pos3+newlDelim.length());
@@ -438,12 +442,17 @@ void userNetwork::readFriends(const char* filename)
 	  //save the string to friendToken
 	  frndToken = userToken.substr(0,pos4);
 
-	  // get friend names
+	  // get friend names, save them to the appropriate linkedlist
 	  while ((pos5 = frndToken.find(newlDelim)) != string::npos)
 	    {
 	      frnd = frndToken.substr(0,pos5);
 	      if (frnd != "\n")
-		temp->getDataToMod()->addFriend(frnd);
+	      {
+	      	if (option == 0)
+				temp->getDataToMod()->addFriend(frnd);
+			else if (option == 1)
+				temp->getDataToMod()->addRequest(frnd);
+		  }
 
 	      frndToken.erase(0, pos5+newlDelim.length());
 	    }

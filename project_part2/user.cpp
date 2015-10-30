@@ -14,6 +14,7 @@ user::user()
   realName = "";
   dob = "";
   friends = new LinkedList<string>;
+  requests = new LinkedList<string>;
   
 }
 
@@ -25,6 +26,7 @@ user::user(string u, string p, string r, string d)
   dob = d;
   w.setUsername(u);
   friends = new LinkedList<string>;
+  requests = new LinkedList<string>;
 }
 
 user::user(string info)
@@ -164,6 +166,25 @@ string user::displayFriends()
   return frnds;
   
 }
+
+string user::displayRequests()
+{
+  string reqs;
+  Node<string> *temp = requests->getHead();
+
+  if (temp == NULL)
+    reqs = "You have no friend requests.";
+
+  while (temp != NULL)
+  {
+    reqs += temp->getData();
+    reqs += "\n";
+    temp = temp->getNext();
+  }
+
+  return reqs;
+
+}
   
 
 string user::getUsername()
@@ -197,8 +218,26 @@ void user::addFriend(string s)
   friends->addTail(s);
 }
 
+void user::addRequest(string s)
+{
+  requests->addTail(s);
+}
+
 LinkedList<string>* user::getFriends()
 {
   return friends;
 }
 
+LinkedList<string>* user::getRequests()
+{
+  return requests;
+}
+
+bool user::hasRequests()
+{
+  if (requests->getHead() == NULL)
+    return false;
+  else 
+    return true;
+
+}

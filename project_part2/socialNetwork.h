@@ -21,7 +21,7 @@ class socialNetwork {
   void deletePost(Node<user> *usr);
   void userPage(Node<user> *usr);
   void changeInfo(Node<user> *usr);
-  void displayFriends(Node<user> *usr);
+  void friendMenu(Node<user> *usr);
   void deleteFriend(Node<user> *usr);
   void displayWall(Node<user> *usr);
 

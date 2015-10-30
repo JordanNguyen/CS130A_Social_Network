@@ -12,6 +12,7 @@ class user {
   string realName;
   string dob;
   LinkedList<string> *friends;
+  LinkedList<string> *requests;
 
  public:
   user();
@@ -30,8 +31,12 @@ class user {
   string userInfo();
   string userInfoWrite();
   void addFriend(string s);
+  void addRequest(string s);
   string displayFriends();
+  string displayRequests();
   LinkedList<string>* getFriends();
+  LinkedList<string>* getRequests();
+  bool hasRequests();
   //void readFriends();
   //void readUser();
 };

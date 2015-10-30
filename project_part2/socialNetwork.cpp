@@ -11,7 +11,8 @@ socialNetwork::socialNetwork()
   un = new userNetwork();
   //fill up usernetwork from file
   un->readUsers("userNetworkInput.txt");
-  un->readFriends("friendList.txt");
+  un->readFriends("friendList.txt", 0);
+  un->readFriends("friendRequests.txt", 1);
 
 }
 
@@ -131,7 +132,7 @@ void socialNetwork::userPage(Node<user>* usr)
   std::cout<<"2.) Create new wall post"<<std::endl;
   std::cout<<"3.) Delete a wall post" << std::endl;
   std::cout<<"4.) Change account information" << std::endl;
-  std::cout<<"5.) View friends list" << std::endl;
+  std::cout<<"5.) View friends" << std::endl;
   std::cout<<"6.) Logout"<<endl;
 
   int selection = 1;
@@ -155,7 +156,7 @@ void socialNetwork::userPage(Node<user>* usr)
     return changeInfo(usr);
 
   if (selection == 5)
-    return displayFriends(usr);
+    return friendMenu(usr);
   
   if (selection == 6)
     {
@@ -208,28 +209,42 @@ void socialNetwork::deletePost(Node<user> *usr)
 
 }
 
-void socialNetwork::displayFriends(Node<user> *usr)
+void socialNetwork::friendMenu(Node<user> *usr)
 {
 
-  std::cout << "FRIENDS" <<std::endl;
-  std::cout << usr->getData().displayFriends()<<std::endl;
-
-  std::cout << "1.) Delete a friend" << std::endl;
-  std::cout << "2.) Return to previous menu" <<std::endl;
+  std::cout << "1.) Display friends" << std::endl;
+  std::cout << "2.) Delete a friend" << std::endl;
+  std::cout << "3.) View friend requests" <<std::endl;
+  std::cout << "4.) Return to previous menu" <<std::endl;
 
   int selection = 1;
   
   do{
     std::cin >> selection;
-    if (selection < 1 || selection > 2)
+    if (selection < 1 || selection > 4)
       std::cout << "Invalid selectoin" << std::endl;
-  } while (selection < 1 || selection > 2);
+  } while (selection < 1 || selection > 4);
 
   if (selection == 1)
+  {
+    std::cout << "FRIENDS" <<std::endl;
+    std::cout << usr->getData().displayFriends()<<std::endl;
+    return friendMenu(usr);
+  }
+
+  if (selection == 2)
     {
       return deleteFriend(usr);
     }
-  if (selection == 2)
+
+  if (selection == 3)
+  {
+    std::cout << "FRIEND REQUESTS" <<std::endl;
+    std::cout << usr->getData().displayRequests()<<std::endl;
+    return friendMenu(usr);
+  }  
+
+  if (selection == 4)
     {
       return userPage(usr);
     }
@@ -251,7 +266,7 @@ void socialNetwork::deleteFriend(Node<user> *usr)
 
   un->removeFriend(usr->getData().getUsername(), frnd);
 
-  return displayFriends(usr);
+  return friendMenu(usr);
 
 }
   
