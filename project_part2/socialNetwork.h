@@ -28,6 +28,7 @@ class socialNetwork {
   void displayWall(Node<user> *usr);
   void searchUser(Node<user> *usr);
   void sendFriendRequest(Node<user> *usr);
+  void manageRequests(Node<user> *usr);
 
 };
 

@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "wallPost.h"
 #include "wall.h"
 #include "user.h"
@@ -198,12 +199,17 @@ string user::displayRequests()
 
   if (temp == NULL)
     reqs = "You have no friend requests.";
-
+  int i = 0;
   while (temp != NULL)
   {
+    ostringstream convert;
+    convert << i+1;
+    reqs += convert.str();
+    reqs += ".)";
     reqs += temp->getData();
     reqs += "\n";
     temp = temp->getNext();
+    i++;
   }
 
   return reqs;

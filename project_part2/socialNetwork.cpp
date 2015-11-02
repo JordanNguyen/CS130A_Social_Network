@@ -303,7 +303,9 @@ void socialNetwork::friendMenu(Node<user> *usr)
   std::cout << "1.) Display friends" << std::endl;
   std::cout << "2.) Delete a friend" << std::endl;
   std::cout << "3.) View friend requests" <<std::endl;
-  std::cout << "4.) Return to previous menu" <<std::endl;
+  std::cout << "4.) Send a friend request"<<std::endl;
+  std::cout << "5.) Manage friend requests" <<std::endl;
+  std::cout << "6.) Return to user menu" <<std::endl;
 
   int selection = 1;
   
@@ -312,9 +314,9 @@ void socialNetwork::friendMenu(Node<user> *usr)
     if (!cin)
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (selection < 1 || selection > 4)
+    if (selection < 1 || selection > 6)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 4);
+  } while (selection < 1 || selection > 6);
 
   if (selection == 1)
   {
@@ -336,6 +338,22 @@ void socialNetwork::friendMenu(Node<user> *usr)
   }  
 
   if (selection == 4)
+  {
+    return sendFriendRequest(usr);
+  }
+
+  if (selection == 5)
+  {
+    if (usr->getData().getRequests()->getHead() == NULL)
+    {
+      std::cout<<"You have no friend requests." << std::endl;
+      return friendMenu(usr);
+    }
+    else
+      return manageRequests(usr);
+  }
+
+  if (selection == 6)
     {
       return userPage(usr);
     }
@@ -604,6 +622,63 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
       std::cout << "Person not found" <<std::endl;
       return sendFriendRequest(usr); 
     }
+  }
+}
+
+
+void socialNetwork::manageRequests(Node<user> *usr)
+{
+  std::cout << "FRIEND REQUESTS" <<std::endl;
+  std::cout << usr->getData().displayRequests()<<std::endl;  
+
+  int num;
+  do{
+    std::cout << "Enter the number corresponding to the friend request you want to accept or decline" << std::endl;
+    std::cin >> num;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (num < 1 || num > usr->getData().getRequests()->getCount())
+      std::cout << "Invalid selection" << std::endl;
+  } while (num < 1 || num > usr->getData().getRequests()->getCount());  
+
+  std::cout << "What would you like to do with this request?" << std::endl;
+  std::cout << "1.) Accept friend request"  << std::endl;
+  std::cout << "2.) Decline friend request" << std::endl;
+  std::cout << "3.) Nevermind, return to friend menu" <<std::endl;
+
+  int selection;
+  do{
+    std::cin >> selection;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (selection < 1 || selection > 3)
+      std::cout << "Invalid selection" << std::endl;
+  } while (selection < 1 || selection > 3);
+  
+  if (selection == 1)
+  {
+    string thisUser = usr->getData().getUsername();
+    std::cout<<thisUser<<std::endl;
+    string otherUser = usr->getData().getRequests()->get(num-1);
+    std::cout<<otherUser<<std::endl;
+    usr->getDataToMod()->getFriends()->addTail(usr->getData().getRequests()->get(num-1));
+    un->getUserNode(otherUser)->getDataToMod()->addFriend(thisUser); //getFriends();//->addTail(thisUser);
+    //un->getUserNode(usr->getData().getRequests()->get(num-1))->getDataToMod()->getFriends()->addTail(usr->getData().getUsername());
+    usr->getDataToMod()->getRequests()->remove(num-1);
+    return friendMenu(usr);
+  }
+
+  if (selection == 2)
+  {
+    usr->getDataToMod()->getRequests()->remove(num-1);
+    return friendMenu(usr);
+  }
+
+  if (selection == 3)
+  {
+    return friendMenu(usr);
   }
 
 
