@@ -382,6 +382,8 @@ void socialNetwork::deleteFriend(Node<user> *usr)
   std::cin >> frnd;
 
   un->removeFriend(usr->getData().getUsername(), frnd);
+  std::cout << "Successfully deleted " << frnd << " from your friends list" << std::endl;
+  un->writeFriends(0);
 
   return friendMenu(usr);
 
@@ -605,6 +607,7 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
       {
         un->getUserNodeRealName(input)->getDataToMod()->addRequest(usr->getData().getUsername());
         std::cout << "Friend request sent!" << std::endl;
+        un->writeFriends(1);
         return friendMenu(usr);
       }
     }
@@ -635,6 +638,7 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
       {
         un->getUserNode(input)->getDataToMod()->addRequest(usr->getData().getUsername());
         std::cout << "Friend request sent!" << std::endl;
+        un->writeFriends(1);
         return friendMenu(usr);
       }
     }
@@ -696,10 +700,11 @@ void socialNetwork::manageRequests(Node<user> *usr)
 
   if (selection == 2)
   {
+    string otherUser = usr->getData().getRequests()->get(num-1);
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
-    std::cout<<"You have declined the friend request."<<std::endl;
+    std::cout<<"You have declined the friend request from " << otherUser << "." <<std::endl;
     return friendMenu(usr);
   }
 
