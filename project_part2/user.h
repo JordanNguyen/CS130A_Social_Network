@@ -12,6 +12,7 @@ class user {
   string realName;
   string dob;
   LinkedList<string> *friends;
+  LinkedList<string> *requests;
 
  public:
   user();
@@ -24,16 +25,22 @@ class user {
   void setDOB(string t);
   string getUsername();
   string getPassword();
+  string getRealName();
+  string getDob();
   void addToWall(wallPost w);
   void deleteWallPost(int i);
   wall getWall();
   string userInfo();
   string userInfoWrite();
+  string friendListWrite(int option);
   void addFriend(string s);
+  void addRequest(string s);
   string displayFriends();
+  string displayRequests();
   LinkedList<string>* getFriends();
-  //void readFriends();
-  //void readUser();
+  LinkedList<string>* getRequests();
+  bool hasRequests();
+  
 };
 
 #endif

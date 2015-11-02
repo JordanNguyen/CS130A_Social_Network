@@ -14,6 +14,7 @@ user::user()
   realName = "";
   dob = "";
   friends = new LinkedList<string>;
+  requests = new LinkedList<string>;
   
 }
 
@@ -25,6 +26,7 @@ user::user(string u, string p, string r, string d)
   dob = d;
   w.setUsername(u);
   friends = new LinkedList<string>;
+  requests = new LinkedList<string>;
 }
 
 user::user(string info)
@@ -146,6 +148,30 @@ string user::userInfoWrite()
 
 }
 
+string user::friendListWrite(int option)
+{
+  string frnds;
+  frnds += username;
+  frnds += "\n[/username]\n";
+
+  Node<string> *temp;
+  if (option == 0)
+    temp = friends->getHead();
+
+  else if (option == 1)
+    temp = requests->getHead();
+
+  while (temp != NULL)
+  {
+    frnds += temp->getDataConst();
+    frnds += "\n";
+    temp=temp->getNext();
+  }
+
+  frnds += "[/endfriends]";
+  return frnds;
+}
+
 string user::displayFriends()
 {
   string frnds;
@@ -164,6 +190,25 @@ string user::displayFriends()
   return frnds;
   
 }
+
+string user::displayRequests()
+{
+  string reqs;
+  Node<string> *temp = requests->getHead();
+
+  if (temp == NULL)
+    reqs = "You have no friend requests.";
+
+  while (temp != NULL)
+  {
+    reqs += temp->getData();
+    reqs += "\n";
+    temp = temp->getNext();
+  }
+
+  return reqs;
+
+}
   
 
 string user::getUsername()
@@ -174,6 +219,16 @@ string user::getUsername()
 string user::getPassword()
 {
   return password;
+}
+
+string user::getRealName()
+{
+  return realName;
+}
+
+string user::getDob()
+{
+  return dob;
 }
 
 void user::addToWall(wallPost wallpost) 
@@ -197,8 +252,26 @@ void user::addFriend(string s)
   friends->addTail(s);
 }
 
+void user::addRequest(string s)
+{
+  requests->addTail(s);
+}
+
 LinkedList<string>* user::getFriends()
 {
   return friends;
 }
 
+LinkedList<string>* user::getRequests()
+{
+  return requests;
+}
+
+bool user::hasRequests()
+{
+  if (requests->getHead() == NULL)
+    return false;
+  else 
+    return true;
+
+}

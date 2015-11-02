@@ -119,6 +119,35 @@ bool userNetwork::checkUsername(string usr)
 	return false;
 }
 
+bool userNetwork::checkRealName(string rn)
+{
+	Node<user> *temp = users->getHead();
+	while (temp != NULL)
+	{
+		if (temp->getData().getRealName() == rn)
+			return true;
+		temp = temp->getNext();
+	}
+
+	return false;
+
+}
+
+int userNetwork::getUserIndex(string usr)
+{
+	Node<user> *temp = users->getHead();
+	int i = 0;
+	while (temp != NULL)
+	{
+		if (temp->getData().getUsername() == usr)
+			return i;
+		temp = temp->getNext();
+		i++;
+	}
+
+	return -1;
+}
+
 bool userNetwork::checkLogin(string usr, string pw)
 {
   Node<user> *temp = users->getHead();
@@ -152,6 +181,22 @@ Node<user>* userNetwork::getUserNode(string usr)
   return temp;
 }
 
+Node<user>* userNetwork::getUserNodeUsername(string usr)
+{
+	Node<user> *temp = users->getHead();
+
+	while (temp != NULL)
+	{
+		if (temp->getData().getRealName()==usr)
+		{
+		  return temp;
+		}
+	      temp = temp->getNext();
+	}
+	
+	return temp;
+}
+
 void userNetwork::removeFriend(string usr1, string usr2)
 {
   Node<user> *temp1 = getUserNode(usr1);
@@ -176,30 +221,10 @@ LinkedList<user>* userNetwork::getULL()
 	return users;
 }
 
-// void userNetwork::writeUserNetwork()
-// {
-// 	if (users->getHead() == NULL)
-// 	{
-// 		cout << "Error: No users to write" << endl;
-// 		return;
-// 	}
-
-// 	ofstream outfile;
-// 	outfile.open("userNetwork.txt");
-
-// 	// need username, pw, realname, dob, and all wallposts
-// 	string wholeUserNetwork = "";
-// 	Node<user> *temp = users->getHead();
-// 	while (temp != NULL)
-// 	{
-// 		outfile << temp->getData().userInfo() << endl;
-// 		temp = temp->getNext();
-// 	}
-
-// 	outfile.close();
-// 	return;
-	
-// }
+Node<user>* userNetwork::getHead()
+{
+	return users->getHead();
+}
 
 //write to userNetworkInput.txt in the correct format to be read back
 void userNetwork::writeUserNetwork()
@@ -213,7 +238,7 @@ void userNetwork::writeUserNetwork()
 	ofstream outfile;
 	outfile.open("userNetworkInput.txt");
 
-	string wholeUserNetwork = "";
+	//string wholeUserNetwork = "";
 	Node<user> *temp = users->getHead();
 	while (temp != NULL)
 	{
@@ -225,6 +250,34 @@ void userNetwork::writeUserNetwork()
 
 	outfile.close();
 	return;
+}
+
+// option 0 = friends list
+// option 1 = friend requests
+void userNetwork::writeFriends(int option)
+{
+	if (users->getHead() == NULL)
+	{
+		cout << "Error: No users to write" << endl;
+	}
+
+	ofstream outfile;
+	if (option == 0)
+		outfile.open("friendList.txt");
+	else if (option == 1)
+		outfile.open("friendRequests.txt");
+
+	Node<user> *temp = users->getHead();
+	while (temp != NULL)
+	{
+		outfile << temp->getData().friendListWrite(option);
+		outfile << "[/enduser]\n";
+		temp = temp->getNext();
+	}
+
+	outfile.close();
+	return;
+
 }
 
 void userNetwork::readUsers(const char* filename)
@@ -367,8 +420,12 @@ void userNetwork::readUsers(const char* filename)
 	infile.close();
 }
 	
-
-void userNetwork::readFriends(const char* filename)
+/* readFriends takes in a formated text file
+*  as well as an option to read a friend list or
+*  a friend request list. 
+*  0 = friends list, 1 = friend request
+*/
+void userNetwork::readFriends(const char* filename, int option)
 {
 
   // read in input file
@@ -420,7 +477,7 @@ void userNetwork::readFriends(const char* filename)
 	  while ((pos3 = nameToken.find(newlDelim)) != string::npos)
 	    {
 	      if (counter == 0)
-		username = nameToken.substr(0,pos3);
+			username = nameToken.substr(0,pos3);
 
 	      counter++;
 	      nameToken.erase(0, pos3+newlDelim.length());
@@ -438,12 +495,17 @@ void userNetwork::readFriends(const char* filename)
 	  //save the string to friendToken
 	  frndToken = userToken.substr(0,pos4);
 
-	  // get friend names
+	  // get friend names, save them to the appropriate linkedlist
 	  while ((pos5 = frndToken.find(newlDelim)) != string::npos)
 	    {
 	      frnd = frndToken.substr(0,pos5);
 	      if (frnd != "\n")
-		temp->getDataToMod()->addFriend(frnd);
+	      {
+	      	if (option == 0)
+				temp->getDataToMod()->addFriend(frnd);
+			else if (option == 1)
+				temp->getDataToMod()->addRequest(frnd);
+		  }
 
 	      frndToken.erase(0, pos5+newlDelim.length());
 	    }

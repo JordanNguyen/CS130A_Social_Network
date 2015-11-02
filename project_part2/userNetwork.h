@@ -15,14 +15,19 @@ class userNetwork {
   void addUser(user u);
   void deleteUser(string t);
   void writeUserNetwork();
+  void writeFriends(int option);
   void readUsers(const char* filename);
-  void readFriends(const char* filename);
+  void readFriends(const char* filename, int option);
   void printUsernames();
   bool checkUsername(string usr);
+  bool checkRealName(string rn);
+  int getUserIndex(string usr);
   bool checkLogin(string usr, string pw);
   Node<user>* getUserNode(string usr);
+  Node<user>* getUserNodeUsername(string usr);
   void removeFriend(string usr1, string usr2);
   LinkedList<user>* getULL();
+  Node<user>* getHead();
 
 };
 
