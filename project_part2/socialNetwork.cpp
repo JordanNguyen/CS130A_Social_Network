@@ -250,6 +250,12 @@ void socialNetwork::deletePost(Node<user> *usr)
 {
  
   int num;
+
+  if (usr->getData().getWall().getHead() == NULL)
+  {
+    std::cout << "Your wall is empty." <<std::endl;
+    return userPage(usr);
+  }
   
   do{
     std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
