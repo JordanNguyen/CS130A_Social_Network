@@ -41,6 +41,9 @@ void socialNetwork::start()
 
   do{
      std::cin >> selection;
+     if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
      if (selection != 1 && selection != 2 && selection !=3)
        std::cout << "Invalid selection" << std::endl;
   } while (selection != 1 && selection != 2 && selection !=3);
@@ -94,6 +97,8 @@ void socialNetwork::createNewUser()
     user newUser(username,password,realname,dob);
     un->addUser(newUser);
     un->writeUserNetwork();
+    un->writeFriends(0);
+    un->writeFriends(1);
     std::cout<<"New user successfully created!"<<std::endl;
   }
 
@@ -174,6 +179,9 @@ void socialNetwork::userPage(Node<user>* usr)
 
   do{
     std::cin >> selection;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (selection < 1 || selection > 8)
       std::cout << "Invalid selection" << std::endl;
   } while (selection < 1 || selection > 8);
@@ -222,7 +230,7 @@ void socialNetwork::newPost(Node<user> *usr)
 
   std::cout << "Enter your post: ";
   string text;
-  std::getline(std::cin, text);
+  //std::getline(std::cin, text);
   std::getline(std::cin, text);
 
   std::cout << "Where are you posting from?" << std::endl;
@@ -246,6 +254,9 @@ void socialNetwork::deletePost(Node<user> *usr)
   do{
     std::cout << "Enter the number corresponding to the wall post you wish to delete" << std::endl;
     std::cin >> num;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (num < 1 || num > usr->getData().getWall().getLL()->getCount())
       std::cout << "Invalid selection" << std::endl;
   } while (num < 1 || num > usr->getData().getWall().getLL()->getCount());
@@ -264,6 +275,9 @@ void socialNetwork::deleteUser(Node<user> *usr)
 
   do{
     std::cin >> answer;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (answer != "yes" && answer != "no")
       std::cout << "Please select either 'yes' or 'no'" << std::endl;
   } while (answer != "yes" && answer != "no");
@@ -295,6 +309,9 @@ void socialNetwork::friendMenu(Node<user> *usr)
   
   do{
     std::cin >> selection;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (selection < 1 || selection > 4)
       std::cout << "Invalid selection" << std::endl;
   } while (selection < 1 || selection > 4);
@@ -360,6 +377,9 @@ void socialNetwork::changeInfo(Node<user> *usr)
 
   do{
     std::cin >> selection;
+    if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (selection < 1 || selection > 4)
       std::cout << "Invalid selection" << std::endl;
   } while (selection < 1 || selection > 4);
@@ -436,6 +456,9 @@ void socialNetwork::searchUser(Node<user> *usr)
 
   do{
      std::cin >> selection;
+     if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
      if (selection != 1 && selection != 2)
        std::cout << "Invalid selection" << std::endl;
   } while (selection != 1 && selection != 2);
@@ -513,6 +536,9 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
 
   do{
      std::cin >> selection;
+     if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
      if (selection != 1 && selection != 2)
        std::cout << "Invalid selection" << std::endl;
   } while (selection != 1 && selection != 2);
