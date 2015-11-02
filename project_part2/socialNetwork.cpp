@@ -374,7 +374,7 @@ void socialNetwork::deleteFriend(Node<user> *usr)
   if (usr->getData().getFriends()->getHead() == NULL)
     {
       std::cout<<"You have no friends to delete." << std::endl;
-      return userPage(usr);
+      return friendMenu(usr);
     }
   
   std::cout << "Please enter the username (case sensitive) of the friend you wish to delete:" << std::endl;
