@@ -580,11 +580,19 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
   {
     if ((un->checkRealName(input)))
     {
+
+      if (input == usr->getData().getRealName())
+      {
+        std::cout<<"You can't be friends with yourself."<<std::endl;
+        return sendFriendRequest(usr);
+      }
+
       if (un->getUserNodeRealName(input)->getData().checkRequest(usr->getData().getUsername()))
       {
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
         return sendFriendRequest(usr);
       }
+
       else
       {
         un->getUserNodeRealName(input)->getDataToMod()->addRequest(usr->getData().getUsername());
@@ -604,6 +612,12 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
   {
     if ((un->checkUsername(input)))
     {
+      if (input == usr->getData().getUsername())
+      {
+        std::cout<<"You can't be friends with yourself."<<std::endl;
+        return sendFriendRequest(usr);
+      }
+
       if (un->getUserNode(input)->getData().checkRequest(usr->getData().getUsername()))
       {
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
