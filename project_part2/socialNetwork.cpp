@@ -291,6 +291,8 @@ void socialNetwork::deleteUser(Node<user> *usr)
     un->getULL()->remove(index);
     std::cout << "Your account has been deleted." << std::endl;
     un->writeUserNetwork();
+    un->writeFriends(0);
+    un->writeFriends(1);
     return start();
   }
 
