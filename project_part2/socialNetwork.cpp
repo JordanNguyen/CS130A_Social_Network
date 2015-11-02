@@ -25,7 +25,16 @@ socialNetwork::~socialNetwork()
 
 void socialNetwork::welcome()
 {
+  std::cout << "#     #" << std::endl;                                           
+  std::cout << "#  #  # ###### #       ####   ####  #    # ######" << std::endl; 
+  std::cout << "#  #  # #      #      #    # #    # ##  ## #"      << std::endl;
+  std::cout << "#  #  # #####  #      #      #    # # ## # #####"  << std::endl;
+  std::cout << "#  #  # #      #      #      #    # #    # #"      << std::endl;
+  std::cout << "#  #  # #      #      #    # #    # #    # #"      << std::endl;
+  std::cout << " ## ##  ###### ######  ####   ####  #    # ######" << std::endl;
+                                                  
   std::cout << "Welcome to your social network!" << std::endl;
+  std::cout << "*******************************" << std::endl;
   return start();
 }
 
@@ -78,16 +87,13 @@ void socialNetwork::createNewUser()
   std::cout << "Enter a username:" << std::endl;
   string username;
   std::cin >> username;
-  
   std::cout << "Enter a password:" << std::endl;
   string password;
   std::cin >> password;
-  
   std::cout << "Enter your real name:" << std::endl;
   string realname;
   std::getline(std::cin, realname);
   std::getline(std::cin, realname);
-  
   std::cout << "Enter your birthday:" << std::endl;
   string dob;
   std::getline(std::cin, dob);
@@ -103,8 +109,9 @@ void socialNetwork::createNewUser()
   }
 
   else
-    std::cout<<"Username is already taken."<<std::endl;
-
+    {
+      std::cout<<"Username is already taken."<<std::endl;
+    }
   return start();
 
 }
@@ -121,11 +128,13 @@ void socialNetwork::login()
 
   if (un->checkLogin(username, password))
     {
+    std::cout << "*******************************" << std::endl;
     std::cout<<"Login Successful"<<std::endl;
     return checkRequest(un->getUserNode(username));
     }
   else
     {
+      std::cout << "*******************************" << std::endl;
       std::cout<<"Invalid username or password"<<std::endl;
       return start();
     }
@@ -709,11 +718,8 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
-<<<<<<< HEAD
     std::cout << "Congratulations! You and " << otherUser << " are now friends!" << std::endl;
-=======
     std::cout<<"You and " << otherUser << " are now friends!"<< std::endl;
->>>>>>> 3865f768c7514c0b52471bdb83dd9f22eec40304
     return friendMenu(usr);
   }
 
@@ -723,11 +729,8 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
-<<<<<<< HEAD
     std::cout << "You have declined " << otherUser << "'s friend request" << std::endl;
-=======
     std::cout<<"You have declined the friend request from " << otherUser << "." <<std::endl;
->>>>>>> 3865f768c7514c0b52471bdb83dd9f22eec40304
     return friendMenu(usr);
   }
 
