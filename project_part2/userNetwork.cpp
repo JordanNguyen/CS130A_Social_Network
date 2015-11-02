@@ -229,11 +229,11 @@ Node<user>* userNetwork::getHead()
 //write to userNetworkInput.txt in the correct format to be read back
 void userNetwork::writeUserNetwork()
 {
-	if (users->getHead() == NULL)
-	{
-		cout << "Error: No users to write" << endl;
-		return;
-	}
+	//if (users->getHead() == NULL)
+	//{
+	//	cout << "Error: No users to write" << endl;
+	//	return;
+	//}
 
 	ofstream outfile;
 	outfile.open("userNetworkInput.txt");
