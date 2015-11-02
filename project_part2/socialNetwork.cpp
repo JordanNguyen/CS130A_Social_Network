@@ -289,10 +289,11 @@ void socialNetwork::deleteUser(Node<user> *usr)
   string answer;
 
   do{
-    std::cin >> answer;
-    if (!cin)
-        cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::getline(std::cin, answer);
+    //std::cin >> answer;
+    //if (!cin)
+        //cin.clear();
+        //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (answer != "yes" && answer != "no")
       std::cout << "Please select either 'yes' or 'no'" << std::endl;
   } while (answer != "yes" && answer != "no");
@@ -302,9 +303,24 @@ void socialNetwork::deleteUser(Node<user> *usr)
 
   else if (answer == "yes")
   {
+    
+    //remove deleted users from all friends lists and friend requests
+    Node<user>* temp = un->getHead();
+    while (temp != NULL)
+    {
+      if (temp->getData().getFriends()->contains(usr->getData().getUsername()))
+       temp->getDataToMod()->getFriends()->remove(usr->getData().getUsername());
+
+      if (temp->getData().getRequests()->contains(usr->getData().getUsername()))
+        temp->getDataToMod()->getRequests()->remove(usr->getData().getUsername());
+
+      temp = temp->getNext();
+    }
+
     int index = un->getUserIndex(usr->getData().getUsername());
     un->getULL()->remove(index);
     std::cout << "Your account has been deleted." << std::endl;
+
     un->writeUserNetwork();
     un->writeFriends(0);
     un->writeFriends(1);
