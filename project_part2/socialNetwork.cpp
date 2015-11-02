@@ -25,13 +25,22 @@ socialNetwork::~socialNetwork()
 
 void socialNetwork::welcome()
 {
-  std::cout << "Welcome to your social network!" << std::endl;
+  //std::cout << "#     #" << std::endl;                                           
+  std::cout << "#  #  # ###### #       ####   ####  #    # ######" << std::endl; 
+  std::cout << "#  #  # #      #      #    # #    # ##  ## #"      << std::endl;
+  std::cout << "#  #  # #####  #      #      #    # # ## # #####"  << std::endl;
+  std::cout << "#  #  # #      #      #      #    # #    # #"      << std::endl;
+  std::cout << "#  #  # #      #      #    # #    # #    # #"      << std::endl;
+  std::cout << " ## ##  ###### ######  ####   ####  #    # ######" << std::endl;
+
+  std::cout << "              TO YOUR SOCIAL NETWORK!            " << std::endl;
+  std::cout << "*************************************************" << std::endl;
+
   return start();
 }
 
 void socialNetwork::start()
 {
-
   std::cout << "Please choose an option: " << std::endl;
   std::cout << "1.) Create a new user" << std::endl;
   std::cout << "2.) Log in" << std::endl;
@@ -99,12 +108,18 @@ void socialNetwork::createNewUser()
     un->writeUserNetwork();
     un->writeFriends(0);
     un->writeFriends(1);
+    std::cout << "*******************************" << std::endl;
     std::cout<<"New user successfully created!"<<std::endl;
+    std::cout << "*******************************" << std::endl;
+
   }
 
-  else
+  else {
+    std::cout << "*******************************" << std::endl;
     std::cout<<"Username is already taken."<<std::endl;
+    std::cout << "*******************************" << std::endl;
 
+  }
   return start();
 
 }
@@ -121,11 +136,13 @@ void socialNetwork::login()
 
   if (un->checkLogin(username, password))
     {
+    std::cout << "*******************************" << std::endl;
     std::cout<<"Login Successful"<<std::endl;
     return checkRequest(un->getUserNode(username));
     }
   else
     {
+      std::cout << "*******************************" << std::endl;
       std::cout<<"Invalid username or password"<<std::endl;
       return start();
     }
@@ -135,7 +152,8 @@ void socialNetwork::login()
 void socialNetwork::checkRequest(Node<user>* usr)
 {
   if (usr->getData().hasRequests())
-  { 
+  {
+    std::cout << "*******************************" << std::endl;
     std::cout<<"You have a friend request!"<<std::endl;
     std::cout<<"Would you like to view your friend requests? (yes/no)"<<std::endl;
     string answer;
@@ -150,21 +168,23 @@ void socialNetwork::checkRequest(Node<user>* usr)
       return userPage(usr);
     else if (answer == "yes")
     {
+    std::cout << "*******************************" << std::endl;
     std::cout << "FRIEND REQUESTS" <<std::endl;
     std::cout << usr->getData().displayRequests()<<std::endl;
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
     }
       
   }
 
-  else
+  else 
     return userPage(usr);
 
 }
 
 void socialNetwork::userPage(Node<user>* usr)
 {
-
+  std::cout << "*******************************" << std::endl;
   std::cout<<"Select an option"<<std::endl;
   std::cout<<"1.) View your wall"<<std::endl;
   std::cout<<"2.) Create new wall post"<<std::endl;
@@ -192,9 +212,10 @@ void socialNetwork::userPage(Node<user>* usr)
   if (selection == 2)
     return newPost(usr);
 
-  if (selection == 3)
+  if (selection == 3) {
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
-
+  }
   if (selection == 4)
     return searchUser(usr);
 
@@ -209,7 +230,9 @@ void socialNetwork::userPage(Node<user>* usr)
 
   if (selection == 8)
     {
+      std::cout << "*******************************" << std::endl;
       std::cout<<"You have logged out."<<std::endl;
+      std::cout << "*******************************" << std::endl;
       un->writeUserNetwork();
       un->writeFriends(0);
       un->writeFriends(1);
@@ -220,6 +243,7 @@ void socialNetwork::userPage(Node<user>* usr)
 
 void socialNetwork::displayWall(Node<user>* usr)
 {
+  std::cout << "*******************************" << std::endl;
   std::cout<<usr->getData().getWall().WallToString();
   return userPage(usr);
 }
@@ -240,6 +264,7 @@ void socialNetwork::newPost(Node<user> *usr)
 
   wallPost npost(text,loc);
   usr->getData().getWall().newPost(npost);
+  std::cout << "*******************************" << std::endl;
   std::cout << "Post successful!" << std::endl;
 
   return userPage(usr);
@@ -253,6 +278,7 @@ void socialNetwork::deletePost(Node<user> *usr)
 
   if (usr->getData().getWall().getHead() == NULL)
   {
+    std::cout << "*******************************" << std::endl;
     std::cout << "Your wall is empty." <<std::endl;
     return userPage(usr);
   }
@@ -268,6 +294,7 @@ void socialNetwork::deletePost(Node<user> *usr)
   } while (num < 1 || num > usr->getData().getWall().getLL()->getCount());
 
   usr->getDataToMod()->deleteWallPost(num - 1);
+  std::cout << "*******************************" << std::endl;
   std::cout << "Post successfully deleted!" << std::endl;
   return userPage(usr);
   
@@ -310,8 +337,9 @@ void socialNetwork::deleteUser(Node<user> *usr)
 
     int index = un->getUserIndex(usr->getData().getUsername());
     un->getULL()->remove(index);
+    std::cout << "*******************************" << std::endl;
     std::cout << "Your account has been deleted." << std::endl;
-
+    std::cout << "*******************************" << std::endl;
     un->writeUserNetwork();
     un->writeFriends(0);
     un->writeFriends(1);
@@ -344,8 +372,10 @@ void socialNetwork::friendMenu(Node<user> *usr)
 
   if (selection == 1)
   {
+    std::cout << "*******************************" << std::endl;
     std::cout << "FRIENDS" <<std::endl;
     std::cout << usr->getData().displayFriends()<<std::endl;
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
   }
 
@@ -356,8 +386,10 @@ void socialNetwork::friendMenu(Node<user> *usr)
 
   if (selection == 3)
   {
+    std::cout << "*******************************" << std::endl;
     std::cout << "FRIEND REQUESTS" <<std::endl;
     std::cout << usr->getData().displayRequests()<<std::endl;
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
   }  
 
@@ -370,7 +402,9 @@ void socialNetwork::friendMenu(Node<user> *usr)
   {
     if (usr->getData().getRequests()->getHead() == NULL)
     {
+      std::cout << "*******************************" << std::endl;
       std::cout<<"You have no friend requests." << std::endl;
+      std::cout << "*******************************" << std::endl;
       return friendMenu(usr);
     }
     else
@@ -389,7 +423,9 @@ void socialNetwork::deleteFriend(Node<user> *usr)
 
   if (usr->getData().getFriends()->getHead() == NULL)
     {
+      std::cout << "*******************************" << std::endl;
       std::cout<<"You have no friends to delete." << std::endl;
+      std::cout << "*******************************" << std::endl;
       return friendMenu(usr);
     }
   
@@ -398,7 +434,9 @@ void socialNetwork::deleteFriend(Node<user> *usr)
   std::cin >> frnd;
 
   un->removeFriend(usr->getData().getUsername(), frnd);
+  std::cout << "*******************************" << std::endl;
   std::cout << "Successfully deleted " << frnd << " from your friends list" << std::endl;
+  std::cout << "*******************************" << std::endl;
   un->writeFriends(0);
 
   return friendMenu(usr);
@@ -408,9 +446,8 @@ void socialNetwork::deleteFriend(Node<user> *usr)
 
 void socialNetwork::changeInfo(Node<user> *usr) 
 {
-
+  std::cout << "*******************************" << std::endl;
   std::cout << "Select an option" << std::endl;
-  
   std::cout << "1.) Change password" << std::endl;
   std::cout << "2.) Change birthday" << std::endl;
   std::cout << "3.) Change real name" << std::endl;
@@ -434,6 +471,7 @@ void socialNetwork::changeInfo(Node<user> *usr)
     std::cout << "Enter current password:";
     std::cin >> pass;
     if (usr->getData().getPassword() != pass) {
+      std::cout << "*******************************" << std::endl;
        std::cout<<"Incorrect password"<<std::endl;
        return changeInfo(usr);
     }
@@ -452,6 +490,7 @@ void socialNetwork::changeInfo(Node<user> *usr)
     while(newpass1 != newpass2);
     
     usr->getDataToMod()->setPassword(newpass1);
+    std::cout << "*******************************" << std::endl;
     std::cout << "Successfully changed your password!" << std::endl;
     return changeInfo(usr);
      
@@ -463,6 +502,7 @@ void socialNetwork::changeInfo(Node<user> *usr)
     std::cout << "Enter your birthday:";
     std::cin >> dob;
     usr->getDataToMod()->setDOB(dob);
+    std::cout << "*******************************" << std::endl;
     std::cout << "Successfully changed your birthday!" << std::endl;
     return changeInfo(usr);
 
@@ -476,6 +516,7 @@ void socialNetwork::changeInfo(Node<user> *usr)
     std::cout << "Enter new real name:";
     std::cin >> realn;
     usr->getDataToMod()->setRealName(realn);
+    std::cout << "*******************************" << std::endl;
     std::cout << "Successfully changed your real name!" << std::endl;
     return changeInfo(usr);
     
@@ -492,9 +533,11 @@ void socialNetwork::changeInfo(Node<user> *usr)
 // search for users by username or real name, not case sensitive
 void socialNetwork::searchUser(Node<user> *usr)
 {
+  std::cout << "*******************************" << std::endl;
   std::cout << "Select an option" << std::endl;
   std::cout << "1.) Search by real name" << std::endl;
   std::cout << "2.) Search by username" << std::endl;
+  std::cout << "3.) Return to previous menu" << std::endl;
 
   int selection = 1;
 
@@ -503,10 +546,12 @@ void socialNetwork::searchUser(Node<user> *usr)
      if (!cin)
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-     if (selection != 1 && selection != 2)
+     if (selection != 1 && selection != 2 && selection != 3)
        std::cout << "Invalid selection" << std::endl;
-  } while (selection != 1 && selection != 2);
+  } while (selection != 1 && selection != 2 && selection != 3);
 
+  if(selection == 3)
+    return userPage(usr);
   
   std::cout << "Enter your search:" << std::endl;
 
@@ -514,8 +559,11 @@ void socialNetwork::searchUser(Node<user> *usr)
 
   do{
     std::cin >> input;
-    if (input.length() < 2)
+    if (input.length() < 2) {
+      std::cout << "*******************************" << std::endl;
       std::cout << "Your search must be atleast 2 characters" <<std::endl;
+      return searchUser(usr);
+    }
   } while (input.length() < 2);
   // downcase the seaerch input
   std::transform(input.begin(),input.end(),input.begin(), ::tolower);
@@ -549,14 +597,15 @@ void socialNetwork::searchUser(Node<user> *usr)
 
   if (counter == 0)
   {
+    std::cout << "*******************************" << std::endl;
     std::cout<<"No matching results found"<<std::endl;
     return userPage(usr);
   }
 
   string answer;
-
+  std::cout << "*******************************" << std::endl;
   std::cout<<"Would you like to send a friend request? (yes/no)"<<std::endl;
-  
+  std::cout << "*******************************" << std::endl;
   do{
       std::cin >> answer;
       if (answer != "yes" && answer != "no")
@@ -572,6 +621,7 @@ void socialNetwork::searchUser(Node<user> *usr)
 
 void socialNetwork::sendFriendRequest(Node<user> *usr)
 {
+  std::cout << "*******************************" << std::endl;
   std::cout << "Select an option" << std::endl;
   std::cout << "1.) Send request by real name" << std::endl;
   std::cout << "2.) Send request by username" << std::endl;
@@ -594,8 +644,10 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
   else if (selection == 2)
     std::cout << "Enter the username of whom you would like to send a request:" << std::endl;
 
-  else if (selection == 3)
+  else if (selection == 3) {
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
+  }
 
   std::string input;
   //std::cin >> input;
@@ -609,18 +661,21 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
 
       if (input == usr->getData().getRealName())
       {
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You can't be friends with yourself."<<std::endl;
         return sendFriendRequest(usr);
       }
 
       if (un->getUserNodeRealName(input)->getData().checkRequest(usr->getData().getUsername()))
       {
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
         return sendFriendRequest(usr);
       }
 
       if (usr->getData().getFriends()->contains(un->getUserNodeRealName(input)->getData().getUsername()))
       {
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You are already friends with this user."<<std::endl;
         return sendFriendRequest(usr);
       }
@@ -628,7 +683,9 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
       else
       {
         un->getUserNodeRealName(input)->getDataToMod()->addRequest(usr->getData().getUsername());
-        std::cout << "Friend request sent!" << std::endl;
+	std::cout << "*******************************" << std::endl;
+	std::cout << "Friend request sent!" << std::endl;
+	std::cout << "*******************************" << std::endl;
         un->writeFriends(1);
         return friendMenu(usr);
       }
@@ -636,6 +693,7 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
 
     else
     {
+      std::cout << "*******************************" << std::endl;
       std::cout << "Person not found" <<std::endl;
       return sendFriendRequest(usr); 
     }
@@ -647,18 +705,21 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
     {
       if (input == usr->getData().getUsername())
       {
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You can't be friends with yourself."<<std::endl;
         return sendFriendRequest(usr);
       }
 
       if (un->getUserNode(input)->getData().checkRequest(usr->getData().getUsername()))
       {
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
         return sendFriendRequest(usr);
       }
 
       if (usr->getData().getFriends()->contains(input))
       {
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You are already friends with this user."<<std::endl;
         return sendFriendRequest(usr);
       }
@@ -666,7 +727,9 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
       else
       {
         un->getUserNode(input)->getDataToMod()->addRequest(usr->getData().getUsername());
-        std::cout << "Friend request sent!" << std::endl;
+	std::cout << "*******************************" << std::endl;
+	std::cout << "Friend request sent!" << std::endl;
+	std::cout << "*******************************" << std::endl;
         un->writeFriends(1);
         return friendMenu(usr);
       }
@@ -674,6 +737,7 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
 
     else
     {
+      std::cout << "*******************************" << std::endl;
       std::cout << "Person not found" <<std::endl;
       return sendFriendRequest(usr); 
     }
@@ -683,6 +747,7 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
 
 void socialNetwork::manageRequests(Node<user> *usr)
 {
+  std::cout << "*******************************" << std::endl;
   std::cout << "FRIEND REQUESTS" <<std::endl;
   std::cout << usr->getData().displayRequests()<<std::endl;  
 
@@ -696,7 +761,7 @@ void socialNetwork::manageRequests(Node<user> *usr)
     if (num < 1 || num > usr->getData().getRequests()->getCount())
       std::cout << "Invalid selection" << std::endl;
   } while (num < 1 || num > usr->getData().getRequests()->getCount());  
-
+  std::cout << "*******************************" << std::endl;
   std::cout << "What would you like to do with this request?" << std::endl;
   std::cout << "1.) Accept friend request"  << std::endl;
   std::cout << "2.) Decline friend request" << std::endl;
@@ -723,7 +788,9 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
+    std::cout << "*******************************" << std::endl;
     std::cout<<"You and " << otherUser << " are now friends!"<< std::endl;
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
   }
 
@@ -733,12 +800,16 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
+    std::cout << "*******************************" << std::endl;
     std::cout<<"You have declined the friend request from " << otherUser << "." <<std::endl;
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
+
   }
 
   if (selection == 3)
   {
+    std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
   }
 
