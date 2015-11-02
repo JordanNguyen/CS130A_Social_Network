@@ -559,16 +559,16 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
   std::cout << "2.) Send request by username" << std::endl;
   std::cout << "3.) Return to friend menu" <<std::endl;
 
-  int selection = 1;
+  int selection = -1;
 
   do{
      std::cin >> selection;
      if (!cin)
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-     if (selection < 1 && selection > 3)
+     if (selection < 1 || selection > 3)
        std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 && selection > 3);
+  } while (selection < 1 || selection > 3);
 
   if (selection == 1)
     std::cout << "Enter the name of whom you would like to send a request:" << std::endl;
@@ -653,7 +653,7 @@ void socialNetwork::manageRequests(Node<user> *usr)
   std::cout << "FRIEND REQUESTS" <<std::endl;
   std::cout << usr->getData().displayRequests()<<std::endl;  
 
-  int num;
+  int num = -1;
   do{
     std::cout << "Enter the number corresponding to the friend request you want to accept or decline" << std::endl;
     std::cin >> num;
@@ -682,14 +682,15 @@ void socialNetwork::manageRequests(Node<user> *usr)
   if (selection == 1)
   {
     string thisUser = usr->getData().getUsername();
-    std::cout<<thisUser<<std::endl;
+    //std::cout<<thisUser<<std::endl;
     string otherUser = usr->getData().getRequests()->get(num-1);
-    std::cout<<otherUser<<std::endl;
+    //std::cout<<otherUser<<std::endl;
     usr->getDataToMod()->addFriend(usr->getData().getRequests()->get(num-1));
     un->getUserNode(otherUser)->getDataToMod()->addFriend(thisUser); 
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
+    std::cout<<"You and " << otheruser << " are now friends!"<< std::endl;
     return friendMenu(usr);
   }
 
@@ -698,6 +699,7 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
+    std::cout<<"You have declined the friend request."<<std::endl;
     return friendMenu(usr);
   }
 
