@@ -435,7 +435,7 @@ void socialNetwork::deleteFriend(Node<user> *usr)
 
   un->removeFriend(usr->getData().getUsername(), frnd);
   std::cout << "*******************************" << std::endl;
-  std::cout << "Successfully deleted " << frnd << " from your friends list" << std::endl;
+  std::cout << "Your friend has been deleted." << std::endl;
   std::cout << "*******************************" << std::endl;
   un->writeFriends(0);
 
