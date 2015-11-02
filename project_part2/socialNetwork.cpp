@@ -694,7 +694,7 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->getRequests()->remove(num-1);
     un->writeFriends(0);
     un->writeFriends(1);
-    std::cout<<"You and " << otheruser << " are now friends!"<< std::endl;
+    std::cout<<"You and " << otherUser << " are now friends!"<< std::endl;
     return friendMenu(usr);
   }
 
