@@ -663,9 +663,8 @@ void socialNetwork::manageRequests(Node<user> *usr)
     std::cout<<thisUser<<std::endl;
     string otherUser = usr->getData().getRequests()->get(num-1);
     std::cout<<otherUser<<std::endl;
-    usr->getDataToMod()->getFriends()->addTail(usr->getData().getRequests()->get(num-1));
-    un->getUserNode(otherUser)->getDataToMod()->addFriend(thisUser); //getFriends();//->addTail(thisUser);
-    //un->getUserNode(usr->getData().getRequests()->get(num-1))->getDataToMod()->getFriends()->addTail(usr->getData().getUsername());
+    usr->getDataToMod()->addFriend(usr->getData().getRequests()->get(num-1));
+    un->getUserNode(otherUser)->getDataToMod()->addFriend(thisUser); 
     usr->getDataToMod()->getRequests()->remove(num-1);
     return friendMenu(usr);
   }

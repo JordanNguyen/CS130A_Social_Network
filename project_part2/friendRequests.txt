@@ -1,7 +1,5 @@
 jordannguyen
 [/username]
-youngthug
-stephen
 [/endfriends][/enduser]
 bwicka
 [/username]
@@ -16,9 +14,7 @@ billybob
 [/endfriends][/enduser]
 stephen
 [/username]
-jordannguyen
 [/endfriends][/enduser]
 Drake
 [/username]
-jordannguyen
 [/endfriends][/enduser]
