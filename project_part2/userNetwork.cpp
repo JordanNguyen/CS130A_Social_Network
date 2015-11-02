@@ -181,7 +181,7 @@ Node<user>* userNetwork::getUserNode(string usr)
   return temp;
 }
 
-Node<user>* userNetwork::getUserNodeUsername(string usr)
+Node<user>* userNetwork::getUserNodeRealName(string usr)
 {
 	Node<user> *temp = users->getHead();
 

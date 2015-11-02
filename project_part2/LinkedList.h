@@ -375,6 +375,19 @@ class LinkedList: public List<T> {
       }
   }
 
+  bool contains(T item)
+  {
+    Node<T> *temp = head;
+    while (temp != NULL)
+    {
+      if (temp->getData() == item)
+        return true;
+    }
+
+    return false;
+
+  }
+
 
   void addCount()          { count++; }
   void subCount()          { count--; }

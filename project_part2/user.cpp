@@ -275,3 +275,8 @@ bool user::hasRequests()
     return true;
 
 }
+
+bool user::checkRequest(string usr)
+{
+  return requests->contains(usr);
+}

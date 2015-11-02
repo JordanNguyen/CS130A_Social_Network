@@ -40,6 +40,7 @@ class user {
   LinkedList<string>* getFriends();
   LinkedList<string>* getRequests();
   bool hasRequests();
+  bool checkRequest(string usr);
   
 };
 

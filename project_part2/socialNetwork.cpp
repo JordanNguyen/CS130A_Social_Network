@@ -531,6 +531,7 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
   std::cout << "Select an option" << std::endl;
   std::cout << "1.) Send request by real name" << std::endl;
   std::cout << "2.) Send request by username" << std::endl;
+  std::cout << "3.) Return to friend menu" <<std::endl;
 
   int selection = 1;
 
@@ -539,26 +540,39 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
      if (!cin)
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-     if (selection != 1 && selection != 2)
+     if (selection < 1 && selection > 3)
        std::cout << "Invalid selection" << std::endl;
-  } while (selection != 1 && selection != 2);
+  } while (selection < 1 && selection > 3);
 
   if (selection == 1)
     std::cout << "Enter the name of whom you would like to send a request:" << std::endl;
 
-  if (selection == 2)
+  else if (selection == 2)
     std::cout << "Enter the username of whom you would like to send a request:" << std::endl;
 
+  else if (selection == 3)
+    return friendMenu(usr);
+
   std::string input;
-  std::cin >> input;
+  //std::cin >> input;
+  std::getline(std::cin, input);
+  //std::getline(std::cin, input);
   
   if (selection == 1)
   {
     if ((un->checkRealName(input)))
     {
-      un->getUserNodeUsername(input)->getDataToMod()->addRequest(usr->getData().getUsername());
-      std::cout << "Friend request sent!" << std::endl;
-      return friendMenu(usr);
+      if (un->getUserNodeRealName(input)->getData().checkRequest(usr->getData().getUsername()))
+      {
+        std::cout<<"You have already sent a friend request to this user."<<std::endl;
+        return sendFriendRequest(usr);
+      }
+      else
+      {
+        un->getUserNodeRealName(input)->getDataToMod()->addRequest(usr->getData().getUsername());
+        std::cout << "Friend request sent!" << std::endl;
+        return friendMenu(usr);
+      }
     }
 
     else
@@ -572,9 +586,17 @@ void socialNetwork::sendFriendRequest(Node<user> *usr)
   {
     if ((un->checkUsername(input)))
     {
-      un->getUserNode(input)->getDataToMod()->addRequest(usr->getData().getUsername());
-      std::cout << "Friend request sent!" << std::endl;
-      return friendMenu(usr);
+      if (un->getUserNode(input)->getData().checkRequest(usr->getData().getUsername()))
+      {
+        std::cout<<"You have already sent a friend request to this user."<<std::endl;
+        return sendFriendRequest(usr);
+      }
+      else
+      {
+        un->getUserNode(input)->getDataToMod()->addRequest(usr->getData().getUsername());
+        std::cout << "Friend request sent!" << std::endl;
+        return friendMenu(usr);
+      }
     }
 
     else
