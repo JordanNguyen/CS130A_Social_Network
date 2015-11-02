@@ -382,6 +382,7 @@ class LinkedList: public List<T> {
     {
       if (temp->getData() == item)
         return true;
+      temp = temp->getNext();
     }
 
     return false;
