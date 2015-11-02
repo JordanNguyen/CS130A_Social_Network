@@ -666,12 +666,16 @@ void socialNetwork::manageRequests(Node<user> *usr)
     usr->getDataToMod()->addFriend(usr->getData().getRequests()->get(num-1));
     un->getUserNode(otherUser)->getDataToMod()->addFriend(thisUser); 
     usr->getDataToMod()->getRequests()->remove(num-1);
+    un->writeFriends(0);
+    un->writeFriends(1);
     return friendMenu(usr);
   }
 
   if (selection == 2)
   {
     usr->getDataToMod()->getRequests()->remove(num-1);
+    un->writeFriends(0);
+    un->writeFriends(1);
     return friendMenu(usr);
   }
 
