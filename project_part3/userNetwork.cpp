@@ -207,7 +207,7 @@ void userNetwork::removeFriend(string usr1, string usr2)
   
 }
 
-list<user>* userNetwork::getULL()
+list<user>* userNetwork::getUserList()
 {
 	return users;
 }

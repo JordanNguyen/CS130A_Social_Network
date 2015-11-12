@@ -26,7 +26,7 @@ class userNetwork {
   user* getUserNode(string usr);
   user* getUserNodeRealName(string usr);
   void removeFriend(string usr1, string usr2);
-  list<user>* getList();
+  list<user>* getUserList();
   //Node<user>* getHead();
 
 };
