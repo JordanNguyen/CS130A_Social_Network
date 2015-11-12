@@ -37,13 +37,13 @@ wallPost::wallPost(string t, string l, string a)
 
 }
 
-wallPost::wallPost(string t, string ToP, string l)
-{
-	text = t;
-	timeOfPost = ToP;
-	location = l;
-	author = "";
-}
+// wallPost::wallPost(string t, string ToP, string l)
+// {
+// 	text = t;
+// 	timeOfPost = ToP;
+// 	location = l;
+// 	author = "";
+// }
 
 wallPost::~wallPost() {
 
