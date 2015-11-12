@@ -2,13 +2,14 @@
 #define WALL_H
 #include "wallPost.h"
 #include "LinkedList.h"
-#include "List.h"
+#include <list>
+//#include "List.h"
 using namespace std;
 
 class wall {
 
  private:
-  LinkedList<wallPost> *wp; 
+  list<wallPost> *wp; 
   string username;
 
  public:
@@ -18,14 +19,14 @@ class wall {
   void deletePost(int i);
   string getUsername();
   void setUsername(string t);
-  void insertPost(int pos, wallPost p);
-  void setPost(int pos, wallPost p);
+  //void insertPost(int pos, wallPost p);
+  //void setPost(int pos, wallPost p);
   wallPost getPost(int pos);
   string WallToString();
   string WallToStringWrite();
   void readWall(string t);
-  LinkedList<wallPost>* getLL();
-  Node<wallPost>* getHead();
+  list<wallPost>* getList();
+  //Node<wallPost>* getHead();
   
 };
 

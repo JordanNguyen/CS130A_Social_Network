@@ -4,12 +4,13 @@
 #include <ctime>
 #include <string>
 #include <sstream>
+#include <list>
 #include "wall.h"
 using namespace std;
 
 wall::wall() {
 
-  wp = new LinkedList<wallPost>;
+  wp = new list<wallPost>;
   username = "";
 
 }
@@ -22,13 +23,16 @@ wall::~wall() {
 // new wall post to end of wall
 void wall::newPost(wallPost p) {
 
-  wp->addTail(p);
+  wp->push_back(p);
   //cout << "New post added" << endl;
 }
 
 // delete wall post at index i
 void wall::deletePost(int i) {
-  wp->remove(i);
+  std::list<wallPost>::iterator it;
+  it = wp->begin();
+  advance(it, i);
+  wp->erase(it);
 }
 
 // get username
@@ -41,36 +45,51 @@ void wall::setUsername(string t) {
   username = t;
 }
 
+/*
 void wall::insertPost(int pos, wallPost p){
+  iterator it;
+  it = wp->begin();
+  advance(it, i);
   wp->insert(pos,p);
 }
+*/
 
+/*
 void wall::setPost(int pos, wallPost p){
   wp->set(pos,p);
 }
+*/
+
 
 wallPost wall::getPost(int pos){
-  return wp->get(pos);
+
+  std::list<wallPost>::iterator it;
+  int i = 0;
+  for (it = wp->begin(); i < pos; ++it, i++);
+
+  return *it;
 }
 
 // return the wall as a formated string
 string wall::WallToString() 
 {
-  int count = wp->getCount();
+  int count = wp->size();
   string wholeWall = "";
-  Node<wallPost> *temp = wp->getHead();
-  if (temp == NULL)
+  if (wp->empty())
     {
       wholeWall = "Your wall is empty.\n";
       return wholeWall;
     }
-  for (int i=0; i < count; temp=temp->getNext(), i++)
+
+  std::list<wallPost>::iterator it;
+  int i = 0;
+  for (it = wp->begin(), i = 0; it != wp->end(); ++it, i++)
     {
       ostringstream convert;
       convert << i+1;
       wholeWall += convert.str();
       wholeWall += ".) ";
-      wholeWall += temp->getData().getPost();
+      wholeWall += it->getPost();
     }
   //std::cout << wholeWall;
   return wholeWall;
@@ -79,16 +98,17 @@ string wall::WallToString()
 // write the wall as a formatted string for file
 string wall::WallToStringWrite()
 {
-  int count = wp->getCount();
+  int count = wp->size();
   string wholeWall = "";
-  Node<wallPost> *temp = wp->getHead();
   
-  if (temp == NULL)
+  if (wp->empty())
     return wholeWall;
 
-  for (int i=0; i<count; temp=temp->getNext(), i++)
+  std::list<wallPost>::iterator it;
+  int i = 0;
+  for (it = wp->begin(), i=0; it != wp->end(); ++it, i++)
   {
-    wholeWall += temp->getData().getPostWrite();
+    wholeWall += it->getPostWrite();
     if (i == count - 1)
       wholeWall += "[/endwallposts]";
     else
@@ -102,10 +122,8 @@ string wall::WallToStringWrite()
 // read in a wall from a properly formatted string
 void wall::readWall(string t) {
 
-  //empty linkedlist of wallposts and recreate it
-  delete wp;
-  wp = new LinkedList<wallPost>;
-  
+  //empty list of wallposts
+  wp->clear();  
 
   string s = t;
   // first delimiter to divide up wall posts
@@ -159,20 +177,20 @@ void wall::readWall(string t) {
     cout << s << endl;
     location = token2;
     wallPost newPost(post,timeOfPost,location);
-    wp->addTail(newPost);
+    wp->push_back(newPost);
 
 
   }
 
 }
 
-// return the pointer to the linked list
-LinkedList<wallPost>* wall::getLL() {
+// return the pointer to the list
+list<wallPost>* wall::getList() {
   return wp;
 }
 
 // return the head pointer of the linked list
-Node<wallPost>* wall::getHead()
-{
-  return wp->getHead();
-}
+//Node<wallPost>* wall::getHead()
+//{
+//  return wp->getHead();
+//}

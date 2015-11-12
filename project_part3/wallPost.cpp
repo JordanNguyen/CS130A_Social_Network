@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <list>
 #include "wallPost.h"
 using namespace std;
 

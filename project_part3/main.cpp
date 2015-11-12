@@ -4,71 +4,38 @@
 #include <ctime>
 #include <fstream>
 #include <stdexcept>
-#include "LinkedList.h"
+#include <list>
 #include "wallPost.h"
 #include "wall.h"
-#include "user.h"
-#include "userNetwork.h"
-#include "socialNetwork.h"
-//#include "Array.h"
+//#include "user.h"
+//#include "userNetwork.h"
+//#include "socialNetwork.h"
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	
-  socialNetwork sn;
-  sn.welcome();
-  // LinkedList<string> *a = new LinkedList<string>();
-  //for (int i = 0; i < 100000; i++)
-  //{
-  //  a->insert(i/2,1);
-  //}
-  //std::cout<<"done"<<std::endl;
-  //a->insert(0,"iguodala");
-  //a->printList();
-  //a->insert(0,"jimmy");
-  //a->insert(0,"westbrook");
-  // a->insert(3,"KD");
-  // a->insert(4,"draymond");
-  // a->insert(2,"klay");
-  // a->insert(0,"steph");
-  // a->insert(5,"lebron");
-  //a->printList();
-  // a->insert(9,"dsfds");
-  // a->insert(6,"i caused the array to double");
+  //socialNetwork sn;
+  //sn.welcome();
 
-  //a->remove(0);
-  //a->printList();
-  //a->remove(0);
-  //a->remove(0);
-  //a->printList();
-  //a->insert(0,"hello");
-  //a->printList();
-  //a->remove(0);
-  //a->insert(0,"testing");
-  //a->addTail("more tests");
-  //a->printList();
-  //a->remove(2);
-  //a->remove(3);
-  //a->remove(-1);
-  //a->remove(4);
-  // a->printList();
-  // a->set(4,"BIG DICK DRAY!!!!!");
-  //a->set(6, "fuck me");
-  // a->printList();
-  // a->set(2,"i got changed too");
-  // a->set(3,"haha");
-  // a->set(5,"testing");
-  // a->get(10);
-  // a->get(3);
-  // try{
-  //     a->get(8);
-  // }
+  wall test;
+  wallPost post1("Test post", "isla vista");
+  wallPost post2("Test post number 2", "goleta");
+  wallPost post3("third post", "ucsb");
+  test.newPost(post1);
+  test.newPost(post2);
+  test.newPost(post3);
 
-  // catch (const std::out_of_range& e){
-  // std::cout<< "Index was out of range" << std::endl;
-  // return 0;
-  // }
+  std::cout<<test.WallToString();
+  std::cout<<"deleting"<<std::endl;
+  test.deletePost(1);
+  std::cout<<test.WallToString();
+  std::cout<<"testing other write method"<<std::endl;
+  std::cout<<test.WallToStringWrite()<<std::endl;
+  test.deletePost(0);
+  test.deletePost(0);
+  std::cout<<test.WallToString();
+
 
   return 0;
 }
