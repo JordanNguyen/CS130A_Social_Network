@@ -37,11 +37,23 @@ int main(int argc, char *argv[])
 
   //cout<<test.friendListWrite(0)<<endl;
 
+  if (test.hasRequests())
+    cout<<"You have friend requests"<<endl;
+  else
+    cout<<"You have no friend requests"<<endl;
+
   test.addRequest("Drake");
   test.addRequest("Meek Mill");
   test.addRequest("Blender");
   cout<<test.displayFriends()<<endl;
   cout<<test.displayRequests()<<endl;
+
+
+
+  if (test.checkRequest("Ddake"))
+    cout<<"Drake has already sent you a friend request"<<endl;
+
+
 
   //std::cout<<test.WallToString();
   //std::cout<<"deleting"<<std::endl;

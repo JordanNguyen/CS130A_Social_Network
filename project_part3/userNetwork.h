@@ -2,18 +2,18 @@
 #define USERNETWORK_H
 #include "user.h"
 #include "LinkedList.h"
-#include "List.h"
+#include <list>
 using namespace std;
 
 class userNetwork {
  private:
-  LinkedList<user> *users;
+  list<user> *users;
 
  public:
   userNetwork();
   ~userNetwork();
   void addUser(user u);
-  void deleteUser(string t);
+  //void deleteUser(string t);
   void writeUserNetwork();
   void writeFriends(int option);
   void readUsers(const char* filename);
@@ -23,11 +23,11 @@ class userNetwork {
   bool checkRealName(string rn);
   int getUserIndex(string usr);
   bool checkLogin(string usr, string pw);
-  Node<user>* getUserNode(string usr);
-  Node<user>* getUserNodeRealName(string usr);
+  user* getUserNode(string usr);
+  user* getUserNodeRealName(string usr);
   void removeFriend(string usr1, string usr2);
-  LinkedList<user>* getULL();
-  Node<user>* getHead();
+  list<user>* getList();
+  //Node<user>* getHead();
 
 };
 

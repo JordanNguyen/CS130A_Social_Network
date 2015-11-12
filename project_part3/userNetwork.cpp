@@ -3,12 +3,13 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
+#include <list>
 #include "userNetwork.h"
 using namespace std;
 
 userNetwork::userNetwork()
 {
-  users = new LinkedList<user>;
+  users = new list<user>;
 }
 
 userNetwork::~userNetwork()
@@ -19,28 +20,28 @@ userNetwork::~userNetwork()
 void userNetwork::addUser(user u)
 {
 	string un = u.getUsername();
-	Node<user> *temp = users->getHead();
-	
-	while (temp != NULL)
+	//Node<user> *temp = users->getHead();
+	std::list<user>::iterator it;	
+
+	for (it = users->begin(); it != users->end(); ++it)
 	{
-		if (un == temp->getData().getUsername())
+		if (it->getUsername() == un)
 		{
 			cout << "Username " << un << " already taken." << endl;
 			return;
 		}
-		temp = temp->getNext();
 	}
 
-  	users->addTail(u);
+  	users->push_back(u);
 	//cout << "New user successfully created!" << endl;
 }
 
-void userNetwork::deleteUser(string t) 
+/*void userNetwork::deleteUser(string t) 
 {
  	
   
  	//empty list
-  	if (users->getHead() == NULL && users->getTail() == NULL)
+  	if (users->empty())
     	return;
   	//single entry
   	if (users->getHead() == users->getTail() && users->getHead()->getData().getUsername() == t)
@@ -89,31 +90,30 @@ void userNetwork::deleteUser(string t)
 
   	return;
 }
+*/
 
 void userNetwork::printUsernames()
 {
-	if (users->getHead() == NULL)
+	if (users->empty())
 	{
 		cout << "empty user network" << endl;
 		return;
 	}
 
-	Node<user> *temp = users->getHead();
-	while (temp != NULL)
+	std::list<user>::iterator it;
+	for (it = users->begin(); it != users->end(); ++it)
 	{
-		cout << temp->getData().getUsername() << endl;
-		temp = temp->getNext();
+		cout << it->getUsername() << endl;
 	}
 }
 
 bool userNetwork::checkUsername(string usr)
 {
-	Node<user> *temp = users->getHead();
-	while (temp != NULL)
+	std::list<user>::iterator it;
+	for (it = users->begin(); it != users->end(); ++it)
 	{
-		if (temp->getData().getUsername() == usr)
+		if (it->getUsername() == usr)
 			return true;
-		temp = temp->getNext();
 	}
 
 	return false;
@@ -121,12 +121,11 @@ bool userNetwork::checkUsername(string usr)
 
 bool userNetwork::checkRealName(string rn)
 {
-	Node<user> *temp = users->getHead();
-	while (temp != NULL)
+	std::list<user>::iterator it;
+	for (it = users->begin(); it != users->end(); ++it)
 	{
-		if (temp->getData().getRealName() == rn)
+		if (it->getRealName() == rn)
 			return true;
-		temp = temp->getNext();
 	}
 
 	return false;
@@ -135,13 +134,12 @@ bool userNetwork::checkRealName(string rn)
 
 int userNetwork::getUserIndex(string usr)
 {
-	Node<user> *temp = users->getHead();
+	std::list<user>::iterator it;
 	int i = 0;
-	while (temp != NULL)
+	for (it = users->begin(); it != users->end(); ++it)
 	{
-		if (temp->getData().getUsername() == usr)
-			return i;
-		temp = temp->getNext();
+		if (it->getUsername() == usr)
+			return i; 
 		i++;
 	}
 
@@ -150,62 +148,55 @@ int userNetwork::getUserIndex(string usr)
 
 bool userNetwork::checkLogin(string usr, string pw)
 {
-  Node<user> *temp = users->getHead();
+  std::list<user>::iterator it;
   
-  while (temp != NULL)
+  for (it = users->begin(); it != users->end(); ++it)
     {
-      if (temp->getData().getUsername() == usr)
+      if (it->getUsername() == usr)
 		{
-			if (temp->getData().getPassword() == pw)
+			if (it->getPassword() == pw)
 	  			return true;
 			else
 	  			return false;
 		}
-      temp = temp->getNext();
     }
   return false;
 }
 
-Node<user>* userNetwork::getUserNode(string usr)
+user* userNetwork::getUserNode(string usr)
 {
-  Node<user> *temp = users->getHead();
-
-  while (temp != NULL)
+  std::list<user>::iterator it;
+  
+  for (it = users->begin(); it != users->end(); ++it)
     {
-      if (temp->getData().getUsername()==usr)
-	{
-	  return temp;
-	}
-      temp = temp->getNext();
+      if (it->getUsername()==usr)
+	  	return it; 
     }
-  return temp;
+  return it;
 }
 
-Node<user>* userNetwork::getUserNodeRealName(string usr)
+user* userNetwork::getUserNodeRealName(string usr)
 {
-	Node<user> *temp = users->getHead();
-
-	while (temp != NULL)
-	{
-		if (temp->getData().getRealName()==usr)
-		{
-		  return temp;
-		}
-	      temp = temp->getNext();
-	}
 	
-	return temp;
-}
+	std::list<user>::iterator it;
+  
+ 	for (it = users->begin(); it != users->end(); ++it)
+    {
+      if (it->getRealName()==usr)
+	  	return it; 
+    }
+  	return it;
+  }
 
 void userNetwork::removeFriend(string usr1, string usr2)
 {
-  Node<user> *temp1 = getUserNode(usr1);
-  Node<user> *temp2 = getUserNode(usr2);
+  user *temp1 = getUserNode(usr1);
+  user *temp2 = getUserNode(usr2);
 
   if (checkUsername(usr1) && checkUsername(usr2))
     {
-      temp1->getDataToMod()->getFriends()->remove(usr2);
-      temp2->getDataToMod()->getFriends()->remove(usr1);
+      temp1->getFriends()->remove(usr2);
+      temp2->getFriends()->remove(usr1);
       return;
     }
 
@@ -216,36 +207,33 @@ void userNetwork::removeFriend(string usr1, string usr2)
   
 }
 
-LinkedList<user>* userNetwork::getULL()
+list<user>* userNetwork::getULL()
 {
 	return users;
 }
 
+/*
 Node<user>* userNetwork::getHead()
 {
 	return users->getHead();
 }
+*/
 
 //write to userNetworkInput.txt in the correct format to be read back
 void userNetwork::writeUserNetwork()
 {
-	//if (users->getHead() == NULL)
-	//{
-	//	cout << "Error: No users to write" << endl;
-	//	return;
-	//}
 
 	ofstream outfile;
 	outfile.open("userNetworkInput.txt");
 
 	//string wholeUserNetwork = "";
-	Node<user> *temp = users->getHead();
-	while (temp != NULL)
+	std::list<user>::iterator it;
+  
+  	for (it = users->begin(); it != users->end(); ++it)
 	{
-		outfile << temp->getData().userInfoWrite();
-		outfile << temp->getData().getWall().WallToStringWrite();
+		outfile << it->userInfoWrite();
+		outfile << it->getWall().WallToStringWrite();
 		outfile << "[/enduser]\n";
-		temp = temp->getNext();
 	}
 
 	outfile.close();
@@ -256,7 +244,7 @@ void userNetwork::writeUserNetwork()
 // option 1 = friend requests
 void userNetwork::writeFriends(int option)
 {
-	if (users->getHead() == NULL)
+	if (users->empty())
 	{
 		cout << "Error: No users to write" << endl;
 	}
@@ -267,12 +255,11 @@ void userNetwork::writeFriends(int option)
 	else if (option == 1)
 		outfile.open("friendRequests.txt");
 
-	Node<user> *temp = users->getHead();
-	while (temp != NULL)
+	std::list<user>::iterator it;
+	for (it = users->begin(); it != users->end(); ++it)
 	{
-		outfile << temp->getData().friendListWrite(option);
+		outfile << it->friendListWrite(option);
 		outfile << "[/enduser]\n";
-		temp = temp->getNext();
 	}
 
 	outfile.close();
