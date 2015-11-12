@@ -254,7 +254,7 @@ void socialNetwork::newPost(user* usr)
   std::getline(std::cin, loc);
   // std::getline(std::cin, loc);
 
-  wallPost npost(text,loc);
+  wallPost npost(text,loc, usr->getUsername());
   usr->getWall().newPost(npost);
   std::cout << "*******************************" << std::endl;
   std::cout << "Post successful!" << std::endl;

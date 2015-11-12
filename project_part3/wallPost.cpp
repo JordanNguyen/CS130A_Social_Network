@@ -11,6 +11,7 @@ wallPost::wallPost()
 {
 	text = "";
 	location = "";
+	author = "";
 	
 	time_t currentTime;
 	struct tm *timeinfo;
@@ -21,10 +22,11 @@ wallPost::wallPost()
 	timeOfPost.erase(timeOfPost.end()-1);
 }
 
-wallPost::wallPost(string t, string l) 
+wallPost::wallPost(string t, string l, string a) 
 {
 	text = t;
 	location = l;
+	author = a;
 	time_t currentTime;
 	struct tm *timeinfo;
 	time(&currentTime);
@@ -40,6 +42,7 @@ wallPost::wallPost(string t, string ToP, string l)
 	text = t;
 	timeOfPost = ToP;
 	location = l;
+	author = "";
 }
 
 wallPost::~wallPost() {
@@ -92,5 +95,15 @@ string wallPost::getLocation()
 void wallPost::setLocation(string l)
 {
 	location = l;
+}
+
+string wallPost::getAuthor()
+{
+	return author;
+}
+
+string wallPost::setAuthor(string t)
+{
+	author = t;
 }
 
