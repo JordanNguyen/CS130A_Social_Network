@@ -3,6 +3,7 @@
 using namespace std;
 #include "wallPost.h"
 #include "wall.h"
+#include <list>
 class user {
   
  private:
@@ -11,8 +12,8 @@ class user {
   string password;
   string realName;
   string dob;
-  LinkedList<string> *friends;
-  LinkedList<string> *requests;
+  list<string> *friends;
+  list<string> *requests;
 
  public:
   user();
@@ -37,8 +38,8 @@ class user {
   void addRequest(string s);
   string displayFriends();
   string displayRequests();
-  LinkedList<string>* getFriends();
-  LinkedList<string>* getRequests();
+  list<string>* getFriends();
+  list<string>* getRequests();
   bool hasRequests();
   bool checkRequest(string usr);
   

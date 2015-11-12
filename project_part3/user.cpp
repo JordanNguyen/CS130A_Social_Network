@@ -6,6 +6,7 @@
 #include "wallPost.h"
 #include "wall.h"
 #include "user.h"
+#include <list>
 using namespace std;
 
 user::user()
@@ -14,8 +15,8 @@ user::user()
   password = "";
   realName = "";
   dob = "";
-  friends = new LinkedList<string>;
-  requests = new LinkedList<string>;
+  friends = new list<string>;
+  requests = new list<string>;
   
 }
 
@@ -26,15 +27,15 @@ user::user(string u, string p, string r, string d)
   realName = r;
   dob = d;
   w.setUsername(u);
-  friends = new LinkedList<string>;
-  requests = new LinkedList<string>;
+  friends = new list<string>;
+  requests = new list<string>;
 }
 
 user::user(string info)
 {
   // string of format "Username\nPassword\nRealName\nDob\n  \nPost1\nTimeOfPost\nLocation\n \n"
 
-  friends = new LinkedList<string>;
+  friends = new list<string>;
   
   string s = info;
   string delimiter1 = "  \n";
@@ -155,18 +156,26 @@ string user::friendListWrite(int option)
   frnds += username;
   frnds += "\n[/username]\n";
 
-  Node<string> *temp;
+  //Node<string> *temp;
+  std::list<string>::iterator it;
   if (option == 0)
-    temp = friends->getHead();
+  {
+    it = friends->begin();
+    for (it = friends->begin(); it != friends->end(); ++it)
+    {
+      frnds += *it;
+      frnds += "\n";
+    }
+  }
 
   else if (option == 1)
-    temp = requests->getHead();
-
-  while (temp != NULL)
   {
-    frnds += temp->getDataConst();
-    frnds += "\n";
-    temp=temp->getNext();
+    it = friends->begin();
+    for (it = friends->begin(); it != friends->end(); ++it)
+    {
+      frnds += *it;
+      frnds += "\n";
+    }
   }
 
   frnds += "[/endfriends]";
@@ -176,16 +185,16 @@ string user::friendListWrite(int option)
 string user::displayFriends()
 {
   string frnds;
-  Node<string> *temp = friends->getHead();
+  std::list<string>::iterator it;
 
-  if (temp == NULL)
+  if (friends->empty())
     frnds = "You have no friends :(";
   
-  while (temp != NULL)
+  for (it = friends->begin(); it != friends->end(); ++it)
     {
-      frnds += temp->getData();
+      frnds += *it;
       frnds += "\n";
-      temp = temp->getNext();
+      
     }
 
   return frnds;
@@ -195,21 +204,23 @@ string user::displayFriends()
 string user::displayRequests()
 {
   string reqs;
-  Node<string> *temp = requests->getHead();
+  std::list<string>::iterator it;
 
-  if (temp == NULL)
+  if (requests->empty())
+  {
     reqs = "You have no friend requests.";
-  int i = 0;
-  while (temp != NULL)
+    return reqs;
+  }
+
+  int i = 1;
+  for (it = requests->begin(); it != requests->end(); ++it, i++)
   {
     ostringstream convert;
-    convert << i+1;
+    convert << i;
     reqs += convert.str();
     reqs += ".)";
-    reqs += temp->getData();
+    reqs += *it;
     reqs += "\n";
-    temp = temp->getNext();
-    i++;
   }
 
   return reqs;
@@ -255,27 +266,27 @@ wall user::getWall()
 
 void user::addFriend(string s)
 {
-  friends->addTail(s);
+  friends->push_back(s);
 }
 
 void user::addRequest(string s)
 {
-  requests->addTail(s);
+  requests->push_back(s);
 }
 
-LinkedList<string>* user::getFriends()
+list<string>* user::getFriends()
 {
   return friends;
 }
 
-LinkedList<string>* user::getRequests()
+list<string>* user::getRequests()
 {
   return requests;
 }
 
 bool user::hasRequests()
 {
-  if (requests->getHead() == NULL)
+  if (requests->empty())
     return false;
   else 
     return true;
@@ -284,5 +295,13 @@ bool user::hasRequests()
 
 bool user::checkRequest(string usr)
 {
-  return requests->contains(usr);
+  std::list<string>::iterator it;
+  for (it = requests->begin(); it != requests->end(); ++it)
+  {
+    if (*it == usr)
+      return true;
+  }
+
+  return false;
+
 }

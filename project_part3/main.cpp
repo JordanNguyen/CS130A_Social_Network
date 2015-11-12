@@ -7,7 +7,7 @@
 #include <list>
 #include "wallPost.h"
 #include "wall.h"
-//#include "user.h"
+#include "user.h"
 //#include "userNetwork.h"
 //#include "socialNetwork.h"
 using namespace std;
@@ -18,23 +18,40 @@ int main(int argc, char *argv[])
   //socialNetwork sn;
   //sn.welcome();
 
-  wall test;
+  user test("TheWiz", "password",
+    "Jordan Nguyen", "03/11/1995");
   wallPost post1("Test post", "isla vista");
   wallPost post2("Test post number 2", "goleta");
   wallPost post3("third post", "ucsb");
-  test.newPost(post1);
-  test.newPost(post2);
-  test.newPost(post3);
+  test.addToWall(post1);
+  test.addToWall(post2);
+  test.addToWall(post3);
 
-  std::cout<<test.WallToString();
-  std::cout<<"deleting"<<std::endl;
-  test.deletePost(1);
-  std::cout<<test.WallToString();
-  std::cout<<"testing other write method"<<std::endl;
-  std::cout<<test.WallToStringWrite()<<std::endl;
-  test.deletePost(0);
-  test.deletePost(0);
-  std::cout<<test.WallToString();
+  cout<<test.userInfo()<<endl;
+
+  cout<<test.userInfoWrite()<<endl;
+
+  test.addFriend("Young Thug");
+  test.addFriend("Justin Bieber");
+  test.addFriend("Steph Curry");
+
+  //cout<<test.friendListWrite(0)<<endl;
+
+  test.addRequest("Drake");
+  test.addRequest("Meek Mill");
+  test.addRequest("Blender");
+  cout<<test.displayFriends()<<endl;
+  cout<<test.displayRequests()<<endl;
+
+  //std::cout<<test.WallToString();
+  //std::cout<<"deleting"<<std::endl;
+  //test.deletePost(1);
+  // std::cout<<test.WallToString();
+  // std::cout<<"testing other write method"<<std::endl;
+  // std::cout<<test.WallToStringWrite()<<std::endl;
+  // test.deletePost(0);
+  // test.deletePost(0);
+  // std::cout<<test.WallToString();
 
 
   return 0;
