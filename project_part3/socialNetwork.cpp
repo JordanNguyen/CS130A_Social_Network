@@ -130,7 +130,7 @@ void socialNetwork::login()
     {
     std::cout << "*******************************" << std::endl;
     std::cout<<"Login Successful"<<std::endl;
-    return checkRequest(un->getUserNode(username));
+    return checkRequest(un->getUser(username));
     }
   else
     {
@@ -658,7 +658,7 @@ void socialNetwork::sendFriendRequest(user* usr)
         return sendFriendRequest(usr);
       }
 
-      if (un->getUserNodeRealName(input)->checkRequest(usr->getUsername()))
+      if (un->getUserRealName(input)->checkRequest(usr->getUsername()))
       {
 	      std::cout << "*******************************" << std::endl;
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
@@ -666,7 +666,7 @@ void socialNetwork::sendFriendRequest(user* usr)
       }
 
       //NEED TO FIX THIS!!!!!! find substitute for contains method
-      if (usr->getData().getFriends()->contains(un->getUserNodeRealName(input)->getData().getUsername()))
+      if (usr->getData().getFriends()->contains(un->getUserRealName(input)->getData().getUsername()))
       {
 	      std::cout << "*******************************" << std::endl;
         std::cout<<"You are already friends with this user."<<std::endl;
@@ -675,7 +675,7 @@ void socialNetwork::sendFriendRequest(user* usr)
 
       else
       {
-        un->getUserNodeRealName(input)->addRequest(usr->getUsername());
+        un->getUserRealName(input)->addRequest(usr->getUsername());
 	      std::cout << "*******************************" << std::endl;
 	      std::cout << "Friend request sent!" << std::endl;
 	      std::cout << "*******************************" << std::endl;
@@ -703,7 +703,7 @@ void socialNetwork::sendFriendRequest(user* usr)
         return sendFriendRequest(usr);
       }
 
-      if (un->getUserNode(input)->checkRequest(usr->getUsername()))
+      if (un->getUser(input)->checkRequest(usr->getUsername()))
       {
 	      std::cout << "*******************************" << std::endl;
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
@@ -720,7 +720,7 @@ void socialNetwork::sendFriendRequest(user* usr)
 
       else
       {
-        un->getUserNode(input)->addRequest(usr->getUsername());
+        un->getUser(input)->addRequest(usr->getUsername());
 	      std::cout << "*******************************" << std::endl;
 	      std::cout << "Friend request sent!" << std::endl;
 	      std::cout << "*******************************" << std::endl;
@@ -780,7 +780,7 @@ void socialNetwork::manageRequests(user* usr)
     string otherUser = usr->getData().getRequests()->get(num-1);
     usr->addFriend(usr->getRequests()->get(num-1));
 
-    un->getUserNode(otherUser)->addFriend(thisUser); 
+    un->getUser(otherUser)->addFriend(thisUser); 
 
     //NEED TO REPLACE REMOVE
     usr->getRequests()->remove(num-1);

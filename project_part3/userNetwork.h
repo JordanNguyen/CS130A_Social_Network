@@ -23,11 +23,10 @@ class userNetwork {
   bool checkRealName(string rn);
   int getUserIndex(string usr);
   bool checkLogin(string usr, string pw);
-  user* getUserNode(string usr);
-  user* getUserNodeRealName(string usr);
+  user* getUser(string usr);
+  user* getUserRealName(string usr);
   void removeFriend(string usr1, string usr2);
   list<user>* getUserList();
-  //Node<user>* getHead();
 
 };
 

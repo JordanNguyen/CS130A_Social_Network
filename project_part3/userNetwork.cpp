@@ -20,7 +20,6 @@ userNetwork::~userNetwork()
 void userNetwork::addUser(user u)
 {
 	string un = u.getUsername();
-	//Node<user> *temp = users->getHead();
 	std::list<user>::iterator it;	
 
 	for (it = users->begin(); it != users->end(); ++it)
@@ -163,7 +162,7 @@ bool userNetwork::checkLogin(string usr, string pw)
   return false;
 }
 
-user* userNetwork::getUserNode(string usr)
+user* userNetwork::getUser(string usr)
 {
   std::list<user>::iterator it;
   
@@ -175,7 +174,7 @@ user* userNetwork::getUserNode(string usr)
   return it;
 }
 
-user* userNetwork::getUserNodeRealName(string usr)
+user* userNetwork::getUserRealName(string usr)
 {
 	
 	std::list<user>::iterator it;
@@ -190,8 +189,8 @@ user* userNetwork::getUserNodeRealName(string usr)
 
 void userNetwork::removeFriend(string usr1, string usr2)
 {
-  user *temp1 = getUserNode(usr1);
-  user *temp2 = getUserNode(usr2);
+  user *temp1 = getUser(usr1);
+  user *temp2 = getUser(usr2);
 
   if (checkUsername(usr1) && checkUsername(usr2))
     {
@@ -211,13 +210,6 @@ list<user>* userNetwork::getUserList()
 {
 	return users;
 }
-
-/*
-Node<user>* userNetwork::getHead()
-{
-	return users->getHead();
-}
-*/
 
 //write to userNetworkInput.txt in the correct format to be read back
 void userNetwork::writeUserNetwork()
@@ -451,7 +443,7 @@ void userNetwork::readFriends(const char* filename, int option)
     {
       //save all the text to userToken
       userToken = s.substr(0, pos1);
-      Node<user> *temp;
+      user *temp;
 
       //read in userToken and find user name
       while ((pos2 = userToken.find(nameDelim)) != string::npos)
@@ -473,8 +465,8 @@ void userNetwork::readFriends(const char* filename, int option)
 	  userToken.erase(0, pos2+nameDelim.length());
 	}
 
-      //set temp equal to the node of the user so we can modify it
-      temp = getUserNode(username);
+      //set temp equal to the user so we can modify it
+      temp = getUser(username);
 
       //parse and find the friend delimiter
       while ((pos4 = userToken.find(frndDelim)) != string::npos)
