@@ -17,6 +17,7 @@ class socialNetwork {
   void createNewUser();
   void login();
   void checkRequest(user *usr);
+  void postOnFriendWall(user *usr);
   void newPost(user *usr);
   void deletePost(user *usr);
   void userPage(user *usr);

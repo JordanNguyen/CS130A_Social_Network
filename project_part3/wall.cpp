@@ -137,7 +137,7 @@ void wall::readWall(string t) {
 
   string post;
   string timeOfPost;
-  string location;
+  string postlocation;
 
   string token1;
   string token2;
@@ -175,8 +175,8 @@ void wall::readWall(string t) {
     //cout << "TOKEN2 AT END OF WHILE LOOP: " << token2 << endl;
     s.erase(0, pos1 + delimiter1.length());
     cout << s << endl;
-    location = token2;
-    wallPost newPost(post,timeOfPost,location);
+    postlocation = token2;
+    wallPost newPost(post,timeOfPost,postlocation);
     wp->push_back(newPost);
 
 

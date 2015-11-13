@@ -51,7 +51,7 @@ user::user(string info)
 
   string post;
   string timeOfPost;
-  string location;
+  string postlocation;
 
   // find the end of the basic user info before the wall
   while ((pos1 = s.find(delimiter1)) != string::npos) {
@@ -90,8 +90,8 @@ user::user(string info)
     }
 
     s.erase(0, pos1 + delimiter3.length());
-    location = token2;
-    wallPost npost(post,timeOfPost,location);
+    postlocation = token2;
+    wallPost npost(post,timeOfPost,postlocation);
     w.newPost(npost);
 
   }

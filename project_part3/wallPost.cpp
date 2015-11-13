@@ -10,7 +10,7 @@ using namespace std;
 wallPost::wallPost() 
 {
 	text = "";
-	location = "";
+	postlocation = "";
 	author = "";
 	
 	time_t currentTime;
@@ -25,7 +25,7 @@ wallPost::wallPost()
 wallPost::wallPost(string t, string l, string a) 
 {
 	text = t;
-	location = l;
+	postlocation = l;
 	author = a;
 	time_t currentTime;
 	struct tm *timeinfo;
@@ -40,7 +40,7 @@ wallPost::wallPost(string t, string l, string a)
 wallPost::wallPost(string t, string l) 
 {
 	text = t;
-	location = l;
+	postlocation = l;
 	author = "";
 	time_t currentTime;
 	struct tm *timeinfo;
@@ -60,8 +60,8 @@ wallPost::~wallPost() {
 string wallPost::getPost()
 {
 	string wholePost;
-	wholePost = text + "\n" + "Time of post: " + timeOfPost
-	+ " Location: " + location + "\n\n";
+	wholePost = text + "\n" + "Time of post: " + timeOfPost + "\n" +
+	"Author: " + author + "\n\n";
 
 	//std::cout << wholePost;
 	return wholePost;
@@ -71,7 +71,7 @@ string wallPost::getPost()
 string wallPost::getPostWrite()
 {
 	string wholePost;
-	wholePost = text + "\n" + timeOfPost + "\n" + location + "\n" + "[/endpost]";
+	wholePost = text + "\n" + timeOfPost + "\n" + author + "\n" + "[/endpost]";
 	return wholePost;
 }
 
@@ -95,14 +95,14 @@ void wallPost::setTimeOfPost(string t)
 	timeOfPost = t;
 }
 
-string wallPost::getLocation()
+string wallPost::getPostLocation()
 {
-	return location;
+	return postlocation;
 }
 
-void wallPost::setLocation(string l)
+void wallPost::setPostLocation(string l)
 {
-	location = l;
+	postlocation = l;
 }
 
 string wallPost::getAuthor()

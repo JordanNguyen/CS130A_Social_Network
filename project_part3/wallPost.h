@@ -8,7 +8,7 @@ private:
 
 	string text;
 	string timeOfPost;
-	string location;
+	string postlocation;
 	string author;
 
 public:
@@ -26,8 +26,8 @@ public:
 	void setText(string t);
 	string getTimeOfPost();
 	void setTimeOfPost(string t);
-	string getLocation();
-	void setLocation(string l);
+	string getPostLocation();
+	void setPostLocation(string l);
 
 };
 
