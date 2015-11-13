@@ -19,7 +19,7 @@ class wall {
   void setUsername(string t);
   //void insertPost(int pos, wallPost p);
   //void setPost(int pos, wallPost p);
-  wallPost getPost(int pos);
+  wallPost* getPost(int pos);
   string WallToString();
   string WallToStringWrite();
   //void readWall(string t);

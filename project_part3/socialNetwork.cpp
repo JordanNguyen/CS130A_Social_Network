@@ -246,9 +246,49 @@ void socialNetwork::displayWall(user* usr)
 {
   std::cout << "*******************************" << std::endl;
   std::cout << usr->getWall().WallToString();
-  return userPage(usr);
+
+  std::cout << "*******************************" << std::endl;
+  std::cout<<"Would you like to respond to any of your wall posts? (yes/no)"<<std::endl;
+  std::cout << "*******************************" << std::endl;
+  string answer;
+  do{
+      std::cin >> answer;
+      if (answer != "yes" && answer != "no")
+        std::cout << "Please select either 'yes' or 'no'" << std::endl;
+    } while (answer != "yes" && answer != "no");
+
+  if (answer  == "no")
+    return userPage(usr);
+  if (answer == "yes")
+    return respondToPost(usr);
 }
 
+void socialNetwork::respondToPost(user* usr)
+{
+  std::cout << "Which post would you like to post a response to?" <<  std::endl;
+  int numPosts = usr->getWall().getList()->size();
+  int choice;
+  do{
+    std::cin >> choice;
+    if (!cin)
+      cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (choice < 1 || choice > numPosts)
+      std::cout << "Invalid selection" << std::endl;
+  } while (choice < 1 || choice > numPosts);
+
+  std::cout << "Enter your post: ";
+  string text;
+  std::getline(std::cin, text);
+
+  postResponse nResp(text, usr->getUsername());
+
+  usr->getWall().getPost(choice-1)->addResponse(nResp);
+
+  std::cout << "You have posted your response" << std::endl;
+  return userPage(usr);
+  
+}
 void socialNetwork::displayOtherUsersWall(user *usr) {
   
   std::cout << "*******************************" << std::endl;

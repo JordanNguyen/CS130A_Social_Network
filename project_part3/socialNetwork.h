@@ -30,6 +30,7 @@ class socialNetwork {
   void searchUser(user *usr); //need to edit this, fixed for now
   void sendFriendRequest(user *usr); //need to edit this, fixed for now
   void manageRequests(user *usr); //need to fix this also, fixed for now
+  void respondToPost(user *usr);
 
 };
 

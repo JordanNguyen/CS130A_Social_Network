@@ -61,13 +61,13 @@ void wall::setPost(int pos, wallPost p){
 */
 
 
-wallPost wall::getPost(int pos){
+wallPost* wall::getPost(int pos){
 
   std::list<wallPost>::iterator it;
   int i = 0;
   for (it = wp->begin(); i < pos; ++it, i++);
 
-  return *it;
+  return &(*it);
 }
 
 // return the wall as a formated string
