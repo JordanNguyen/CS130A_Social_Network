@@ -50,11 +50,11 @@ int main(int argc, char *argv[])
   if (testNet.checkLogin("TheWiz", "password"))
       cout<<"Correct credentials"<<endl;
 
-  user *temp = testNet.getUser("TheWiz");
+  user* temp = testNet.getUser("TheWiz");
 
   temp->setUsername("JordanTheWiz");
 
-  //testNet.writeUserNetwork();
+  testNet.writeUserNetwork();
 
 
 

@@ -164,37 +164,36 @@ bool userNetwork::checkLogin(string usr, string pw)
 
 user* userNetwork::getUser(string usr)
 {
-  user temp;
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
     {
       if (it->getUsername()==usr)
       {
-		temp = *it; 
-		return &temp;
+		return &(*it);
 	  }
     }
-  temp = *it;
-  return &temp;
+    return &(*it);
 }
 
 user* userNetwork::getUserRealName(string usr)
 {
 	
-  user temp;
+  //user temp;
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
     {
       if (it->getRealName()==usr)
 		{
-			temp = *it;
-			return &temp;
+			// temp = *it;
+			// return &temp;
+			return &(*it);
 		}
     }
-  	temp = *it;
-	return &temp;
+ //  	temp = *it;
+	// return &temp;
+	return &(*it);
 }
 
 void userNetwork::removeFriend(string usr1, string usr2)
@@ -453,7 +452,7 @@ void userNetwork::readFriends(const char* filename, int option)
     {
       //save all the text to userToken
       userToken = s.substr(0, pos1);
-      user *temp;
+      user* temp; //changed this
 
       //read in userToken and find user name
       while ((pos2 = userToken.find(nameDelim)) != string::npos)
@@ -476,7 +475,7 @@ void userNetwork::readFriends(const char* filename, int option)
 	}
 
       //set temp equal to the user so we can modify it
-      temp = getUser(username);
+      temp = getUser(username); 
 
       //parse and find the friend delimiter
       while ((pos4 = userToken.find(frndDelim)) != string::npos)
@@ -491,9 +490,9 @@ void userNetwork::readFriends(const char* filename, int option)
 	      if (frnd != "\n")
 		{
 		  if (option == 0)
-		    temp->addFriend(frnd);
+		    temp->addFriend(frnd); //changed this
 		  else if (option == 1)
-		    temp->addRequest(frnd);
+		    temp->addRequest(frnd); //changed this
 		}
 
 	      frndToken.erase(0, pos5+newlDelim.length());
