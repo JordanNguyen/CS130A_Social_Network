@@ -22,7 +22,7 @@ class wall {
   wallPost getPost(int pos);
   string WallToString();
   string WallToStringWrite();
-  void readWall(string t);
+  //void readWall(string t);
   list<wallPost>* getList();
   //Node<wallPost>* getHead();
   

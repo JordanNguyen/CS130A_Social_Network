@@ -10,7 +10,6 @@ using namespace std;
 wallPost::wallPost() 
 {
 	text = "";
-	postlocation = "";
 	author = "";
 	
 	time_t currentTime;
@@ -22,10 +21,9 @@ wallPost::wallPost()
 	timeOfPost.erase(timeOfPost.end()-1);
 }
 
-wallPost::wallPost(string t, string l, string a) 
+wallPost::wallPost(string t, string a) 
 {
 	text = t;
-	postlocation = l;
 	author = a;
 	time_t currentTime;
 	struct tm *timeinfo;
@@ -37,21 +35,12 @@ wallPost::wallPost(string t, string l, string a)
 
 }
 
-wallPost::wallPost(string t, string l) 
+wallPost::wallPost(string t, string top, string a) 
 {
 	text = t;
-	postlocation = l;
-	author = "";
-	time_t currentTime;
-	struct tm *timeinfo;
-	time(&currentTime);
-	timeinfo = localtime(&currentTime);
-	timeOfPost = asctime(timeinfo);
-	timeOfPost.erase(timeOfPost.end()-1);
-	timeOfPost.erase(timeOfPost.end()-1);
-
+	author = a;
+	timeOfPost = top;
 }
-
 
 wallPost::~wallPost() {
 
@@ -95,15 +84,6 @@ void wallPost::setTimeOfPost(string t)
 	timeOfPost = t;
 }
 
-string wallPost::getPostLocation()
-{
-	return postlocation;
-}
-
-void wallPost::setPostLocation(string l)
-{
-	postlocation = l;
-}
 
 string wallPost::getAuthor()
 {

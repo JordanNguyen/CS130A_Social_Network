@@ -18,7 +18,7 @@ class user {
  public:
   user();
   user(string u, string p, string r, string d);
-  user(string info);
+  //user(string info);
   ~user();
   void setUsername(string t);
   void setPassword(string t);
