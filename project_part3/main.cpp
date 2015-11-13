@@ -39,6 +39,25 @@ int main(int argc, char *argv[])
 
   testNet.writeUserNetwork();
 
+  if (testNet.checkUsername("username"))
+    cout<<"username exists"<<endl;
+
+  if (testNet.checkRealName("dj khaled"))
+    cout<<"dj khaled exists"<<endl;
+
+  cout << testNet.getUserIndex("TheWiz") << endl;
+
+  if (testNet.checkLogin("TheWiz", "password"))
+      cout<<"Correct credentials"<<endl;
+
+  user *temp = testNet.getUser("TheWiz");
+
+  temp->setUsername("JordanTheWiz");
+
+  //testNet.writeUserNetwork();
+
+
+
   // cout<<test.userInfo()<<endl;
 
   // cout<<test.userInfoWrite()<<endl;
