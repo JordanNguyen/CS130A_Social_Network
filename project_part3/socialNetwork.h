@@ -17,6 +17,7 @@ class socialNetwork {
   void createNewUser();
   void login();
   void checkRequest(user *usr);
+  void postOnFriendWall(user *usr);
   void newPost(user *usr);
   void deletePost(user *usr);
   void userPage(user *usr);
@@ -25,6 +26,7 @@ class socialNetwork {
   void deleteFriend(user *usr);
   void deleteUser(user *usr); //need to edit this, fixed for now
   void displayWall(user *usr);
+  void displayOtherUsersWall(user *usr);
   void searchUser(user *usr); //need to edit this, fixed for now
   void sendFriendRequest(user *usr); //need to edit this, fixed for now
   void manageRequests(user *usr); //need to fix this also, fixed for now

@@ -406,7 +406,7 @@ void userNetwork::readUsers(const char* filename)
 	      loc = token3;
 	      //cout << loc << endl << endl;
 	      postToken.erase(0,pos2+eachPost.length());
-	      wallPost newPost(wp,top,loc);
+	      wallPost newPost(wp,top,un); //we chagned this line
 	      newUser.addToWall(newPost);
 	    }
 	  userToken.erase(0, posPost + postDelim.length());
