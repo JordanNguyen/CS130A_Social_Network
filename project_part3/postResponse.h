@@ -1,6 +1,6 @@
 #ifndef POSTRESPONSE_H
 #define POSTRESPONSE_H
-uing namespace std;
+using namespace std;
 
 class postResponse {
 
@@ -14,7 +14,8 @@ class postResponse {
 
   postResponse();
   postResponse(string t, string a);
-  ~wallPost();
+  postResponse(string t, string top, string a);
+  ~postResponse();
 
   void setText(string t);
   string getText();

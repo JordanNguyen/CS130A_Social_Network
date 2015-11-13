@@ -1,4 +1,4 @@
-#include <cstdlib
+#include <cstdlib>
 #include <cstdio>
 #include <iostream>
 #include <ctime>
@@ -7,7 +7,7 @@
 #include "postResponse.h"
 using namespace std;
 
-postResponse::PostResponse()
+postResponse::postResponse()
 {
   text = "";
   timeOfPost = "";
@@ -27,6 +27,14 @@ postResponse::postResponse(string t, string a)
   timeOfPost.erase(timeOfPost.end()-1);
 }
 
+//constructor used when reading from file
+postResponse::postResponse(string t, string top, string a)
+{
+  text = t;
+  timeOfPost = top;
+  author = a;
+}
+			   
 postResponse::~postResponse()
 {
   

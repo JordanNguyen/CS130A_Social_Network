@@ -5,12 +5,14 @@
 #include <string>
 #include <list>
 #include "wallPost.h"
+#include "postResponse.h"
 using namespace std;
 
 wallPost::wallPost() 
 {
 	text = "";
 	author = "";
+	responses = new list<postResponse>;
 	
 	time_t currentTime;
 	struct tm *timeinfo;
@@ -25,6 +27,7 @@ wallPost::wallPost(string t, string a)
 {
 	text = t;
 	author = a;
+	responses = new list<postResponse>;
 	time_t currentTime;
 	struct tm *timeinfo;
 	time(&currentTime);
@@ -40,6 +43,7 @@ wallPost::wallPost(string t, string top, string a)
 	text = t;
 	author = a;
 	timeOfPost = top;
+	responses = new list<postResponse>;
 }
 
 wallPost::~wallPost() {
@@ -95,3 +99,31 @@ void wallPost::setAuthor(string t)
 	author = t;
 }
 
+void wallPost::addResponse(postResponse p)
+{
+  responses->push_back(p);
+}
+
+void wallPost::deleteResponse(int index)
+{
+  std::list<postResponse>::iterator it;
+  it = responses->begin();
+  int i = 0;
+  while (it != responses->end())
+    {
+      if (i == index)
+	{
+	  responses->erase(it);
+	  return;
+	}
+      it++;
+      i++;
+    }
+
+  return;
+}
+
+list<postResponse>* wallPost::getResponses()
+{
+  return responses;
+}
