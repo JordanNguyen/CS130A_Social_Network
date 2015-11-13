@@ -55,11 +55,17 @@ string postResponse::getAuthor()
   return author;
 }
 
+string postResponse::getTime()
+{
+  return timeOfPost;
+}
+
 string postResponse::getRespDisp()
 {
   string resp;
-  resp = text + "\n" + "Posted by: " + author 
-    + " Time of post: " + timeOfPost + "\n\n";
+  resp += text + "\n";
+  resp += "   Time of post: " + timeOfPost + "\n";
+  resp += "   Author: " + author + "\n";
 
   return resp;
 }

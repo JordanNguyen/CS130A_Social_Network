@@ -3,6 +3,7 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <sstream>
 #include <list>
 #include "wallPost.h"
 #include "postResponse.h"
@@ -56,7 +57,27 @@ string wallPost::getPost()
 	wholePost = text + "\n" + "Time of post: " + timeOfPost + "\n" +
 	"Author: " + author + "\n\n";
 
-	//std::cout << wholePost;
+	if (!responses->empty())
+	  {
+	    wholePost += "RESPONSES:\n";
+	    std::list<postResponse>::iterator it;
+	    it = responses->begin();
+	    int i = 1;
+	    while (it != responses->end())
+	      {
+		ostringstream convert;
+		convert << i;
+		wholePost += "   ";
+		wholePost += convert.str();
+		wholePost += ".) ";
+		wholePost += it->getRespDisp();
+		++it;
+		++i;
+	      }
+	    wholePost += "\n";
+	  }
+
+       
 	return wholePost;
        
 }

@@ -20,6 +20,7 @@ class postResponse {
   void setText(string t);
   string getText();
   string getAuthor();
+  string getTime();
   string getRespDisp();
   string getRespWrite();
 };
