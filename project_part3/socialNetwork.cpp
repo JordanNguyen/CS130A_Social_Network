@@ -321,7 +321,12 @@ void socialNetwork::otherUsersWall(user *usr) {
        std::cout << "Person not found, please try again" << std::endl;
        return userPage(usr);
      }
-     
+     // prints out the user's wall tha you want to delete your post from
+     std::cout << "*******************************" << std::endl;
+     std::cout << uname + "'s Wall" << std::endl;
+     std::cout << "*******************************" << std::endl;
+     std::cout << un->getUser(uname)->getWall().WallToString();
+
      do{
        std::cout << "Enter the number corresponding to the wall post you wish to delete : ";
        std::cin >> num;
