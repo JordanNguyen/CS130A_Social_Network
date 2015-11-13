@@ -164,33 +164,43 @@ bool userNetwork::checkLogin(string usr, string pw)
 
 user* userNetwork::getUser(string usr)
 {
+  user temp;
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
     {
       if (it->getUsername()==usr)
-	return it; 
+      {
+		temp = *it; 
+		return &temp;
+	  }
     }
-  return it;
+  temp = *it;
+  return &temp;
 }
 
 user* userNetwork::getUserRealName(string usr)
 {
 	
+  user temp;
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
     {
       if (it->getRealName()==usr)
-	return it; 
+		{
+			temp = *it;
+			return &temp;
+		}
     }
-  return it;
+  	temp = *it;
+	return &temp;
 }
 
 void userNetwork::removeFriend(string usr1, string usr2)
 {
-  user *temp1 = getUser(usr1);
-  user *temp2 = getUser(usr2);
+  user* temp1 = getUser(usr1);
+  user* temp2 = getUser(usr2);
 
   if (checkUsername(usr1) && checkUsername(usr2))
     {
