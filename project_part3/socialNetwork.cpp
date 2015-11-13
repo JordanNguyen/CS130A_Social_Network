@@ -236,7 +236,7 @@ void socialNetwork::userPage(user* usr)
 void socialNetwork::displayWall(user* usr)
 {
   std::cout << "*******************************" << std::endl;
-  std::cout<<usr->getWall().WallToString();
+  std::cout << usr->getWall().WallToString();
   return userPage(usr);
 }
 
@@ -300,10 +300,6 @@ void socialNetwork::deleteUser(user* usr)
 
   do{
     std::getline(std::cin, answer);
-    //std::cin >> answer;
-    //if (!cin)
-        //cin.clear();
-        //cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     if (answer != "yes" && answer != "no")
       std::cout << "Please select either 'yes' or 'no'" << std::endl;
   } while (answer != "yes" && answer != "no");
@@ -315,20 +311,20 @@ void socialNetwork::deleteUser(user* usr)
   {
     
     //remove deleted users from all friends lists and friend requests
-    Node<user>* temp = un->getHead();
-    while (temp != NULL)
+    std::list<user>::iterator it = un->getUserList()->begin();
+    while (it != un->getUserList()->end())
     {
-      if (temp->getData().getFriends()->contains(usr->getData().getUsername()))
-       temp->getDataToMod()->getFriends()->remove(usr->getData().getUsername());
+      if (it->isFriendsWith(usr->getUsername()))
+       it->deleteFriend(usr->getUsername());
 
-      if (temp->getData().getRequests()->contains(usr->getData().getUsername()))
-        temp->getDataToMod()->getRequests()->remove(usr->getData().getUsername());
+      if (it->checkRequest(usr->getUsername()))
+        it->deleteRequest(usr->getUsername());
 
-      temp = temp->getNext();
+      ++it;
     }
 
-    int index = un->getUserIndex(usr->getData().getUsername());
-    un->getUserList()->remove(index);
+    int index = un->getUserIndex(usr->getUsername());
+    un->deleteUser(index);
     std::cout << "*******************************" << std::endl;
     std::cout << "Your account has been deleted." << std::endl;
     std::cout << "*******************************" << std::endl;
@@ -426,9 +422,6 @@ void socialNetwork::deleteFriend(user* usr)
   std::cin >> frnd;
 
   un->removeFriend(usr->getUsername(), frnd);
-  std::cout << "*******************************" << std::endl;
-  std::cout << "Your friend has been deleted." << std::endl;
-  std::cout << "*******************************" << std::endl;
   un->writeFriends(0);
 
   return friendMenu(usr);
@@ -561,16 +554,18 @@ void socialNetwork::searchUser(user* usr)
   std::transform(input.begin(),input.end(),input.begin(), ::tolower);
 
   std::cout << "RESULTS:" << std::endl;
-  Node<user> *temp = un->getHead();
+  //  Node<user> *temp = un->getHead();
+  std::list<user>::iterator it;
+  it = un->getUserList()->begin();
   int counter = 0;
-  while (temp != NULL)
+  while (it != un->getUserList()->end())
   {
     //save the case sensitive and downcased version of usernames
     std::string result, result2; 
     if (selection == 1)
-      result = temp->getData().getRealName();
+      result = it->getRealName();
     else if (selection == 2)
-      result = temp->getData().getUsername();
+      result = it->getUsername();
     result2 = result;
     // downcase the usernames
     std::transform(result2.begin(),result2.end(),result2.begin(),::tolower);
@@ -583,7 +578,7 @@ void socialNetwork::searchUser(user* usr)
       counter++;
     }
 
-    temp = temp->getNext();
+    ++it;
       
   }
 
@@ -653,22 +648,22 @@ void socialNetwork::sendFriendRequest(user* usr)
 
       if (input == usr->getRealName())
       {
-	      std::cout << "*******************************"   << std::endl;
+	std::cout << "*******************************"   << std::endl;
         std::cout <<"You can't be friends with yourself."<< std::endl;
         return sendFriendRequest(usr);
       }
 
       if (un->getUserRealName(input)->checkRequest(usr->getUsername()))
       {
-	      std::cout << "*******************************" << std::endl;
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
         return sendFriendRequest(usr);
       }
-
-      //NEED TO FIX THIS!!!!!! find substitute for contains method
-      if (usr->getData().getFriends()->contains(un->getUserRealName(input)->getData().getUsername()))
+      
+      string usrname = un->getUserRealName(input)->getUsername();
+      if (usr->isFriendsWith(usrname))
       {
-	      std::cout << "*******************************" << std::endl;
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You are already friends with this user."<<std::endl;
         return sendFriendRequest(usr);
       }
@@ -698,22 +693,21 @@ void socialNetwork::sendFriendRequest(user* usr)
     {
       if (input == usr->getUsername())
       {
-	      std::cout << "*******************************" << std::endl;
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You can't be friends with yourself."<<std::endl;
         return sendFriendRequest(usr);
       }
 
       if (un->getUser(input)->checkRequest(usr->getUsername()))
       {
-	      std::cout << "*******************************" << std::endl;
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You have already sent a friend request to this user."<<std::endl;
         return sendFriendRequest(usr);
       }
 
-      //NEED TO FIX THIS! REPLACE CONTAINS
-      if (usr->getFriends()->contains(input))
+      if (usr->isFriendsWith(input))
       {
-	      std::cout << "*******************************" << std::endl;
+	std::cout << "*******************************" << std::endl;
         std::cout<<"You are already friends with this user."<<std::endl;
         return sendFriendRequest(usr);
       }
@@ -775,15 +769,11 @@ void socialNetwork::manageRequests(user* usr)
   if (selection == 1)
   {
     string thisUser = usr->getUsername();
+    string otherUser = usr->getRequestName(num-1);
     
-    //NEED TO REPLACE GET()!!!!!!!
-    string otherUser = usr->getData().getRequests()->get(num-1);
-    usr->addFriend(usr->getRequests()->get(num-1));
-
+    usr->addFriend(otherUser);
     un->getUser(otherUser)->addFriend(thisUser); 
-
-    //NEED TO REPLACE REMOVE
-    usr->getRequests()->remove(num-1);
+    usr->deleteRequest(otherUser);
 
     un->writeFriends(0);
     un->writeFriends(1);
@@ -795,9 +785,8 @@ void socialNetwork::manageRequests(user* usr)
 
   if (selection == 2)
   {
-    //NEED TO REPLACE GET AND REMOVE
-    string otherUser = usr->getRequests()->get(num-1);
-    usr->getRequests()->remove(num-1);
+    string otherUser = usr->getRequestName(num-1);
+    usr->deleteRequest(otherUser);
     un->writeFriends(0);
     un->writeFriends(1);
     std::cout << "*******************************" << std::endl;

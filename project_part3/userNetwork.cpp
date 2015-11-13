@@ -35,6 +35,15 @@ void userNetwork::addUser(user u)
   //cout << "New user successfully created!" << endl;
 }
 
+void userNetwork::deleteUser(int index)
+{
+  std::list<user>::iterator it;
+  int i = 0;
+  for (it = users->begin(), i = 0; i < index; ++i, ++it);
+  users->erase(it);
+  return;
+}
+
 /*void userNetwork::deleteUser(string t) 
   {
  	
@@ -205,6 +214,9 @@ void userNetwork::removeFriend(string usr1, string usr2)
     {
       temp1->getFriends()->remove(usr2);
       temp2->getFriends()->remove(usr1);
+      std::cout << "*******************************" << std::endl;
+      std::cout << "Your friend has been deleted." << std::endl;
+      std::cout << "*******************************" << std::endl;
       return;
     }
 
@@ -225,7 +237,7 @@ void userNetwork::writeUserNetwork()
 {
 
   ofstream outfile;
-  outfile.open("test.txt");
+  outfile.open("userNetworkInput.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;

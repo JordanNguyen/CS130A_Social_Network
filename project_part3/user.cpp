@@ -170,8 +170,8 @@ string user::friendListWrite(int option)
 
   else if (option == 1)
   {
-    it = friends->begin();
-    for (it = friends->begin(); it != friends->end(); ++it)
+    it = requests->begin();
+    for (it = requests->begin(); it != requests->end(); ++it)
     {
       frnds += *it;
       frnds += "\n";
@@ -304,4 +304,49 @@ bool user::checkRequest(string usr)
 
   return false;
 
+}
+
+bool user::isFriendsWith(string usr)
+{
+  std::list<string>::iterator it;
+  for (it = friends->begin(); it != friends->end(); ++it)
+    {
+      if (*it == usr)
+	return true;
+    }
+  return false;
+}
+
+void user::deleteFriend(string usr)
+{
+  std::list<string>::iterator it;
+  for (it = friends->begin(); it != friends->end(); ++it)
+    {
+      if (*it == usr)
+	{
+	  friends->erase(it);
+	  return;
+	}
+    }
+}
+
+void user::deleteRequest(string usr)
+{
+  std::list<string>::iterator it;
+  for (it = requests->begin(); it != requests->end(); ++it)
+    {
+      if (*it == usr)
+	{
+	  requests->erase(it);
+	  return;
+	}
+    }
+}
+
+string user::getRequestName(int index)
+{
+  std::list<string>::iterator it;
+  int i = 0;
+  for (it = requests->begin(), i = 0; i < index; ++it, ++i);
+  return *it;
 }

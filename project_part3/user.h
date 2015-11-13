@@ -42,6 +42,10 @@ class user {
   list<string>* getRequests();
   bool hasRequests();
   bool checkRequest(string usr);
+  bool isFriendsWith(string usr);
+  void deleteFriend(string usr);
+  void deleteRequest(string usr);
+  string getRequestName(int index);
   
 };
 

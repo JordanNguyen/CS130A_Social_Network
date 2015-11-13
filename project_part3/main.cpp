@@ -9,52 +9,55 @@
 #include "wall.h"
 #include "user.h"
 #include "userNetwork.h"
-//#include "socialNetwork.h"
+#include "socialNetwork.h"
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 	
-  //socialNetwork sn;
-  //sn.welcome();
+  socialNetwork sn;
+  sn.welcome();
 
-  userNetwork testNet;
+  // userNetwork testNet;
 
-  user test("TheWiz", "password",
-    "Jordan Nguyen", "03/11/1995");
-  wallPost post1("Test post", "isla vista");
-  wallPost post2("Test post number 2", "goleta");
-  wallPost post3("third post", "ucsb");
-  test.addToWall(post1);
-  test.addToWall(post2);
-  test.addToWall(post3);
+  // user test("TheWiz", "password",
+  //   "Jordan Nguyen", "03/11/1995");
+  // wallPost post1("Test post", "isla vista");
+  // wallPost post2("Test post number 2", "goleta");
+  // wallPost post3("third post", "ucsb");
+  // test.addToWall(post1);
+  // test.addToWall(post2);
+  // test.addToWall(post3);
 
-  user test2("username","password",
-	     "test name", "3423432");
-  user test3("anotherone", "wedabest",
-	     "dj khaled", "12345");
-  testNet.addUser(test);
-  testNet.addUser(test2);
-  testNet.addUser(test3);
+  // user test2("username","password",
+  // 	     "test name", "3423432");
+  // user test3("anotherone", "wedabest",
+  // 	     "dj khaled", "12345");
+  // testNet.addUser(test);
+  // testNet.addUser(test2);
+  // testNet.addUser(test3);
 
-  testNet.writeUserNetwork();
+  // testNet.writeUserNetwork();
 
-  if (testNet.checkUsername("username"))
-    cout<<"username exists"<<endl;
+  // if (testNet.checkUsername("username"))
+  //   cout<<"username exists"<<endl;
 
-  if (testNet.checkRealName("dj khaled"))
-    cout<<"dj khaled exists"<<endl;
+  // if (testNet.checkRealName("dj khaled"))
+  //   cout<<"dj khaled exists"<<endl;
 
-  cout << testNet.getUserIndex("TheWiz") << endl;
+  // cout << testNet.getUserIndex("TheWiz") << endl;
 
-  if (testNet.checkLogin("TheWiz", "password"))
-      cout<<"Correct credentials"<<endl;
+  // if (testNet.checkLogin("TheWiz", "password"))
+  //     cout<<"Correct credentials"<<endl;
 
-  user* temp = testNet.getUser("TheWiz");
+  // user* temp = testNet.getUser("TheWiz");
 
-  temp->setUsername("JordanTheWiz");
+  // temp->setUsername("JordanTheWiz");
 
-  testNet.writeUserNetwork();
+  // user *temp2 = testNet.getUser("anotherone");
+  // temp2->setUsername("DEE JAY KHA LED");
+
+  // testNet.writeUserNetwork();
 
 
 
