@@ -15,7 +15,7 @@ public:
 
 	wallPost();
 	wallPost(string t, string l, string a);
-	//wallPost(string t, string ToP, string l);
+	wallPost(string t, string l);
 	~wallPost();
 
 	string getPost();

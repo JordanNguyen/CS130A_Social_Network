@@ -8,7 +8,7 @@
 #include "wallPost.h"
 #include "wall.h"
 #include "user.h"
-//#include "userNetwork.h"
+#include "userNetwork.h"
 //#include "socialNetwork.h"
 using namespace std;
 
@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
 	
   //socialNetwork sn;
   //sn.welcome();
+
+  userNetwork testNet;
 
   user test("TheWiz", "password",
     "Jordan Nguyen", "03/11/1995");
@@ -27,31 +29,41 @@ int main(int argc, char *argv[])
   test.addToWall(post2);
   test.addToWall(post3);
 
-  cout<<test.userInfo()<<endl;
+  user test2("username","password",
+	     "test name", "3423432");
+  user test3("anotherone", "wedabest",
+	     "dj khaled", "12345");
+  testNet.addUser(test);
+  testNet.addUser(test2);
+  testNet.addUser(test3);
 
-  cout<<test.userInfoWrite()<<endl;
+  testNet.writeUserNetwork();
 
-  test.addFriend("Young Thug");
-  test.addFriend("Justin Bieber");
-  test.addFriend("Steph Curry");
+  // cout<<test.userInfo()<<endl;
 
-  //cout<<test.friendListWrite(0)<<endl;
+  // cout<<test.userInfoWrite()<<endl;
 
-  if (test.hasRequests())
-    cout<<"You have friend requests"<<endl;
-  else
-    cout<<"You have no friend requests"<<endl;
+  // test.addFriend("Young Thug");
+  // test.addFriend("Justin Bieber");
+  // test.addFriend("Steph Curry");
 
-  test.addRequest("Drake");
-  test.addRequest("Meek Mill");
-  test.addRequest("Blender");
-  cout<<test.displayFriends()<<endl;
-  cout<<test.displayRequests()<<endl;
+  // //cout<<test.friendListWrite(0)<<endl;
+
+  // if (test.hasRequests())
+  //   cout<<"You have friend requests"<<endl;
+  // else
+  //   cout<<"You have no friend requests"<<endl;
+
+  // test.addRequest("Drake");
+  // test.addRequest("Meek Mill");
+  // test.addRequest("Blender");
+  // cout<<test.displayFriends()<<endl;
+  // cout<<test.displayRequests()<<endl;
 
 
 
-  if (test.checkRequest("Ddake"))
-    cout<<"Drake has already sent you a friend request"<<endl;
+  // if (test.checkRequest("Ddake"))
+  //   cout<<"Drake has already sent you a friend request"<<endl;
 
 
 

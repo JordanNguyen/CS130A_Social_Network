@@ -1,7 +1,6 @@
 #ifndef USERNETWORK_H
 #define USERNETWORK_H
 #include "user.h"
-#include "LinkedList.h"
 #include <list>
 using namespace std;
 

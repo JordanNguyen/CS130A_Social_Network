@@ -1,9 +1,7 @@
 #ifndef WALL_H
 #define WALL_H
 #include "wallPost.h"
-#include "LinkedList.h"
 #include <list>
-//#include "List.h"
 using namespace std;
 
 class wall {
