@@ -35,70 +35,21 @@ void userNetwork::addUser(user u)
   //cout << "New user successfully created!" << endl;
 }
 
-void userNetwork::deleteUser(int index)
+void userNetwork::deleteUser(string name)
 {
   std::list<user>::iterator it;
-  int i = 0;
-  for (it = users->begin(), i = 0; i < index; ++i, ++it);
-  users->erase(it);
+  for (it = users->begin(); it != users->end(); ++it)
+    {
+      if (it->getUsername() == name)
+	{
+	  users->erase(it);
+	  return;
+	}
+    }
+  
   return;
 }
 
-/*void userNetwork::deleteUser(string t) 
-  {
- 	
-  
-  //empty list
-  if (users->empty())
-  return;
-  //single entry
-  if (users->getHead() == users->getTail() && users->getHead()->getData().getUsername() == t)
-  {
-  //Node<user> *temp = users->getHead();
-  //delete temp;
-  users->setHead(NULL);
-  users->setTail(NULL);
-  return;
-  }
-
-  //delete head
-  if (users->getHead()->getData().getUsername() == t)
-  {
-  Node<user> *temp = users->getHead();
-  users->setHead(users->getHead()->getNext());
-  delete temp;
-  return;
-  }
-
-  //delete tail
-  if (users->getTail()->getData().getUsername() == t)
-  {
-  Node<user> *temp = users->getTail();
-  users->setTail(users->getTail()->getPrev());
-  users->getTail()->setNext(NULL);
-  delete temp;
-  return;
-  }
-
-  //anything else
-  else
-  {
-  Node<user> *temp = users->getHead();
-  while (temp != NULL)
-  {
-  if (temp->getData().getUsername() == t)
-  {
-  temp->getPrev()->setNext(temp->getNext());
-  temp->getNext()->setPrev(temp->getPrev());
-  delete temp;
-  }
-  temp = temp->getNext();
-  }
-  }
-
-  return;
-  }
-*/
 
 void userNetwork::printUsernames()
 {
@@ -321,52 +272,47 @@ void userNetwork::readUsers(const char* filename)
   string dob; //date of birth
   string wp;  //wall post
   string top; //time of post
-  string loc; //location
+  string author; //post author
 
   // find the end of first user
   while ((posUser = s.find(userDelim)) != string::npos) 
     {
       //save all the text to userToken
       userToken = s.substr(0, posUser);
-      //cout << userToken << endl;
+
       //read in userToken and find the end of user info
       while ((posInfo = userToken.find(infoDelim)) != string::npos )
 	{
 	  infoToken = userToken.substr(0,posInfo);
-	  //cout << infoToken << endl;
+
 	  //parse through the user info
 	  infoCounter = 0;
 	  while ((pos1 = infoToken.find(newlDelim)) != string::npos)
 	    {
 	      token1 = infoToken.substr(0,pos1);
-	      //cout << token1 << endl;
-	      //cout << infoCounter << endl;
+
 	      if (infoCounter == 0)
 		{
 		  un = token1;
-		  //cout << un << endl;
 		}
 	      if (infoCounter == 1)
 		{	
 		  pw = token1;
-		  //cout << pw << endl;
 		}
 	      if (infoCounter == 2)
 		{
 		  rn = token1;
-		  //cout << rn << endl;
 		}
 
 	      infoCounter++;
 	      infoToken.erase(0, pos1+newlDelim.length());
 	    }
 	  dob = token1;
-	  //cout << dob << endl;
-	  //user newUser(un,pw,rn,dob);
 	  userToken.erase(0, posInfo + infoDelim.length());
 			
 			
 	}
+      //create the new user
       user newUser(un,pw,rn,dob);
 		
       //start parsing through the wall posts
@@ -403,10 +349,10 @@ void userNetwork::readUsers(const char* filename)
 		  token2.erase(0, pos3+newlDelim.length());
 		}
 
-	      loc = token3;
+	      author = token3;
 	      //cout << loc << endl << endl;
 	      postToken.erase(0,pos2+eachPost.length());
-	      wallPost newPost(wp,top,un); //we chagned this line
+	      wallPost newPost(wp,top,author); //we chagned this line
 	      newUser.addToWall(newPost);
 	    }
 	  userToken.erase(0, posPost + postDelim.length());

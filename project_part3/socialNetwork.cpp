@@ -304,6 +304,7 @@ void socialNetwork::postOnFriendWall(user *usr) {
      if (!cin)
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	
      if (selection != 1 && selection != 2 && selection != 3)
        std::cout << "Invalid selection" << std::endl;
   } while (selection != 1 && selection != 2 && selection != 3);
@@ -314,16 +315,16 @@ void socialNetwork::postOnFriendWall(user *usr) {
   if(selection == 1) {
     string uname; 
     std::cout << "Enter the username of the wall you would like to post on:";
-    //std::cin >> uname;
     std::getline(std::cin, uname);
+    
     if(un->checkUsername(uname) == false) {
       std::cout << "Person not found, please try again" << std::endl;
       return postOnFriendWall(usr);
     }
+    
     else {
       std::cout << "Enter your post for " + uname + "'s wall: ";
       string text;
-      //std::cin >> text;
       std::getline(std::cin, text);
       string postloc = uname;
       wallPost npost(text, usr->getUsername());
@@ -348,7 +349,7 @@ void socialNetwork::newPost(user* usr)
 
   //std::cout << "Where are you posting from?" << std::endl;
   
-  string postloc = usr->getUsername();
+  //string postloc = usr->getUsername();
   //std::getline(std::cin, loc);
   // std::getline(std::cin, loc);
 
@@ -421,8 +422,8 @@ void socialNetwork::deleteUser(user* usr)
       ++it;
     }
 
-    int index = un->getUserIndex(usr->getUsername());
-    un->deleteUser(index);
+    //int index = un->getUserIndex(usr->getUsername());
+    un->deleteUser(usr->getUsername());
     std::cout << "*******************************" << std::endl;
     std::cout << "Your account has been deleted." << std::endl;
     std::cout << "*******************************" << std::endl;
