@@ -531,3 +531,4 @@ void userNetwork::readFriends(const char* filename, int option)
 
   infile.close();
 }
+	    
