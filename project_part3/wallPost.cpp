@@ -144,6 +144,16 @@ void wallPost::deleteResponse(int index)
   return;
 }
 
+postResponse* wallPost::getResponse(int index) {
+
+  std::list<postResponse>::iterator it;
+  int i = 0;
+  for(it = responses->begin(); i < index; ++it, i++);
+
+  return &(*it);
+
+}
+
 list<postResponse>* wallPost::getResponses()
 {
   return responses;
