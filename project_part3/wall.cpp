@@ -61,13 +61,13 @@ void wall::setPost(int pos, wallPost p){
 */
 
 
-wallPost wall::getPost(int pos){
+wallPost* wall::getPost(int pos){
 
   std::list<wallPost>::iterator it;
   int i = 0;
   for (it = wp->begin(); i < pos; ++it, i++);
 
-  return *it;
+  return &(*it);
 }
 
 // return the wall as a formated string
@@ -109,6 +109,8 @@ string wall::WallToStringWrite()
   for (it = wp->begin(), i=0; it != wp->end(); ++it, i++)
   {
     wholeWall += it->getPostWrite();
+    wholeWall += it->writeResponses();
+    wholeWall += "[/endpost]";
     if (i == count - 1)
       wholeWall += "[/endwallposts]";
     else
@@ -119,78 +121,9 @@ string wall::WallToStringWrite()
 
 }
 
-// read in a wall from a properly formatted string
-// void wall::readWall(string t) {
-
-//   //empty list of wallposts
-//   wp->clear();  
-
-//   string s = t;
-//   // first delimiter to divide up wall posts
-//   string delimiter1 = " \n";
-//   // second delimiter to divide up each element of wall post
-//   string delimiter2 = "\n";
-
-//   size_t pos1 = 0;
-//   size_t pos2 = 0;
-//   int counter = 0;
-
-//   string post;
-//   string timeOfPost;
-//   string postlocation;
-
-//   string token1;
-//   string token2;
-
-//   //divide up the posts
-//   while ((pos1 = s.find(delimiter1)) != string::npos) {
-//     token1 = s.substr(0, pos1);
-//     counter = 0;
-//     //cout << token1 << endl << "BREAK" << endl;
-//     while ((pos2 = token1.find(delimiter2)) != string::npos) {
-      
-//       token2 = token1.substr(0, pos2);
-//       //cout << token2 << endl << "BREAK" << endl;
-
-//       if (counter == 0)
-//       {
-//         post = token2;
-//         //token1.erase(0, pos2 + delimiter2.length());
-//       }
-//       if (counter == 1)
-//       {
-//         timeOfPost = token2 + "\n";
-//         //token1.erase(0, pos2 + delimiter2.length());
-//       }
-//       //if (counter == 2)
-//       //{
-//         //location = token2;
-//         //token1.erase(0, pos2 + delimiter2.length());
-//       //}  
-//       counter++;
-//       token1.erase(0, pos2 + delimiter2.length());
-
-
-//   }
-//     //cout << "TOKEN2 AT END OF WHILE LOOP: " << token2 << endl;
-//     s.erase(0, pos1 + delimiter1.length());
-//     cout << s << endl;
-//     postlocation = token2;
-//     wallPost newPost(post,timeOfPost, location);
-//     wp->push_back(newPost);
-
-
-//   }
-
-// }
 
 // return the pointer to the list
 list<wallPost>* wall::getList() {
   return wp;
 }
 
-// return the head pointer of the linked list
-//Node<wallPost>* wall::getHead()
-//{
-//  return wp->getHead();
-//}

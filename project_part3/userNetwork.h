@@ -12,7 +12,7 @@ class userNetwork {
   userNetwork();
   ~userNetwork();
   void addUser(user u);
-  void deleteUser(int index);
+  void deleteUser(string name);
   void writeUserNetwork();
   void writeFriends(int option);
   void readUsers(const char* filename);

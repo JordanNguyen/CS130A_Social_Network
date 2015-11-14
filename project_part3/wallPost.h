@@ -1,5 +1,7 @@
 #ifndef WALLPOST_H
 #define WALLPOST_H
+#include <list>
+#include "postResponse.h"
 using namespace std;
 
 class wallPost {
@@ -9,6 +11,7 @@ private:
 	string text;
 	string timeOfPost;
 	string author;
+	list<postResponse> *responses;
 
 public:
 
@@ -25,6 +28,10 @@ public:
 	void setText(string t);
 	string getTimeOfPost();
 	void setTimeOfPost(string t);
+	void addResponse(postResponse p);
+	list<postResponse>* getResponses();
+	void deleteResponse(int index);
+	string writeResponses();
 
 };
 

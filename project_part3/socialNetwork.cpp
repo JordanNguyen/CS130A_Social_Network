@@ -26,7 +26,7 @@ socialNetwork::~socialNetwork()
 
 void socialNetwork::welcome()
 {
-                                          
+  //std::cout << "#     #" << std::endl;                                           
   std::cout << "#  #  # ###### #       ####   ####  #    # ######" << std::endl; 
   std::cout << "#  #  # #      #      #    # #    # ##  ## #"      << std::endl;
   std::cout << "#  #  # #####  #      #      #    # # ## # #####"  << std::endl;
@@ -181,12 +181,13 @@ void socialNetwork::userPage(user* usr)
   std::cout<<"1.) View your wall"<<std::endl;
   std::cout<<"2.) View another user's wall"<<std::endl;
   std::cout<<"3.) Create new wall post"<<std::endl;
-  std::cout<<"4.) View friends menu" << std::endl;
-  std::cout<<"5.) Search for users" << std::endl;
-  std::cout<<"6.) Delete a wall post" << std::endl;
-  std::cout<<"7.) Edit account information" << std::endl;
-  std::cout<<"8.) Delete your account" <<std::endl;
-  std::cout<<"9.) Logout"<<endl;
+  std::cout<<"4.) Post on another user's wall" <<std::endl;
+  std::cout<<"5.) View friends menu" << std::endl;
+  std::cout<<"6.) Search for users" << std::endl;
+  std::cout<<"7.) Delete a wall post" << std::endl;
+  std::cout<<"8.) Edit account information" << std::endl;
+  std::cout<<"9.) Delete your account" <<std::endl;
+  std::cout<<"10.) Logout"<<endl;
 
   int selection = 1;
 
@@ -195,36 +196,39 @@ void socialNetwork::userPage(user* usr)
     if (!cin)
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (selection < 1 || selection > 9)
+    if (selection < 1 || selection > 10)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 9);
+  } while (selection < 1 || selection > 10);
 
   if (selection == 1)
     return displayWall(usr);
 
   if (selection == 2)
-    return otherUsersWall(usr);
+    return displayOtherUsersWall(usr);
 
   if (selection == 3)
     return newPost(usr);
 
-  if (selection == 4) {
+  if (selection == 4)
+    return postOnFriendWall(usr);
+
+  if (selection == 5) {
     std::cout << "*******************************" << std::endl;
     return friendMenu(usr);
   }
-  if (selection == 5)
+  if (selection == 6)
     return searchUser(usr);
 
-  if (selection == 6)
+  if (selection == 7)
     return deletePost(usr);
 
-  if (selection == 7)
+  if (selection == 8)
     return changeInfo(usr);
 
-  if (selection == 8)
+  if (selection == 9)
     return deleteUser(usr);
 
-  if (selection == 9)
+  if (selection == 10)
     {
       std::cout << "*******************************" << std::endl;
       std::cout<<"You have logged out."<<std::endl;
@@ -242,111 +246,139 @@ void socialNetwork::displayWall(user* usr)
 {
   std::cout << "*******************************" << std::endl;
   std::cout << usr->getWall().WallToString();
+
+  if (!(usr->getWall().getList()->empty()))
+    {
+      std::cout << "*******************************" << std::endl;
+      std::cout<<"Would you like to respond to any of your wall posts? (yes/no)"<<std::endl;
+      std::cout << "*******************************" << std::endl;
+      string answer;
+      do{
+	std::cin >> answer;
+	if (answer != "yes" && answer != "no")
+	  std::cout << "Please select either 'yes' or 'no'" << std::endl;
+      } while (answer != "yes" && answer != "no");
+
+      if (answer  == "no")
+	return userPage(usr);
+      if (answer == "yes")
+	return respondToPost(usr);
+    }
+
   return userPage(usr);
 }
 
-void socialNetwork::otherUsersWall(user *usr) {
-  std::cout << "******************************" << std::endl;
-  std::cout << "YOUR FRIENDS:" <<std::endl;
-  std::cout << usr->displayFriends() << std::endl;
-  std::cout << "******************************" << std::endl;
-  std::cout << "1.) View a friend's wall" <<std::endl;
-  std::cout << "2.) Post on a friend's wall" << std::endl;
-  std::cout << "3.) Delete your post on a friend's wall" << std::endl;
-  std::cout << "4.) Return to previous menu" << std::endl;
+void socialNetwork::respondToPost(user* usr)
+{
+  std::cout << "Which post would you like to post a response to?" <<  std::endl;
+  int numPosts = usr->getWall().getList()->size();
+  int choice;
+  do{
+    std::cin >> choice;
+    if (!cin)
+      cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (choice < 1 || choice > numPosts)
+      std::cout << "Invalid selection" << std::endl;
+  } while (choice < 1 || choice > numPosts);
+
+  std::cout << "Enter your post: ";
+  string text;
+  std::getline(std::cin, text);
+
+  postResponse nResp(text, usr->getUsername());
+
+  usr->getWall().getPost(choice-1)->addResponse(nResp);
+
+  std::cout << "You have posted your response" << std::endl;
+  return userPage(usr);
+  
+}
+void socialNetwork::displayOtherUsersWall(user *usr) {
+  
+  std::cout << "*******************************" << std::endl;
+  std::cout << "Select an option" << std::endl;
+  std::cout << "1.) View friend's wall by username" << std::endl;
+  std::cout << "2.) View friend's wall by real name" << std::endl;
+  std::cout << "3.) Return to previous menu" << std::endl;
 
   int selection = 1;
 
   do{
-      std::cin >> selection;
-      if (!cin)
-         cin.clear();
-         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      if (selection != 1 && selection != 2 && selection != 3)
-        std::cout << "Invalid selection" << std::endl;
-   } while (selection != 1 && selection != 2 && selection != 3);
+     std::cin >> selection;
+     if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+     if (selection != 1 && selection != 2 && selection != 3)
+       std::cout << "Invalid selection" << std::endl;
+  } while (selection != 1 && selection != 2 && selection != 3);
 
-  if (selection == 4)
-     return userPage(usr);
-  
+  if (selection == 3)
+    return userPage(usr);
+
   if(selection == 1) {
-     std::cout << "Enter the username of the wall you would like to view: ";
-     string uname; 
-     std::getline(std::cin, uname);
-     if(un->checkUsername(uname) == false) {
-       std::cout << "Person not found, please try again" << std::endl;
-       return userPage(usr);
+    string uname; 
+    std::cout << "Enter the username of the wall you would like to post on:";
+    //std::cin >> uname;
+    std::getline(std::cin, uname);
+    if(un->checkUsername(uname) == false) {
+      std::cout << "Person not found, please try again" << std::endl;
+      return postOnFriendWall(usr);
+    }
+    else {
+      std::cout << "*******************************" << std::endl;
+      std::cout << un->getUser(uname)->getWall().WallToString();
+      return userPage(usr);
     }
 
-     else {
-       std::cout << "*******************************" << std::endl;
-       std::cout << uname + "'s Wall" << std::endl;
-       std::cout << "*******************************" << std::endl;
-       std::cout << un->getUser(uname)->getWall().WallToString();
-       return userPage(usr);
+  }
+}
+
+void socialNetwork::postOnFriendWall(user *usr) {
+
+  std::cout << "*******************************" << std::endl;
+  std::cout << "Select an option" << std::endl;
+  std::cout << "1.) Post on friend's wall by username" << std::endl;
+  std::cout << "2.) Post on frined's wall by real name" << std::endl;
+  std::cout << "3.) Return to previous menu" << std::endl;
+
+  int selection = 1;
+
+  do{
+     std::cin >> selection;
+     if (!cin)
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	
+     if (selection != 1 && selection != 2 && selection != 3)
+       std::cout << "Invalid selection" << std::endl;
+  } while (selection != 1 && selection != 2 && selection != 3);
+
+  if (selection == 3)
+    return userPage(usr);
+
+  if(selection == 1) {
+    string uname; 
+    std::cout << "Enter the username of the wall you would like to post on:";
+    std::getline(std::cin, uname);
+    
+    if(un->checkUsername(uname) == false) {
+      std::cout << "Person not found, please try again" << std::endl;
+      return postOnFriendWall(usr);
     }
-  }
+    
+    else {
+      std::cout << "Enter your post for " + uname + "'s wall: ";
+      string text;
+      std::getline(std::cin, text);
+      string postloc = uname;
+      wallPost npost(text, usr->getUsername());
+      un->getUser(uname)->getWall().newPost(npost);
+      std::cout << "*******************************" << std::endl;
+      std::cout << "Post successful!" << std::endl;
 
-  if ( selection == 2) {
-     string uname; 
-     std::cout << "Enter the username of the wall you would like to post on: ";
-     std::getline(std::cin, uname);
-     if(un->checkUsername(uname) == false) {
-       std::cout << "Person not found, please try again" << std::endl;
-       return userPage(usr);
-     }
-     else {
-       std::cout << "Enter your post for " + uname + "'s wall: ";
-       string text;
-       std::getline(std::cin, text);
-       string postloc = uname;
-       wallPost npost(text, usr->getUsername());
-       un->getUser(uname)->getWall().newPost(npost);
-       std::cout << "*******************************" << std::endl;
-       std::cout << "Post successful!" << std::endl;
-
-       return userPage(usr);
-
-
-
-     }
-  }
-
-  if (selection == 3) {
-     int num;
-     string uname; 
-     std::cout << "Enter the username of the wall you would like delete your post: ";
-     std::getline(std::cin, uname);
-     if(un->checkUsername(uname) == false) {
-       std::cout << "Person not found, please try again" << std::endl;
-       return userPage(usr);
-     }
-     // prints out the user's wall tha you want to delete your post from
-     std::cout << "*******************************" << std::endl;
-     std::cout << uname + "'s Wall" << std::endl;
-     std::cout << "*******************************" << std::endl;
-     std::cout << un->getUser(uname)->getWall().WallToString();
-
-     do{
-       std::cout << "Enter the number corresponding to the wall post you wish to delete : ";
-       std::cin >> num;
-       if (!cin)
-          cin.clear();
-          cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	  if (num < 1 || num > un->getUser(uname)->getWall().getList()->size())
-          std::cout << "Invalid selection" << std::endl;
-     } while (num < 1 || num > un->getUser(uname)->getWall().getList()->size());
-     
-     if(un->getUser(uname)->getWall().getPost(num - 1).getAuthor() != usr->getUsername()) {
-       std::cout << "Invalid selection. You can only delete posts that you have authored" << std::endl;
-       return userPage(usr);
-     }
-       
-     un->getUser(uname)->deleteWallPost(num - 1);
-     std::cout << "*******************************" << std::endl;
-     std::cout << "Post successfully deleted!" << std::endl;
-     return userPage(usr);
-
+      return userPage(usr);
+    }
   }
 
 }
@@ -362,7 +394,7 @@ void socialNetwork::newPost(user* usr)
 
   //std::cout << "Where are you posting from?" << std::endl;
   
-  string postloc = usr->getUsername();
+  //string postloc = usr->getUsername();
   //std::getline(std::cin, loc);
   // std::getline(std::cin, loc);
 
@@ -435,8 +467,8 @@ void socialNetwork::deleteUser(user* usr)
       ++it;
     }
 
-    int index = un->getUserIndex(usr->getUsername());
-    un->deleteUser(index);
+    //int index = un->getUserIndex(usr->getUsername());
+    un->deleteUser(usr->getUsername());
     std::cout << "*******************************" << std::endl;
     std::cout << "Your account has been deleted." << std::endl;
     std::cout << "*******************************" << std::endl;
@@ -917,8 +949,3 @@ void socialNetwork::manageRequests(user* usr)
 
 
 }
-
-
-
-
-

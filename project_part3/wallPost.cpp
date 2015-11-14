@@ -3,14 +3,17 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <sstream>
 #include <list>
 #include "wallPost.h"
+#include "postResponse.h"
 using namespace std;
 
 wallPost::wallPost() 
 {
 	text = "";
 	author = "";
+	responses = new list<postResponse>;
 	
 	time_t currentTime;
 	struct tm *timeinfo;
@@ -25,6 +28,7 @@ wallPost::wallPost(string t, string a)
 {
 	text = t;
 	author = a;
+	responses = new list<postResponse>;
 	time_t currentTime;
 	struct tm *timeinfo;
 	time(&currentTime);
@@ -40,6 +44,7 @@ wallPost::wallPost(string t, string top, string a)
 	text = t;
 	author = a;
 	timeOfPost = top;
+	responses = new list<postResponse>;
 }
 
 wallPost::~wallPost() {
@@ -52,7 +57,27 @@ string wallPost::getPost()
 	wholePost = text + "\n" + "Time of post: " + timeOfPost + "\n" +
 	"Author: " + author + "\n\n";
 
-	//std::cout << wholePost;
+	if (!responses->empty())
+	  {
+	    wholePost += "RESPONSES:\n";
+	    std::list<postResponse>::iterator it;
+	    it = responses->begin();
+	    int i = 1;
+	    while (it != responses->end())
+	      {
+		ostringstream convert;
+		convert << i;
+		wholePost += "   ";
+		wholePost += convert.str();
+		wholePost += ".) ";
+		wholePost += it->getRespDisp();
+		++it;
+		++i;
+	      }
+	    wholePost += "\n";
+	  }
+
+       
 	return wholePost;
        
 }
@@ -60,7 +85,7 @@ string wallPost::getPost()
 string wallPost::getPostWrite()
 {
 	string wholePost;
-	wholePost = text + "\n" + timeOfPost + "\n" + author + "\n" + "[/endpost]";
+	wholePost = text + "\n" + timeOfPost + "\n" + author + "\n" + "[/origpost]\n";
 	return wholePost;
 }
 
@@ -95,3 +120,59 @@ void wallPost::setAuthor(string t)
 	author = t;
 }
 
+void wallPost::addResponse(postResponse p)
+{
+  responses->push_back(p);
+}
+
+void wallPost::deleteResponse(int index)
+{
+  std::list<postResponse>::iterator it;
+  it = responses->begin();
+  int i = 0;
+  while (it != responses->end())
+    {
+      if (i == index)
+	{
+	  responses->erase(it);
+	  return;
+	}
+      it++;
+      i++;
+    }
+
+  return;
+}
+
+list<postResponse>* wallPost::getResponses()
+{
+  return responses;
+}
+
+//write responses to string for formated txt
+string wallPost::writeResponses()
+{
+  std::list<postResponse>::iterator it;
+  it = responses->begin();
+  string resps = "";
+  int count = responses->size();
+  int i = 1;
+  while (it != responses->end())
+    {
+      resps += it->getText();
+      resps += "\n";
+      resps += it->getTime();
+      resps += "\n";
+      resps += it->getAuthor();
+      resps += "\n";
+      resps += "[/endresp]\n";
+      if (i == count)
+	{
+	  resps += "[/endallresp]";
+	}
+
+      ++it;
+      ++i;
+    }
+  return resps;
+}

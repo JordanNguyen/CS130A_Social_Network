@@ -35,70 +35,21 @@ void userNetwork::addUser(user u)
   //cout << "New user successfully created!" << endl;
 }
 
-void userNetwork::deleteUser(int index)
+void userNetwork::deleteUser(string name)
 {
   std::list<user>::iterator it;
-  int i = 0;
-  for (it = users->begin(), i = 0; i < index; ++i, ++it);
-  users->erase(it);
+  for (it = users->begin(); it != users->end(); ++it)
+    {
+      if (it->getUsername() == name)
+	{
+	  users->erase(it);
+	  return;
+	}
+    }
+  
   return;
 }
 
-/*void userNetwork::deleteUser(string t) 
-  {
- 	
-  
-  //empty list
-  if (users->empty())
-  return;
-  //single entry
-  if (users->getHead() == users->getTail() && users->getHead()->getData().getUsername() == t)
-  {
-  //Node<user> *temp = users->getHead();
-  //delete temp;
-  users->setHead(NULL);
-  users->setTail(NULL);
-  return;
-  }
-
-  //delete head
-  if (users->getHead()->getData().getUsername() == t)
-  {
-  Node<user> *temp = users->getHead();
-  users->setHead(users->getHead()->getNext());
-  delete temp;
-  return;
-  }
-
-  //delete tail
-  if (users->getTail()->getData().getUsername() == t)
-  {
-  Node<user> *temp = users->getTail();
-  users->setTail(users->getTail()->getPrev());
-  users->getTail()->setNext(NULL);
-  delete temp;
-  return;
-  }
-
-  //anything else
-  else
-  {
-  Node<user> *temp = users->getHead();
-  while (temp != NULL)
-  {
-  if (temp->getData().getUsername() == t)
-  {
-  temp->getPrev()->setNext(temp->getNext());
-  temp->getNext()->setPrev(temp->getPrev());
-  delete temp;
-  }
-  temp = temp->getNext();
-  }
-  }
-
-  return;
-  }
-*/
 
 void userNetwork::printUsernames()
 {
@@ -292,6 +243,9 @@ void userNetwork::readUsers(const char* filename)
   string infoDelim = "[/endinfo]";
   string postDelim = "[/endwallposts]";
   string eachPost  = "[/endpost]";
+  string origPost  = "[/origpost]\n";
+  string eachResp  = "[/endresp]\n";
+  string allResp   = "[/endallresp]";
   string newlDelim = "\n";
 
   // byte size
@@ -301,6 +255,10 @@ void userNetwork::readUsers(const char* filename)
   size_t pos1    = 0;
   size_t pos2    = 0;
   size_t pos3    = 0;
+  size_t pos4    = 0;
+  size_t pos5    = 0;
+  size_t pos6    = 0;
+  size_t pos7    = 0;
 
   // tokens to split up string
   string userToken;
@@ -309,10 +267,15 @@ void userNetwork::readUsers(const char* filename)
   string token1;
   string token2;
   string token3;
+  string token4;
+  string token5;
+  string token6;
+  string token7;
 
   // counters
   int infoCounter = 0;
   int postCounter = 0;
+  int respCounter = 0;
 
   // data members to save to usernetwork
   string un;  //username
@@ -321,103 +284,152 @@ void userNetwork::readUsers(const char* filename)
   string dob; //date of birth
   string wp;  //wall post
   string top; //time of post
-  string loc; //location
+  string author; //post author
+  string rwp; //response post
+  string rtop; //response time
+  string raut; //response author
+
+  user *newUser = NULL;
+  wallPost *newpost = NULL;
+  postResponse *newResp = NULL;
 
   // find the end of first user
+        cout << "looking for userDelim" << endl;
   while ((posUser = s.find(userDelim)) != string::npos) 
     {
       //save all the text to userToken
       userToken = s.substr(0, posUser);
-      //cout << userToken << endl;
+
+            cout << "looking for infoDelim" << endl;
       //read in userToken and find the end of user info
       while ((posInfo = userToken.find(infoDelim)) != string::npos )
 	{
 	  infoToken = userToken.substr(0,posInfo);
-	  //cout << infoToken << endl;
+
 	  //parse through the user info
 	  infoCounter = 0;
 	  while ((pos1 = infoToken.find(newlDelim)) != string::npos)
 	    {
 	      token1 = infoToken.substr(0,pos1);
-	      //cout << token1 << endl;
-	      //cout << infoCounter << endl;
+
 	      if (infoCounter == 0)
 		{
 		  un = token1;
-		  //cout << un << endl;
 		}
 	      if (infoCounter == 1)
 		{	
 		  pw = token1;
-		  //cout << pw << endl;
 		}
 	      if (infoCounter == 2)
 		{
 		  rn = token1;
-		  //cout << rn << endl;
 		}
 
 	      infoCounter++;
 	      infoToken.erase(0, pos1+newlDelim.length());
 	    }
 	  dob = token1;
-	  //cout << dob << endl;
-	  //user newUser(un,pw,rn,dob);
-	  userToken.erase(0, posInfo + infoDelim.length());
-			
-			
+	  userToken.erase(0, posInfo + infoDelim.length());        		
 	}
-      user newUser(un,pw,rn,dob);
+      //create the new user
+      //user newUser(un,pw,rn,dob);
+      newUser = new user(un,pw,rn,dob);
+      cout<<"user created"<<endl;
 		
-      //start parsing through the wall posts
+      //start parsing through the wall posts [/endwallposts]
       while ((posPost = userToken.find(postDelim)) != string::npos)
 	{
 	  //get the whole string of wall posts per each user
 	  postToken = userToken.substr(0, posPost);
-	  //parse through the wall posts and divide it into individual posts
-			
+	  
+	  //parse through the wall posts and divide it into individual posts [/endpost]
 	  while ((pos2 = postToken.find(eachPost)) != string::npos)
 	    {
 	      // get each individual post
 	      token2 = postToken.substr(0,pos2);
-	      //cout << token2 << endl;
-	      postCounter = 0;
-	      while ((pos3 = token2.find(newlDelim)) != string::npos)
+
+	      // find the original post by user, before responses [/origpost]
+	      while ((pos3 = token2.find(origPost)) != string::npos)
 		{
 		  //divide up each post into parts separated by newlines
 		  token3 = token2.substr(0,pos3);
-		  //cout<<token3<<endl<<endl;
-		  //cout << postCounter  << endl;
-		  if (postCounter == 1)
-		    {	
-		      wp = token3;
-		      //cout << wp << endl << endl;
-		    }
-		  if (postCounter == 2)
+		  postCounter = 0;
+		  //divide up by newlines and get the post info \n
+		  while ((pos4 = token3.find(newlDelim)) != string::npos)
 		    {
-		      top = token3;
-		      //cout << top << endl << endl;
-		    }
+		      token4 = token3.substr(0,pos4);
+		      if (postCounter == 1)
+			{	
+			  wp = token4;
+			}
+		      if (postCounter == 2)
+			{
+			  top = token4;
+			}
 					
-		  postCounter++;
-		  token2.erase(0, pos3+newlDelim.length());
+		      postCounter++;
+		      token3.erase(0, pos4+newlDelim.length());
+		    }
+		  
+		  author = token4;
+		  token2.erase(0,pos3+origPost.length());
+		  //wallPost newpost(wp,top,author);
+		  newpost = new wallPost(wp,top,author);
+		  newUser->addToWall(*newpost);
+		  cout<<"wallpost added to user"<<endl;
 		}
+	      //newUser.addToWall(newPost);
+	      
+	      //find all responses
+	      while ((pos5 = token2.find(allResp)) != string::npos)
+		{
+		  token5 = token2.substr(0,pos5);
 
-	      loc = token3;
-	      //cout << loc << endl << endl;
-	      postToken.erase(0,pos2+eachPost.length());
-	      wallPost newPost(wp,top,loc); //we chagned this line
-	      newUser.addToWall(newPost);
+		  //find each individual response
+		  while ((pos6 = token5.find(eachResp)) != string::npos)
+		    {
+		      token6 = token5.substr(0,pos6);
+		      respCounter = 0;
+		      //divide up each response by newlines and get the response info
+		      while ((pos7 = token6.find(newlDelim)) != string::npos)
+			{
+			  token7 = token6.substr(0,pos7);
+			  if (respCounter == 0)
+			    {
+			      rwp = token7;
+			    }
+			  if (respCounter == 1)
+			    {
+			      rtop = token7;
+			    }
+			  respCounter++;
+			  token6.erase(0, pos7+newlDelim.length());
+			}
+		      raut = token7;
+		      token5.erase(0,pos6+eachResp.length());
+		      newResp = new postResponse(rwp, rtop, raut);
+		      newpost->addResponse(*newResp);
+		      cout << "response added" <<endl;
+		    }
+		  token2.erase(0,pos5+allResp.length());
+		  //postResponse newResp(rwp, rtop, raut);
+		  //newpost.AddResponse(newResp);
+		}
+		  
+	      postToken.erase(0, pos2 +  eachPost.length());
 	    }
-	  userToken.erase(0, posPost + postDelim.length());
-			
-			
+	   userToken.erase(0, posPost + postDelim.length());
 	}
-      addUser(newUser);
-      s.erase(0, posUser + userDelim.length());
-    }		
-
+      addUser(*newUser);
+      s.erase(0, posUser+userDelim.length());
+      cout << "user added" <<endl;
+    }
   infile.close();
+  delete newUser;
+  delete newpost;
+  delete newResp;
+  cout << "end of function" << endl;
+  return;
 }
 	
 /* readFriends takes in a formated text file
@@ -519,8 +531,3 @@ void userNetwork::readFriends(const char* filename, int option)
 
   infile.close();
 }
-	    
-
-
-
-
