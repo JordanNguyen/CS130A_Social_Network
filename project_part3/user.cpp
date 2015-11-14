@@ -31,78 +31,10 @@ user::user(string u, string p, string r, string d)
   requests = new list<string>;
 }
 
-// user::user(string info)
-// {
-//   // string of format "Username\nPassword\nRealName\nDob\n  \nPost1\nTimeOfPost\nLocation\n \n"
-
-//   friends = new list<string>;
-  
-//   string s = info;
-//   string delimiter1 = "  \n";
-//   string delimiter2 = "\n";
-//   string delimiter3 = " \n";
-
-//   size_t pos1 = 0;
-//   size_t pos2 = 0;
-//   int counter = 0;
-
-//   string token1;
-//   string token2;
-
-//   string post;
-//   string timeOfPost;
-//   string postlocation;
-
-//   // find the end of the basic user info before the wall
-//   while ((pos1 = s.find(delimiter1)) != string::npos) {
-//     token1 = s.substr(0, pos1);
-
-//     while ((pos2 = token1.find(delimiter2)) != string::npos) {
-//       token2 = token1.substr(0,pos2);
-//       if (counter == 0)
-//         username = token2;
-//       if (counter == 1)
-//         password = token2;
-//       if (counter == 2)
-//         realName = token2;
-
-//       counter++;
-//       token1.erase(0, pos2+delimiter2.length());
-//     }
-
-//   s.erase(0, pos1 + delimiter1.length());
-//   dob = token2;
-//   }
-
-//   while ((pos1 = s.find(delimiter3)) != string::npos) {
-//     token1 = s.substr(0, pos1);
-//     counter = 0;
-//     while ((pos2 = token1.find(delimiter2)) != string::npos) {
-
-//       token2 = token1.substr(0,pos2);
-//       if (counter == 0)
-//         post = token2;
-//       if (counter == 1)
-//         timeOfPost = token2 + "\n";
-//       counter++;
-//       token1.erase(0,pos2 + delimiter2.length());
-
-//     }
-
-//     s.erase(0, pos1 + delimiter3.length());
-//     postlocation = token2;
-//     wallPost npost(post,timeOfPost,postlocation);
-//     w.newPost(npost);
-
-//   }
-
-
-
-// }
-
 user::~user()
 {
-  
+  //delete friends;
+  //delete requests;
 }
 
 
