@@ -531,7 +531,13 @@ void userNetwork::readFriends(const char* filename, int option)
 
   infile.close();
 }
-	    
+
+int userNetwork::degreeOfSeparation(string usr1, string usr2)
+{
+  user *temp = getUser(usr1);
+
+  
+}
 
 
 

@@ -26,6 +26,7 @@ class userNetwork {
   user* getUserRealName(string usr);
   void removeFriend(string usr1, string usr2);
   list<user>* getUserList();
+  int degreeOfSeparation(string usr1, string usr2);
 
 };
 
