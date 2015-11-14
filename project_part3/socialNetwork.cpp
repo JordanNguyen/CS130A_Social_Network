@@ -261,16 +261,16 @@ void socialNetwork::displayWall(user* usr)
       if (answer  == "no")
 	return userPage(usr);
       if (answer == "yes")
-	return respondToPost(usr);
+	return respondToPost(usr, usr->getUsername());
     }
 
   return userPage(usr);
 }
 
-void socialNetwork::respondToPost(user* usr)
+void socialNetwork::respondToPost(user* usr, string username)
 {
   std::cout << "Which post would you like to post a response to?" <<  std::endl;
-  int numPosts = usr->getWall().getList()->size();
+  int numPosts = un->getUser(username)->getWall().getList()->size();
   int choice;
   do{
     std::cin >> choice;
@@ -287,7 +287,7 @@ void socialNetwork::respondToPost(user* usr)
 
   postResponse nResp(text, usr->getUsername());
 
-  usr->getWall().getPost(choice-1)->addResponse(nResp);
+  un->getUser(username)->getWall().getPost(choice-1)->addResponse(nResp);
 
   std::cout << "You have posted your response" << std::endl;
   return userPage(usr);
@@ -320,17 +320,38 @@ void socialNetwork::otherUsersWall(user *usr)
     std::cout << "Enter the username of the wall you would like to view: ";
     string uname; 
     std::getline(std::cin, uname);
+    
     if(un->checkUsername(uname) == false) {
       std::cout << "Person not found, please try again" << std::endl;
       return userPage(usr);
     }
 
+    else if (un->getUser(uname)->getWall().getList()->empty())
+      {
+	std::cout << "*******************************" << std::endl;
+	std::cout << uname + "'s Wall is empty." << std::endl;
+	std::cout << "*******************************" << std::endl;
+	return userPage(usr);
+      }
+    
     else {
       std::cout << "*******************************" << std::endl;
       std::cout << uname + "'s Wall" << std::endl;
       std::cout << "*******************************" << std::endl;
       std::cout << un->getUser(uname)->getWall().WallToString();
-      return userPage(usr);
+
+      std::cout << "Would you like to post a response to any of your friends wall posts? (yes/no)" << std::endl;
+      string answer;
+      do{
+	std::cin >> answer;
+	if (answer != "yes" && answer != "no")
+	  std::cout << "Please select either 'yes' or 'no'" << std::endl;
+      } while (answer != "yes" && answer != "no");
+
+      if (answer  == "no")
+	return userPage(usr);
+      if (answer == "yes")
+	return respondToPost(usr, uname);
     }
   }
 
