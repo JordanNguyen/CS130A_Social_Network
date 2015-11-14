@@ -85,7 +85,7 @@ string wallPost::getPost()
 string wallPost::getPostWrite()
 {
 	string wholePost;
-	wholePost = text + "\n" + timeOfPost + "\n" + author + "\n" + "[/endpost]";
+	wholePost = text + "\n" + timeOfPost + "\n" + author + "\n" + "[/origpost]\n";
 	return wholePost;
 }
 
@@ -147,4 +147,32 @@ void wallPost::deleteResponse(int index)
 list<postResponse>* wallPost::getResponses()
 {
   return responses;
+}
+
+//write responses to string for formated txt
+string wallPost::writeResponses()
+{
+  std::list<postResponse>::iterator it;
+  it = responses->begin();
+  string resps = "";
+  int count = responses->size();
+  int i = 1;
+  while (it != responses->end())
+    {
+      resps += it->getText();
+      resps += "\n";
+      resps += it->getTime();
+      resps += "\n";
+      resps += it->getAuthor();
+      resps += "\n";
+      resps += "[/endresp]\n";
+      if (i == count)
+	{
+	  resps += "[/endallresp]\n";
+	}
+
+      ++it;
+      ++i;
+    }
+  return resps;
 }

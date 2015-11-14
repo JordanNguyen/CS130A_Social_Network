@@ -188,7 +188,7 @@ void userNetwork::writeUserNetwork()
 {
 
   ofstream outfile;
-  outfile.open("userNetworkInput.txt");
+  outfile.open("test1.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;

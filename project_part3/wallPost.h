@@ -31,6 +31,7 @@ public:
 	void addResponse(postResponse p);
 	list<postResponse>* getResponses();
 	void deleteResponse(int index);
+	string writeResponses();
 
 };
 

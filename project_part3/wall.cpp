@@ -109,6 +109,8 @@ string wall::WallToStringWrite()
   for (it = wp->begin(), i=0; it != wp->end(); ++it, i++)
   {
     wholeWall += it->getPostWrite();
+    wholeWall += it->writeResponses();
+    wholeWall += "[/endpost]\n";
     if (i == count - 1)
       wholeWall += "[/endwallposts]";
     else
