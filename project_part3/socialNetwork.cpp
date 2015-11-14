@@ -13,9 +13,9 @@ socialNetwork::socialNetwork()
   //instantiate new instance of usernetwork
   un = new userNetwork();
   //fill up usernetwork from files
-  un->readUsers("test.txt");
-  //un->readFriends("friendList.txt", 0);
-  //un->readFriends("friendRequests.txt", 1);
+  un->readUsers("userNetworkInput.txt");
+  un->readFriends("friendList.txt", 0);
+  un->readFriends("friendRequests.txt", 1);
 
 }
 
@@ -247,20 +247,25 @@ void socialNetwork::displayWall(user* usr)
   std::cout << "*******************************" << std::endl;
   std::cout << usr->getWall().WallToString();
 
-  std::cout << "*******************************" << std::endl;
-  std::cout<<"Would you like to respond to any of your wall posts? (yes/no)"<<std::endl;
-  std::cout << "*******************************" << std::endl;
-  string answer;
-  do{
-      std::cin >> answer;
-      if (answer != "yes" && answer != "no")
-        std::cout << "Please select either 'yes' or 'no'" << std::endl;
-    } while (answer != "yes" && answer != "no");
+  if (!(usr->getWall().getList()->empty()))
+    {
+      std::cout << "*******************************" << std::endl;
+      std::cout<<"Would you like to respond to any of your wall posts? (yes/no)"<<std::endl;
+      std::cout << "*******************************" << std::endl;
+      string answer;
+      do{
+	std::cin >> answer;
+	if (answer != "yes" && answer != "no")
+	  std::cout << "Please select either 'yes' or 'no'" << std::endl;
+      } while (answer != "yes" && answer != "no");
 
-  if (answer  == "no")
-    return userPage(usr);
-  if (answer == "yes")
-    return respondToPost(usr);
+      if (answer  == "no")
+	return userPage(usr);
+      if (answer == "yes")
+	return respondToPost(usr);
+    }
+
+  return userPage(usr);
 }
 
 void socialNetwork::respondToPost(user* usr)

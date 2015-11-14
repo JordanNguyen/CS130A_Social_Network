@@ -110,7 +110,7 @@ string wall::WallToStringWrite()
   {
     wholeWall += it->getPostWrite();
     wholeWall += it->writeResponses();
-    wholeWall += "[/endpost]\n";
+    wholeWall += "[/endpost]";
     if (i == count - 1)
       wholeWall += "[/endwallposts]";
     else

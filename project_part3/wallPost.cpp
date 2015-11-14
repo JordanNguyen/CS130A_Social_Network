@@ -168,7 +168,7 @@ string wallPost::writeResponses()
       resps += "[/endresp]\n";
       if (i == count)
 	{
-	  resps += "[/endallresp]\n";
+	  resps += "[/endallresp]";
 	}
 
       ++it;
