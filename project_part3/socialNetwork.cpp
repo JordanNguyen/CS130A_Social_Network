@@ -451,7 +451,7 @@ void socialNetwork::otherUsersWall(user *usr)
 //     if (!cin)
 //       cin.clear();
 //     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	
+
 //     if (selection != 1 && selection != 2 && selection != 3)
 //       std::cout << "Invalid selection" << std::endl;
 //   } while (selection != 1 && selection != 2 && selection != 3);
@@ -635,14 +635,14 @@ void socialNetwork::friendMenu(user* usr)
   if (selection == 5)
     {
       if (usr->getRequests()->empty())
-	{
-	  std::cout << "*******************************" << std::endl;
-	  std::cout<<"You have no friend requests." << std::endl;
-	  std::cout << "*******************************" << std::endl;
-	  return friendMenu(usr);
-	}
+{
+  std::cout << "*******************************" << std::endl;
+  std::cout<<"You have no friend requests." << std::endl;
+  std::cout << "*******************************" << std::endl;
+  return friendMenu(usr);
+}
       else
-	return manageRequests(usr);
+return manageRequests(usr);
     }
 
   if (selection == 6)
@@ -716,7 +716,7 @@ void socialNetwork::changeInfo(user* usr)
       std::cout << "Confirm your new password:";
       std::cin >> newpass2;
       if (newpass1 != newpass2)
-	std::cout<<"The passwords you entered did not match. Please try again."<<std::endl;
+std::cout<<"The passwords you entered did not match. Please try again."<<std::endl;
     }
     while(newpass1 != newpass2);
     
@@ -890,47 +890,47 @@ void socialNetwork::sendFriendRequest(user* usr)
   if (selection == 1)
     {
       if ((un->checkRealName(input)))
-	{
+{
 
-	  if (input == usr->getRealName())
-	    {
-	      std::cout << "*******************************"   << std::endl;
-	      std::cout <<"You can't be friends with yourself."<< std::endl;
-	      return sendFriendRequest(usr);
-	    }
+  if (input == usr->getRealName())
+    {
+      std::cout << "*******************************"   << std::endl;
+      std::cout <<"You can't be friends with yourself."<< std::endl;
+      return sendFriendRequest(usr);
+    }
 
-	  if (un->getUserRealName(input)->checkRequest(usr->getUsername()))
-	    {
-	      std::cout << "*******************************" << std::endl;
-	      std::cout<<"You have already sent a friend request to this user."<<std::endl;
-	      return sendFriendRequest(usr);
-	    }
+  if (un->getUserRealName(input)->checkRequest(usr->getUsername()))
+    {
+      std::cout << "*******************************" << std::endl;
+      std::cout<<"You have already sent a friend request to this user."<<std::endl;
+      return sendFriendRequest(usr);
+    }
       
-	  string usrname = un->getUserRealName(input)->getUsername();
-	  if (usr->isFriendsWith(usrname))
-	    {
-	      std::cout << "*******************************" << std::endl;
-	      std::cout<<"You are already friends with this user."<<std::endl;
-	      return sendFriendRequest(usr);
-	    }
+  string usrname = un->getUserRealName(input)->getUsername();
+  if (usr->isFriendsWith(usrname))
+    {
+      std::cout << "*******************************" << std::endl;
+      std::cout<<"You are already friends with this user."<<std::endl;
+      return sendFriendRequest(usr);
+    }
 
-	  else
-	    {
-	      un->getUserRealName(input)->addRequest(usr->getUsername());
-	      std::cout << "*******************************" << std::endl;
-	      std::cout << "Friend request sent!" << std::endl;
-	      std::cout << "*******************************" << std::endl;
-	      un->writeFriends(1);
-	      return friendMenu(usr);
-	    }
-	}
+  else
+    {
+      un->getUserRealName(input)->addRequest(usr->getUsername());
+      std::cout << "*******************************" << std::endl;
+      std::cout << "Friend request sent!" << std::endl;
+      std::cout << "*******************************" << std::endl;
+      un->writeFriends(1);
+      return friendMenu(usr);
+    }
+}
 
       else
-	{
-	  std::cout << "*******************************" << std::endl;
-	  std::cout << "Person not found" <<std::endl;
-	  return sendFriendRequest(usr); 
-	}
+{
+  std::cout << "*******************************" << std::endl;
+  std::cout << "Person not found" <<std::endl;
+  return sendFriendRequest(usr); 
+ }
     }
 
   if (selection == 2)
@@ -1051,4 +1051,7 @@ void socialNetwork::manageRequests(user* usr)
 
 
 }
+
+
+
 
