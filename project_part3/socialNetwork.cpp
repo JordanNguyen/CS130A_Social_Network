@@ -13,9 +13,9 @@ socialNetwork::socialNetwork()
   //instantiate new instance of usernetwork
   un = new userNetwork();
   //fill up usernetwork from files
-  un->readUsers("userNetworkInput.txt");
-  un->readFriends("friendList.txt", 0);
-  un->readFriends("friendRequests.txt", 1);
+  un->readUsers("test.txt");
+  //un->readFriends("friendList.txt", 0);
+  //un->readFriends("friendRequests.txt", 1);
 
 }
 
