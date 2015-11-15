@@ -13,9 +13,12 @@ socialNetwork::socialNetwork()
   //instantiate new instance of usernetwork
   un = new userNetwork();
   //fill up usernetwork from files
-  un->readUsers("userNetworkInput.txt");
-  un->readFriends("friendList.txt", 0);
-  un->readFriends("friendRequests.txt", 1);
+  //un->readUsers("userNetworkInput.txt");
+  //un->readFriends("friendList.txt", 0);
+  //un->readFriends("friendRequests.txt", 1);
+  un->readUsers("test.txt");
+  un->readFriends("testlist.txt", 0);
+  un->readFriends("testrequests.txt", 1);
   //un->generateUsers();
   //un->writeUserNetwork();
   //un->writeFriends(0);
@@ -320,9 +323,9 @@ void socialNetwork::otherUsersWall(user *usr)
     if (!cin)
       cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (selection != 1 && selection != 2 && selection != 3)
+    if (selection < 1 || selection > 4)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection != 1 && selection != 2 && selection != 3);
+  } while (selection < 1 || selection > 4);
   
   if(selection == 1) {
     std::cout << "Enter the username of the wall you would like to view: ";

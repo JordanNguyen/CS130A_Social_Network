@@ -190,8 +190,8 @@ void userNetwork::writeUserNetwork()
 {
 
   ofstream outfile;
-  outfile.open("userNetworkInput.txt");
-  //outfile.open("test.txt");
+  //outfile.open("userNetworkInput.txt");
+  outfile.open("test.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;
@@ -218,11 +218,11 @@ void userNetwork::writeFriends(int option)
 
   ofstream outfile;
   if (option == 0)
-    outfile.open("friendList.txt");
-    //outfile.open("testlist.txt");
+    //outfile.open("friendList.txt");
+    outfile.open("testlist.txt");
   else if (option == 1)
-    outfile.open("friendRequests.txt");
-    //outfile.open("testrequests.txt");
+    //outfile.open("friendRequests.txt");
+    outfile.open("testrequests.txt");
 
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
@@ -299,13 +299,13 @@ void userNetwork::readUsers(const char* filename)
   postResponse *newResp = NULL;
 
   // find the end of first user
-  cout << "looking for userDelim" << endl;
+  //cout << "looking for userDelim" << endl;
   while ((posUser = s.find(userDelim)) != string::npos) 
     {
       //save all the text to userToken
       userToken = s.substr(0, posUser);
 
-      cout << "looking for infoDelim" << endl;
+      //cout << "looking for infoDelim" << endl;
       //read in userToken and find the end of user info
       while ((posInfo = userToken.find(infoDelim)) != string::npos )
 	{
@@ -339,7 +339,7 @@ void userNetwork::readUsers(const char* filename)
       //create the new user
       //user newUser(un,pw,rn,dob);
       newUser = new user(un,pw,rn,dob);
-      cout<<"user created"<<endl;
+      //cout<<"user created"<<endl;
       
       //start parsing through the wall posts [/endwallposts]
       while ((posPost = userToken.find(postDelim)) != string::npos)
@@ -381,7 +381,7 @@ void userNetwork::readUsers(const char* filename)
 		  //wallPost newpost(wp,top,author);
 		  newpost = new wallPost(wp,top,author);
 		  newUser->addToWall(*newpost);
-		  cout<<"wallpost added to user"<<endl;
+		  //cout<<"wallpost added to user"<<endl;
 		}
 	      //newUser.addToWall(newPost);
 	            
@@ -414,7 +414,7 @@ void userNetwork::readUsers(const char* filename)
 		      token5.erase(0,pos6+eachResp.length());
 		      newResp = new postResponse(rwp, rtop, raut);
 		      newpost->addResponse(*newResp);
-		      cout << "response added" <<endl;
+		      //cout << "response added" <<endl;
 		    }
 		  token2.erase(0,pos5+allResp.length());
 		  //postResponse newResp(rwp, rtop, raut);
@@ -427,13 +427,13 @@ void userNetwork::readUsers(const char* filename)
 	}
       addUser(*newUser);
       s.erase(0, posUser+userDelim.length());
-      cout << "user added" <<endl;
+      //cout << "user added" <<endl;
     }
   infile.close();
   delete newUser;
   delete newpost;
   delete newResp;
-  cout << "end of function" << endl;
+  //cout << "end of function" << endl;
   return;
 }
 

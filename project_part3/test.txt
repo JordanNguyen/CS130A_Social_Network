@@ -60069,7 +60069,15 @@ password
 Friend Last12
 11/14/15
 [/endinfo]
-[/enduser]
+hi friend12
+Sat Nov 14 19:28:27 201
+user9342
+[/origpost]
+youre way cooler than user9341 haha
+Sat Nov 14 19:29:29 201
+friend12
+[/endresp]
+[/endallresp][/endpost][/endwallposts][/enduser]
 friend13
 password
 Friend Last13
