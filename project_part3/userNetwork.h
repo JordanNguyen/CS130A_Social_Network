@@ -27,6 +27,8 @@ class userNetwork {
   void removeFriend(string usr1, string usr2);
   list<user>* getUserList();
   void degreeOfSeparation(string usr1);
+  bool checkVisited(string u, list<string> l);
+  void generateUsers();
 };
 
 #endif

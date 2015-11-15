@@ -4,6 +4,7 @@
 #include <ctime>
 #include <fstream>
 #include <list>
+#include <sstream>
 #include "userNetwork.h"
 using namespace std;
 
@@ -189,6 +190,7 @@ void userNetwork::writeUserNetwork()
 
   ofstream outfile;
   outfile.open("userNetworkInput.txt");
+  //outfile.open("test.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;
@@ -535,16 +537,13 @@ void userNetwork::readFriends(const char* filename, int option)
 void userNetwork::degreeOfSeparation(string usr1)
 {
   //mark all the users as not visited
-  string visited = "";
-  // check if the input string is a substring of any username
-  // and return the case sensitive version
-  //if (result2.find(input) != std::string::npos)
+  list<string> visited;
 
   //created a queue for BFS
   list<string> queue;
 
   //marked the current user as visited and enqueue it
-  visited += usr1;
+  visited.push_back(usr1);
   queue.push_back(usr1);
 
   // it will be used to get all adjacent vertices (friends) of a user
@@ -563,18 +562,48 @@ void userNetwork::degreeOfSeparation(string usr1)
     for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
     {
       //check if the friend has been visited or not yet
-      if (visited.find(*it) == std::string::npos)
+      if (!checkVisited(*it, visited))
       {
-        visited += *it;
+        visited.push_back(*it);
         queue.push_back(*it);
       }
     }
   }
+  std::cout<<endl;  
+}
 
-  std::cout<<endl;
+bool userNetwork::checkVisited(string usr, list<string> ls)
+{
+  std::list<string>::iterator it;
+  it = ls.begin();
+  while (it != ls.end())
+  {
+    if (usr == *it)
+      return true;
+    ++it;
+  }
 
+  return false;
+}
 
-  
+//generate 10,000 users
+void userNetwork::generateUsers()
+{
+  int i = 1;
+  string un, rn;
+  string pw = "password";
+  string dob = "11/14/15";
+
+  for (i = 1; i <= 10000; i++)
+  {
+    ostringstream convert;
+    convert << i;
+    un = "user" + convert.str();
+    rn = "First Last" + convert.str();
+    user temp(un,pw,rn,dob);
+    addUser(temp);
+  }
+
 }
 
 

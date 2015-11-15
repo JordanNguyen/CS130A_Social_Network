@@ -15,63 +15,65 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	
-  //socialNetwork sn;
-  //sn.welcome();
+  socialNetwork sn;
+  sn.welcome();
 
-  userNetwork un;
+  //userNetwork un;
+  //un.generateUsers();
+  //un.writeUserNetwork();
 
-  user user1("Jordan", "p", "p", "123");
-  user user2("Sal", "p", "p", "123");
-  user user3("Brian", "p", "p", "123");
-  user user4("Table", "p", "p", "123");
-  user user5("Folder", "p", "p", "123");
-  user user6("Starbucks", "p", "p", "123");
-  user user7("Stephen", "p", "p", "123");
-  user user8("Lebron", "p", "p", "123");
-  user user9("Billy", "p", "p", "123");
-  user user10("MACBOOK", "p", "p", "123");
-  user user11("DivyAgrawal", "p", "p", "123");
+  // user user1("Jordan", "p", "p", "123");
+  // user user2("Sal", "p", "p", "123");
+  // user user3("Brian", "p", "p", "123");
+  // user user4("Table", "p", "p", "123");
+  // user user5("Folder", "p", "p", "123");
+  // user user6("Starbucks", "p", "p", "123");
+  // user user7("Stephen", "p", "p", "123");
+  // user user8("Lebron", "p", "p", "123");
+  // user user9("Billy", "p", "p", "123");
+  // user user10("MACBOOK", "p", "p", "123");
+  // user user11("DivyAgrawal", "p", "p", "123");
 
-  un.addUser(user1);
-  un.addUser(user2);
-  un.addUser(user3);
-  un.addUser(user4);
-  un.addUser(user5);
-  un.addUser(user6);
-  un.addUser(user7);
-  un.addUser(user8);
-  un.addUser(user9);
-  un.addUser(user10);
-  un.addUser(user11);
+  // un.addUser(user1);
+  // un.addUser(user2);
+  // un.addUser(user3);
+  // un.addUser(user4);
+  // un.addUser(user5);
+  // un.addUser(user6);
+  // un.addUser(user7);
+  // un.addUser(user8);
+  // un.addUser(user9);
+  // un.addUser(user10);
+  // un.addUser(user11);
 
-  user1.addFriend(user2.getUsername());
-  user1.addFriend(user3.getUsername());
-  user1.addFriend(user4.getUsername());
-  user2.addFriend(user1.getUsername());
-  user3.addFriend(user1.getUsername());
-  user4.addFriend(user1.getUsername());
-  user1.addFriend(user11.getUsername());
-  user11.addFriend(user1.getUsername());
+  // user1.addFriend(user2.getUsername());
+  // user1.addFriend(user3.getUsername());
+  // user1.addFriend(user4.getUsername());
+  // user2.addFriend(user1.getUsername());
+  // user3.addFriend(user1.getUsername());
+  // user4.addFriend(user1.getUsername());
+  // user1.addFriend(user11.getUsername());
+  // user11.addFriend(user1.getUsername());
 
-  user4.addFriend(user5.getUsername());
-  user5.addFriend(user4.getUsername());
+  // user4.addFriend(user5.getUsername());
+  // user5.addFriend(user4.getUsername());
 
-  user5.addFriend(user6.getUsername());
-  user6.addFriend(user5.getUsername());
+  // user5.addFriend(user6.getUsername());
+  // user6.addFriend(user5.getUsername());
 
-  user6.addFriend(user7.getUsername());
-  user6.addFriend(user8.getUsername());
+  // user6.addFriend(user7.getUsername());
+  // user6.addFriend(user8.getUsername());
 
-  user7.addFriend(user6.getUsername());
-  user8.addFriend(user6.getUsername());
+  // user7.addFriend(user6.getUsername());
+  // user8.addFriend(user6.getUsername());
 
-  user8.addFriend(user9.getUsername());
-  user9.addFriend(user8.getUsername());
+  // user8.addFriend(user9.getUsername());
+  // user9.addFriend(user8.getUsername());
 
-  user9.addFriend(user10.getUsername());
-  user10.addFriend(user9.getUsername());
+  // user9.addFriend(user10.getUsername());
+  // user10.addFriend(user9.getUsername());
 
-  un.degreeOfSeparation(user1.getUsername());
+  // un.degreeOfSeparation(user1.getUsername());
 
   // userNetwork testNet;
 
