@@ -463,9 +463,9 @@ void socialNetwork::deletePost(user* usr)
     if (!cin)
       cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (selection < 1 || selection > 3)
+    if (selection < 1 || selection > 4)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 3);
+  } while (selection < 1 || selection > 4);
 
   if(selection == 4)
     return userPage(usr);
@@ -555,7 +555,7 @@ void socialNetwork::deletePost(user* usr)
       {
 	std::cout << "*******************************" << std::endl;
 	std::cout << uname + "'s Wall is empty." << std::endl;
-	std::cout << "*******************************" << std::endl;
+	//std::cout << "*******************************" << std::endl;
 	return userPage(usr);
       }
     
@@ -576,7 +576,7 @@ void socialNetwork::deletePost(user* usr)
       } while (num < 1 || num > un->getUser(uname)->getWall().getList()->size());
     
       do{
-	std::cout << "Enter the number corresponding to the response you wish to delete:";
+	std::cout << "Enter the number corresponding to the response you wish to delete: ";
 	std::cin >> num2;
 	if (!cin)
 	  cin.clear();
