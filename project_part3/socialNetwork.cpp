@@ -16,6 +16,10 @@ socialNetwork::socialNetwork()
   un->readUsers("userNetworkInput.txt");
   un->readFriends("friendList.txt", 0);
   un->readFriends("friendRequests.txt", 1);
+  //un->generateUsers();
+  //un->writeUserNetwork();
+  //un->writeFriends(0);
+  //un->writeFriends(1);
 
 }
 
@@ -1126,7 +1130,19 @@ void socialNetwork::findDegree(user* usr)
 
   if (un->checkUsername(input))
   {
-    un->degreeOfSeparation(usr->getUsername());//, input);
+    list<string> result = un->degreeOfSeparation(usr->getUsername(), input);
+    std::list<string>::iterator it; // = result.begin();
+    for (it = result.begin(); it != result.end(); ++it)
+    {
+      std::cout << *it << " ";
+    }
+    // while (it != result.end())
+    // {
+    //   std::cout << *it << " ";
+    //   ++it;
+    // }
+    std::cout << std::endl;
+
     return userPage(usr);
   }
 

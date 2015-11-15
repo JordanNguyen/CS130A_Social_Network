@@ -5,6 +5,7 @@
 #include <fstream>
 #include <list>
 #include <sstream>
+#include <map>
 #include "userNetwork.h"
 using namespace std;
 
@@ -189,8 +190,8 @@ void userNetwork::writeUserNetwork()
 {
 
   ofstream outfile;
-  outfile.open("userNetworkInput.txt");
-  //outfile.open("test.txt");
+  //outfile.open("userNetworkInput.txt");
+  outfile.open("test.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;
@@ -217,9 +218,11 @@ void userNetwork::writeFriends(int option)
 
   ofstream outfile;
   if (option == 0)
-    outfile.open("friendList.txt");
+    //outfile.open("friendList.txt");
+    outfile.open("testlist.txt");
   else if (option == 1)
-    outfile.open("friendRequests.txt");
+    //outfile.open("friendRequests.txt");
+    outfile.open("testrequests.txt");
 
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
@@ -534,42 +537,79 @@ void userNetwork::readFriends(const char* filename, int option)
   infile.close();
 }
 
-void userNetwork::degreeOfSeparation(string usr1)
+// void userNetwork::degreeOfSeparation(string usr1)
+// {
+//   //mark all the users as not visited
+//   list<string> visited;
+
+//   //created a queue for BFS
+//   list<string> queue;
+
+//   //marked the current user as visited and enqueue it
+//   visited.push_back(usr1);
+//   queue.push_back(usr1);
+
+//   // it will be used to get all adjacent vertices (friends) of a user
+//   std::list<string>::iterator it;
+
+//   while (!queue.empty())
+//   {
+//     //dequeue a user from queue and print it
+//     usr1 = queue.front();
+//     cout << usr1 << " ";
+//     queue.pop_front();
+
+//     //get all the adjacent vertices (friends) of the dequeued user usr1
+//     //if an adjacent user has not been visited, then mark it visited and enqueue it
+//     user *temp = getUser(usr1);
+//     for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
+//     {
+//       //check if the friend has been visited or not yet
+//       if (!checkVisited(*it, visited))
+//       {
+//         visited.push_back(*it);
+//         queue.push_back(*it);
+//       }
+//     }
+//   }
+//   std::cout<<endl;  
+// }
+
+list<string> userNetwork::degreeOfSeparation(string usr1, string usr2)
 {
-  //mark all the users as not visited
-  list<string> visited;
-
-  //created a queue for BFS
   list<string> queue;
+  map<string, list<string>> pathToUser;
 
-  //marked the current user as visited and enqueue it
-  visited.push_back(usr1);
   queue.push_back(usr1);
+  pathToUser[usr1].push_back(usr1);
 
-  // it will be used to get all adjacent vertices (friends) of a user
   std::list<string>::iterator it;
 
   while (!queue.empty())
   {
-    //dequeue a user from queue and print it
     usr1 = queue.front();
-    cout << usr1 << " ";
     queue.pop_front();
 
-    //get all the adjacent vertices (friends) of the dequeued user usr1
-    //if an adjacent user has not been visited, then mark it visited and enqueue it
     user *temp = getUser(usr1);
     for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
     {
-      //check if the friend has been visited or not yet
-      if (!checkVisited(*it, visited))
-      {
-        visited.push_back(*it);
-        queue.push_back(*it);
+      if (pathToUser.find(*it) == pathToUser.end())
+      { 
+        pathToUser[*it] = pathToUser[usr1];
+        pathToUser[*it].push_back(*it);
       }
+
+      if (usr2 == *it)
+        return pathToUser[usr2];
+
+      else
+        queue.push_back(*it);
     }
+
   }
-  std::cout<<endl;  
+
+  return pathToUser[usr2];
+
 }
 
 bool userNetwork::checkVisited(string usr, list<string> ls)
@@ -594,6 +634,7 @@ void userNetwork::generateUsers()
   string pw = "password";
   string dob = "11/14/15";
 
+  //create 10,000 users
   for (i = 1; i <= 10000; i++)
   {
     ostringstream convert;
@@ -603,5 +644,36 @@ void userNetwork::generateUsers()
     user temp(un,pw,rn,dob);
     addUser(temp);
   }
+
+  //create 100 friends
+  for (int j = 1; j <= 100; j++)
+  {
+    ostringstream convert2;
+    convert2 << j;
+    un = "friend" + convert2.str();
+    rn = "Friend Last" + convert2.str();
+    user temp2(un,pw,rn,dob);
+    addUser(temp2);
+  }
+
+  //add 100 friends to each of the 10,000 users
+  std::list<user>::iterator it = users->begin();
+  int k = 1;
+  while (k <= 10000)
+  {
+    for (int f = 1; f <= 100; f++)
+    {
+      ostringstream convert3;
+      convert3 << f;
+      string friendname = "friend" + convert3.str();
+      it->addFriend(friendname);
+      getUser(friendname)->addFriend(it->getUsername());
+    }
+
+    ++it;
+    k++;
+  }
+
+
 
 }
