@@ -1130,18 +1130,18 @@ void socialNetwork::findDegree(user* usr)
 
   if (un->checkUsername(input))
   {
-    list<string> result = un->degreeOfSeparation(usr->getUsername(), input);
-    std::list<string>::iterator it; // = result.begin();
-    for (it = result.begin(); it != result.end(); ++it)
-    {
-      std::cout << *it << " ";
-    }
-    // while (it != result.end())
-    // {
-    //   std::cout << *it << " ";
-    //   ++it;
-    // }
-    std::cout << std::endl;
+    //list<string> result = un->degreeOfSeparation(usr->getUsername(), input);
+    //std::list<string>::iterator it; // = result.begin();
+    //for (it = result.begin(); it != result.end(); ++it)
+    //{
+    //  std::cout << *it << " ";
+    //}
+
+    if (un->checkConnected(usr->getUsername(), input))
+      un->degreeOfSeparation(usr->getUsername(), input);
+
+    else
+      std::cout << "There is no connection between you and " << input << std::endl;
 
     return userPage(usr);
   }

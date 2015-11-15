@@ -190,8 +190,8 @@ void userNetwork::writeUserNetwork()
 {
 
   ofstream outfile;
-  //outfile.open("userNetworkInput.txt");
-  outfile.open("test.txt");
+  outfile.open("userNetworkInput.txt");
+  //outfile.open("test.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;
@@ -218,11 +218,11 @@ void userNetwork::writeFriends(int option)
 
   ofstream outfile;
   if (option == 0)
-    //outfile.open("friendList.txt");
-    outfile.open("testlist.txt");
+    outfile.open("friendList.txt");
+    //outfile.open("testlist.txt");
   else if (option == 1)
-    //outfile.open("friendRequests.txt");
-    outfile.open("testrequests.txt");
+    outfile.open("friendRequests.txt");
+    //outfile.open("testrequests.txt");
 
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
@@ -537,45 +537,48 @@ void userNetwork::readFriends(const char* filename, int option)
   infile.close();
 }
 
-// void userNetwork::degreeOfSeparation(string usr1)
-// {
-//   //mark all the users as not visited
-//   list<string> visited;
+//check to see if there is a connection between two users
+bool userNetwork::checkConnected(string usr1, string usr2)
+{
+  //mark all the users as not visited
+  list<string> visited;
 
-//   //created a queue for BFS
-//   list<string> queue;
+  //created a queue for BFS
+  list<string> queue;
 
-//   //marked the current user as visited and enqueue it
-//   visited.push_back(usr1);
-//   queue.push_back(usr1);
+  //marked the current user as visited and enqueue it
+  visited.push_back(usr1);
+  queue.push_back(usr1);
 
-//   // it will be used to get all adjacent vertices (friends) of a user
-//   std::list<string>::iterator it;
+  // it will be used to get all adjacent vertices (friends) of a user
+  std::list<string>::iterator it;
 
-//   while (!queue.empty())
-//   {
-//     //dequeue a user from queue and print it
-//     usr1 = queue.front();
-//     cout << usr1 << " ";
-//     queue.pop_front();
+  while (!queue.empty())
+  {
+    //dequeue a user from queue and print it
+    usr1 = queue.front();
+    //cout << usr1 << " ";
+    queue.pop_front();
 
-//     //get all the adjacent vertices (friends) of the dequeued user usr1
-//     //if an adjacent user has not been visited, then mark it visited and enqueue it
-//     user *temp = getUser(usr1);
-//     for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
-//     {
-//       //check if the friend has been visited or not yet
-//       if (!checkVisited(*it, visited))
-//       {
-//         visited.push_back(*it);
-//         queue.push_back(*it);
-//       }
-//     }
-//   }
-//   std::cout<<endl;  
-// }
+    //get all the adjacent vertices (friends) of the dequeued user usr1
+    //if an adjacent user has not been visited, then mark it visited and enqueue it
+    user *temp = getUser(usr1);
+    for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
+    {
+      //check if the friend has been visited or not yet
+      if (!checkVisited(*it, visited))
+      {
+        visited.push_back(*it);
+        queue.push_back(*it);
+      }
+    }
+  }
+  
+  return checkVisited(usr2, visited);
 
-list<string> userNetwork::degreeOfSeparation(string usr1, string usr2)
+}
+
+void userNetwork::degreeOfSeparation(string usr1, string usr2)
 {
   list<string> queue;
   map<string, list<string>> pathToUser;
@@ -600,7 +603,18 @@ list<string> userNetwork::degreeOfSeparation(string usr1, string usr2)
       }
 
       if (usr2 == *it)
-        return pathToUser[usr2];
+      {
+        std::list<string>::iterator it2;
+        it2 = pathToUser[usr2].begin();
+        while (it2 != pathToUser[usr2].end())
+        {
+          std::cout<< *it2 << " ";
+          ++it2;
+        }
+        std::cout<<std::endl;
+        return;
+        //return pathToUser[usr2];
+      }
 
       else
         queue.push_back(*it);
@@ -608,7 +622,16 @@ list<string> userNetwork::degreeOfSeparation(string usr1, string usr2)
 
   }
 
-  return pathToUser[usr2];
+  std::list<string>::iterator it2;
+  it2 = pathToUser[usr2].begin();
+  while (it2 != pathToUser[usr2].end())
+  {
+    std::cout<< *it2 << " ";
+    ++it2;
+  }
+  std::cout<<std::endl;
+  return;
+  //return pathToUser[usr2];
 
 }
 
