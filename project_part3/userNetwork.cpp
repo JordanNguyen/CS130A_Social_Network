@@ -532,9 +532,47 @@ void userNetwork::readFriends(const char* filename, int option)
   infile.close();
 }
 
-int userNetwork::degreeOfSeparation(string usr1, string usr2)
+void userNetwork::degreeOfSeparation(string usr1)
 {
-  user *temp = getUser(usr1);
+  //mark all the users as not visited
+  string visited = "";
+  // check if the input string is a substring of any username
+  // and return the case sensitive version
+  //if (result2.find(input) != std::string::npos)
+
+  //created a queue for BFS
+  list<string> queue;
+
+  //marked the current user as visited and enqueue it
+  visited += usr1;
+  queue.push_back(usr1);
+
+  // it will be used to get all adjacent vertices (friends) of a user
+  std::list<string>::iterator it;
+
+  while (!queue.empty())
+  {
+    //dequeue a user from queue and print it
+    usr1 = queue.front();
+    cout << usr1 << " ";
+    queue.pop_front();
+
+    //get all the adjacent vertices (friends) of the dequeued user usr1
+    //if an adjacent user has not been visited, then mark it visited and enqueue it
+    user *temp = getUser(usr1);
+    for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
+    {
+      //check if the friend has been visited or not yet
+      if (visited.find(*it) == std::string::npos)
+      {
+        visited += *it;
+        queue.push_back(*it);
+      }
+    }
+  }
+
+  std::cout<<endl;
+
 
   
 }
