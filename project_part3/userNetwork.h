@@ -30,6 +30,9 @@ class userNetwork {
   bool checkConnected(string usr1, string usr2);
   bool checkVisited(string u, list<string> l);
   void generateUsers();
+  void findDegreeOne(string usr);
+  void findDegreeTwo(string usr, list<string> d1);
+  void findDegreeThree(string usr, list<string> d1, list<string> d2);
 };
 
 #endif

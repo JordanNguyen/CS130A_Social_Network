@@ -190,8 +190,8 @@ void userNetwork::writeUserNetwork()
 {
 
   ofstream outfile;
-  //outfile.open("userNetworkInput.txt");
-  outfile.open("test.txt");
+  outfile.open("userNetworkInput.txt");
+  //outfile.open("test.txt");
 
   //string wholeUserNetwork = "";
   std::list<user>::iterator it;
@@ -218,11 +218,11 @@ void userNetwork::writeFriends(int option)
 
   ofstream outfile;
   if (option == 0)
-    //outfile.open("friendList.txt");
-    outfile.open("testlist.txt");
+    outfile.open("friendList.txt");
+    //outfile.open("testlist.txt");
   else if (option == 1)
-    //outfile.open("friendRequests.txt");
-    outfile.open("testrequests.txt");
+    outfile.open("friendRequests.txt");
+    //outfile.open("testrequests.txt");
 
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
@@ -565,6 +565,8 @@ bool userNetwork::checkConnected(string usr1, string usr2)
     user *temp = getUser(usr1);
     for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
     {
+      if (*it == usr2)
+        return true;
       //check if the friend has been visited or not yet
       if (!checkVisited(*it, visited))
       {
@@ -574,7 +576,7 @@ bool userNetwork::checkConnected(string usr1, string usr2)
     }
   }
   
-  return checkVisited(usr2, visited);
+  return false;
 
 }
 
@@ -633,6 +635,82 @@ void userNetwork::degreeOfSeparation(string usr1, string usr2)
   return;
   //return pathToUser[usr2];
 
+}
+
+//find degree one of a given user (friends list)
+void userNetwork::findDegreeOne(string usr)
+{
+
+  list<string> degreeOne; //contains list of friends degree 1 
+  user *temp = getUser(usr);
+  std::list<string>::iterator it;
+
+  it = temp->getFriends()->begin();
+  while (it != temp->getFriends()->end())
+  {
+    degreeOne.push_back(*it);
+    ++it;
+  }
+
+  return findDegreeTwo(usr, degreeOne);
+}
+
+void userNetwork::findDegreeTwo(string usr, list<string> degreeOne)
+{
+  list<string> degreeTwo;
+
+  std::list<string>::iterator it = degreeOne.begin();
+  //go thru every friend of each user in degreeOne, and add them to degreeTwo if they arent in degreeOne
+  while (it != degreeOne.end())
+  {
+    std::list<string>::iterator it2;
+    user *temp = getUser(*it);
+    it2 = temp->getFriends()->begin();
+    //check each friend of degreeOne, and make sure they arent in degreeTwo or degreeOne yet
+    while (it2 != temp->getFriends()->end())
+    {
+      if (!checkVisited(*it2, degreeOne) && !checkVisited(*it2, degreeTwo) && *it2 != usr)
+        degreeTwo.push_back(*it2);
+      ++it2;
+    }
+
+    ++it;
+  }
+
+  return findDegreeThree(usr, degreeOne, degreeTwo);
+}
+
+void userNetwork::findDegreeThree(string usr, list<string> degreeOne, list<string> degreeTwo)
+{
+  list<string> degreeThree;
+
+  std::list<string>::iterator it = degreeTwo.begin();
+  //go thru every friend of each user in degreeTwo, and add them to degreeThree
+  //if they havent been visited bfore
+  while (it != degreeTwo.end())
+  {
+    std::list<string>::iterator it2;
+    user *temp = getUser(*it);
+    it2 = temp->getFriends()->begin();
+    //cheack each friend of degreeTwo, and make sure they arent in degreeOne, Two or Three
+    while (it2 != temp->getFriends()->end())
+    {
+      if (!checkVisited(*it2, degreeOne) && !checkVisited(*it2, degreeTwo) && !checkVisited(*it2, degreeThree) && *it2 != usr)
+        degreeThree.push_back(*it2);
+      ++it2;
+    }
+
+    ++it;
+  }
+
+
+  for (it = degreeThree.begin(); it != degreeThree.end(); ++it)
+  {
+    std::cout<< *it << " ";
+  }
+
+  std::cout<<std::endl;
+  return;
 }
 
 bool userNetwork::checkVisited(string usr, list<string> ls)
@@ -702,7 +780,5 @@ void userNetwork::generateUsers()
     ++it;
     k++;
   }
-
-
 
 }

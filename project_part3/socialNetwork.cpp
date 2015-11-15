@@ -13,12 +13,12 @@ socialNetwork::socialNetwork()
   //instantiate new instance of usernetwork
   un = new userNetwork();
   //fill up usernetwork from files
-  //un->readUsers("userNetworkInput.txt");
-  //un->readFriends("friendList.txt", 0);
-  //un->readFriends("friendRequests.txt", 1);
-  un->readUsers("test.txt");
-  un->readFriends("testlist.txt", 0);
-  un->readFriends("testrequests.txt", 1);
+  un->readUsers("userNetworkInput.txt");
+  un->readFriends("friendList.txt", 0);
+  un->readFriends("friendRequests.txt", 1);
+  //un->readUsers("test.txt");
+  //un->readFriends("testlist.txt", 0);
+  //un->readFriends("testrequests.txt", 1);
   //un->generateUsers();
   //un->writeUserNetwork();
   //un->writeFriends(0);
@@ -192,9 +192,10 @@ void socialNetwork::userPage(user* usr)
   std::cout<<"5.) Search for users" << std::endl;
   std::cout<<"6.) Delete a wall post or response" << std::endl;
   std::cout<<"7.) Edit account information" << std::endl;
-  std::cout<<"8.) Find degree of separation to another user" <<std::endl;
-  std::cout<<"9.) Delete your account" <<std::endl;
-  std::cout<<"10.) Logout"<<endl;
+  std::cout<<"8.) Find degree of separation from another user" <<std::endl;
+  std::cout<<"9.) Find all users of degree three away from you"<<std::endl;
+  std::cout<<"10.) Delete your account" <<std::endl;
+  std::cout<<"11.) Logout"<<endl;
 
   int selection = 1;
 
@@ -203,9 +204,9 @@ void socialNetwork::userPage(user* usr)
     if (!cin)
       cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (selection < 1 || selection > 10)
+    if (selection < 1 || selection > 11)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 10);
+  } while (selection < 1 || selection > 11);
 
   if (selection == 1)
     return displayWall(usr);
@@ -234,9 +235,15 @@ void socialNetwork::userPage(user* usr)
     return findDegree(usr);
 
   if (selection == 9)
-    return deleteUser(usr);
+    {
+      un->findDegreeOne(usr->getUsername());
+      return userPage(usr);
+    }
 
   if (selection == 10)
+    return deleteUser(usr);
+
+  if (selection == 11)
     {
       std::cout << "*******************************" << std::endl;
       std::cout<<"You have logged out."<<std::endl;
