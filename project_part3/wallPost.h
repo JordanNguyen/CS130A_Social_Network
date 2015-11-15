@@ -30,6 +30,7 @@ public:
 	void setTimeOfPost(string t);
 	void addResponse(postResponse p);
 	list<postResponse>* getResponses();
+	postResponse* getResponse(int index);
 	void deleteResponse(int index);
 	string writeResponses();
 

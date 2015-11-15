@@ -22,10 +22,11 @@ class socialNetwork {
   void userPage(user *usr);
   void changeInfo(user *usr);
   void friendMenu(user *usr);
+  void postOnFriendWall(user *usr);
   void deleteFriend(user *usr);
+  void otherUsersWall(user *usr);
   void deleteUser(user *usr); //need to edit this, fixed for now
   void displayWall(user *usr);
-  void otherUsersWall(user *usr);
   void searchUser(user *usr); //need to edit this, fixed for now
   void sendFriendRequest(user *usr); //need to edit this, fixed for now
   void manageRequests(user *usr); //need to fix this also, fixed for now

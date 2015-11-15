@@ -21,7 +21,7 @@ userNetwork::~userNetwork()
 void userNetwork::addUser(user u)
 {
   string un = u.getUsername();
-  std::list<user>::iterator it;	
+  std::list<user>::iterator it;
 
   for (it = users->begin(); it != users->end(); ++it)
     {
@@ -130,31 +130,31 @@ user* userNetwork::getUser(string usr)
   for (it = users->begin(); it != users->end(); ++it)
     {
       if (it->getUsername()==usr)
-      {
-		return &(*it);
-	  }
+	{
+	  return &(*it);
+	}
     }
-    return &(*it);
+  return &(*it);
 }
 
 user* userNetwork::getUserRealName(string usr)
 {
-	
+  
   //user temp;
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
     {
       if (it->getRealName()==usr)
-		{
-			// temp = *it;
-			// return &temp;
-			return &(*it);
-		}
+	{
+	  // temp = *it;
+	  // return &temp;
+	  return &(*it);
+	}
     }
- //  	temp = *it;
-	// return &temp;
-	return &(*it);
+  //  temp = *it;
+  // return &temp;
+  return &(*it);
 }
 
 void userNetwork::removeFriend(string usr1, string usr2)
@@ -296,13 +296,13 @@ void userNetwork::readUsers(const char* filename)
   postResponse *newResp = NULL;
 
   // find the end of first user
-        cout << "looking for userDelim" << endl;
+  cout << "looking for userDelim" << endl;
   while ((posUser = s.find(userDelim)) != string::npos) 
     {
       //save all the text to userToken
       userToken = s.substr(0, posUser);
 
-            cout << "looking for infoDelim" << endl;
+      cout << "looking for infoDelim" << endl;
       //read in userToken and find the end of user info
       while ((posInfo = userToken.find(infoDelim)) != string::npos )
 	{
@@ -319,7 +319,7 @@ void userNetwork::readUsers(const char* filename)
 		  un = token1;
 		}
 	      if (infoCounter == 1)
-		{	
+		{
 		  pw = token1;
 		}
 	      if (infoCounter == 2)
@@ -331,19 +331,19 @@ void userNetwork::readUsers(const char* filename)
 	      infoToken.erase(0, pos1+newlDelim.length());
 	    }
 	  dob = token1;
-	  userToken.erase(0, posInfo + infoDelim.length());        		
+	  userToken.erase(0, posInfo + infoDelim.length());        
 	}
       //create the new user
       //user newUser(un,pw,rn,dob);
       newUser = new user(un,pw,rn,dob);
       cout<<"user created"<<endl;
-		
+      
       //start parsing through the wall posts [/endwallposts]
       while ((posPost = userToken.find(postDelim)) != string::npos)
 	{
 	  //get the whole string of wall posts per each user
 	  postToken = userToken.substr(0, posPost);
-	  
+	    
 	  //parse through the wall posts and divide it into individual posts [/endpost]
 	  while ((pos2 = postToken.find(eachPost)) != string::npos)
 	    {
@@ -361,18 +361,18 @@ void userNetwork::readUsers(const char* filename)
 		    {
 		      token4 = token3.substr(0,pos4);
 		      if (postCounter == 1)
-			{	
+			{
 			  wp = token4;
 			}
 		      if (postCounter == 2)
 			{
 			  top = token4;
 			}
-					
+		      
 		      postCounter++;
 		      token3.erase(0, pos4+newlDelim.length());
 		    }
-		  
+		    
 		  author = token4;
 		  token2.erase(0,pos3+origPost.length());
 		  //wallPost newpost(wp,top,author);
@@ -381,7 +381,7 @@ void userNetwork::readUsers(const char* filename)
 		  cout<<"wallpost added to user"<<endl;
 		}
 	      //newUser.addToWall(newPost);
-	      
+	            
 	      //find all responses
 	      while ((pos5 = token2.find(allResp)) != string::npos)
 		{
@@ -417,10 +417,10 @@ void userNetwork::readUsers(const char* filename)
 		  //postResponse newResp(rwp, rtop, raut);
 		  //newpost.AddResponse(newResp);
 		}
-		  
+	        
 	      postToken.erase(0, pos2 +  eachPost.length());
 	    }
-	   userToken.erase(0, posPost + postDelim.length());
+	  userToken.erase(0, posPost + postDelim.length());
 	}
       addUser(*newUser);
       s.erase(0, posUser+userDelim.length());
@@ -433,7 +433,7 @@ void userNetwork::readUsers(const char* filename)
   cout << "end of function" << endl;
   return;
 }
-	
+
 /* readFriends takes in a formated text file
  *  as well as an option to read a friend list or
  *  a friend request list. 
@@ -605,7 +605,3 @@ void userNetwork::generateUsers()
   }
 
 }
-
-
-
-
