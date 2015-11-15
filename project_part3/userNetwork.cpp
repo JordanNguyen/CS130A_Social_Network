@@ -645,6 +645,8 @@ void userNetwork::generateUsers()
     addUser(temp);
   }
 
+  std::cout<<"10,000 users created"<<std::endl;
+
   //create 100 friends
   for (int j = 1; j <= 100; j++)
   {
@@ -656,7 +658,9 @@ void userNetwork::generateUsers()
     addUser(temp2);
   }
 
+  std::cout<<"100 friend users created"<<std::endl;
   //add 100 friends to each of the 10,000 users
+
   std::list<user>::iterator it = users->begin();
   int k = 1;
   while (k <= 10000)
@@ -669,6 +673,8 @@ void userNetwork::generateUsers()
       it->addFriend(friendname);
       getUser(friendname)->addFriend(it->getUsername());
     }
+
+    std::cout<<"100 friends added for user " << k << std::endl; 
 
     ++it;
     k++;
