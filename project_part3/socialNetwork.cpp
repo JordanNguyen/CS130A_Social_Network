@@ -450,8 +450,9 @@ void socialNetwork::deletePost(user* usr)
 {
   std::cout << "******************************" << std::endl;
   std::cout << "1.) Delete a post on your wall" << std::endl;
-  std::cout << "2.) Delete a response" << std::endl;
-  std::cout << "3.) Return to previous menu" << std::endl;
+  std::cout << "2.) Delete a response on your wall" << std::endl;
+  std::cout << "3.) Delete a response on a friend's wall" << std::endl;
+  std::cout << "4.) Return to previous menu" << std::endl;
 
   int selection;
   int num;
@@ -466,7 +467,7 @@ void socialNetwork::deletePost(user* usr)
       std::cout << "Invalid selection" << std::endl;
   } while (selection < 1 || selection > 3);
 
-  if(selection == 3)
+  if(selection == 4)
     return userPage(usr);
 
   if (selection == 1) {
@@ -522,7 +523,8 @@ void socialNetwork::deletePost(user* usr)
     } while (num2 < 1 || num2 > usr->getWall().getPost(num-1)->getResponses()->size());
 
     if(usr->getWall().getPost(num-1)->getResponse(num2-1)->getAuthor() != usr->getUsername()) {
-      std::cout << "Invalid selection. You can only delete your own responses" << std::endl;
+      std::cout << "*******************************" << std::endl;
+      std::cout << "Invalid selection. You can only delete responses ypu have authored" << std::endl;
       return deletePost(usr);
     }
 
@@ -530,6 +532,72 @@ void socialNetwork::deletePost(user* usr)
     std::cout << "*******************************" << std::endl;
     std::cout << "Post successfully deleted!" << std::endl;
     return userPage(usr);
+
+  }
+
+  if(selection == 3) {
+    std::cout << "******************************" << std::endl;
+    std::cout << "YOUR FRIENDS:" <<std::endl;
+    std::cout << usr->displayFriends() << std::endl;
+    std::cout << "******************************" << std::endl;
+
+    std::cout << "Enter the username of the wall you would like to delete your reponse from: ";
+    string uname; 
+    std::getline(std::cin, uname);
+    
+    if(un->checkUsername(uname) == false) {
+      std::cout << "*******************************" << std::endl;
+      std::cout << "Person not found, please try again" << std::endl;
+      return userPage(usr);
+    }
+
+    else if (un->getUser(uname)->getWall().getList()->empty())
+      {
+	std::cout << "*******************************" << std::endl;
+	std::cout << uname + "'s Wall is empty." << std::endl;
+	std::cout << "*******************************" << std::endl;
+	return userPage(usr);
+      }
+    
+    else {
+      std::cout << "*******************************" << std::endl;
+      std::cout << uname + "'s Wall" << std::endl;
+      std::cout << "*******************************" << std::endl;
+      std::cout << un->getUser(uname)->getWall().WallToString();
+
+      do{
+	std::cout << "Enter the number corresponding to the wall post you wish to delete your response from: ";
+	std::cin >> num;
+	if (!cin)
+	  cin.clear();
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (num < 1 || num > un->getUser(uname)->getWall().getList()->size())
+	  std::cout << "Invalid selection" << std::endl;
+      } while (num < 1 || num > un->getUser(uname)->getWall().getList()->size());
+    
+      do{
+	std::cout << "Enter the number corresponding to the response you wish to delete:";
+	std::cin >> num2;
+	if (!cin)
+	  cin.clear();
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	if (num2 < 1 || num2 > un->getUser(uname)->getWall().getPost(num-1)->getResponses()->size())
+	  std::cout << "Invalid selection" << std::endl;
+      } while (num2 < 1 || num2 > un->getUser(uname)->getWall().getPost(num-1)->getResponses()->size());
+
+      if(un->getUser(uname)->getWall().getPost(num-1)->getResponse(num2-1)->getAuthor() != usr->getUsername()) {
+	std::cout << "*******************************" << std::endl;
+	std::cout << "Invalid selection. You can only delete responses you have authored" << std::endl;
+	return deletePost(usr);
+      }
+
+      un->getUser(uname)->getWall().getPost(num-1)->deleteResponse(num2-1);
+      std::cout << "*******************************" << std::endl;
+      std::cout << "Post successfully deleted!" << std::endl;
+      return userPage(usr);
+
+
+    }
 
   }
 
