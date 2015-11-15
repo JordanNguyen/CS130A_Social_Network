@@ -31,6 +31,7 @@ class socialNetwork {
   void sendFriendRequest(user *usr); //need to edit this, fixed for now
   void manageRequests(user *usr); //need to fix this also, fixed for now
   void respondToPost(user *usr, string username);
+  void findDegree(user *usr);
 
 };
 

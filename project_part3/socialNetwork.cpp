@@ -185,8 +185,9 @@ void socialNetwork::userPage(user* usr)
   std::cout<<"5.) Search for users" << std::endl;
   std::cout<<"6.) Delete a wall post or response" << std::endl;
   std::cout<<"7.) Edit account information" << std::endl;
-  std::cout<<"8.) Delete your account" <<std::endl;
-  std::cout<<"9.) Logout"<<endl;
+  std::cout<<"8.) Find degree of separation to another user" <<std::endl;
+  std::cout<<"9.) Delete your account" <<std::endl;
+  std::cout<<"10.) Logout"<<endl;
 
   int selection = 1;
 
@@ -195,9 +196,9 @@ void socialNetwork::userPage(user* usr)
     if (!cin)
       cin.clear();
     cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    if (selection < 1 || selection > 9)
+    if (selection < 1 || selection > 10)
       std::cout << "Invalid selection" << std::endl;
-  } while (selection < 1 || selection > 9);
+  } while (selection < 1 || selection > 10);
 
   if (selection == 1)
     return displayWall(usr);
@@ -223,9 +224,12 @@ void socialNetwork::userPage(user* usr)
     return changeInfo(usr);
 
   if (selection == 8)
-    return deleteUser(usr);
+    return findDegree(usr);
 
   if (selection == 9)
+    return deleteUser(usr);
+
+  if (selection == 10)
     {
       std::cout << "*******************************" << std::endl;
       std::cout<<"You have logged out."<<std::endl;
@@ -1000,7 +1004,7 @@ void socialNetwork::sendFriendRequest(user* usr)
   if (selection == 2)
     {
       if ((un->checkUsername(input)))
-	{
+	     {
 	  if (input == usr->getUsername())
 	    {
 	      std::cout << "*******************************" << std::endl;
@@ -1031,7 +1035,7 @@ void socialNetwork::sendFriendRequest(user* usr)
 	      un->writeFriends(1);
 	      return friendMenu(usr);
 	    }
-	}
+	     }
 
       else
 	{
@@ -1112,8 +1116,24 @@ void socialNetwork::manageRequests(user* usr)
       return friendMenu(usr);
     }
 
+}
 
+void socialNetwork::findDegree(user* usr)
+{
+  std::cout << "Enter the name of the user you would like to find: ";
+  string input;
+  std::cin >> input;
 
+  if (un->checkUsername(input))
+  {
+    un->degreeOfSeparation(usr->getUsername());//, input);
+    return userPage(usr);
+  }
+
+  else
+    std::cout << "User does not exist" << std::endl;
+
+  return userPage(usr);
 }
 
 
