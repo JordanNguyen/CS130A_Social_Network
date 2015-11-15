@@ -12,23 +12,54 @@ socialNetwork::socialNetwork()
 {
   //instantiate new instance of usernetwork
   un = new userNetwork();
-  //fill up usernetwork from files
-  un->readUsers("userNetworkInput.txt");
-  un->readFriends("friendList.txt", 0);
-  un->readFriends("friendRequests.txt", 1);
-  //un->readUsers("test.txt");
-  //un->readFriends("testlist.txt", 0);
-  //un->readFriends("testrequests.txt", 1);
-  //un->generateUsers();
-  //un->writeUserNetwork();
-  //un->writeFriends(0);
-  //un->writeFriends(1);
 
 }
 
 socialNetwork::~socialNetwork()
 {
   delete un;
+}
+
+void socialNetwork::loadOption()
+{
+  std::cout << "Select an option:" << std::endl;
+  std::cout << "1.) Load your social network from your saved data" << std::endl;
+  std::cout << "2.) Load your social network from 10,000 pre-generated users" << std::endl;
+  
+  int selection = 1;
+
+  do{
+    std::cin >> selection;
+    if (!cin)
+      cin.clear();
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (selection != 1 && selection != 2)
+      std::cout << "Invalid selection" << std::endl;
+  } while (selection != 1 && selection != 2);
+
+  if (selection == 1)
+  {
+    userinput = "userNetworkInput.txt";
+    friendlist = "friendList.txt";
+    friendrequest = "friendRequests.txt";
+    un->readUsers(userinput);
+    un->readFriends(friendlist, 0);
+    un->readFriends(friendrequest, 1);
+    return welcome();
+  }
+
+  if (selection == 2)
+  {
+    userinput = "test.txt";
+    friendlist = "testlist.txt";
+    friendrequest = "testrequests.txt";
+    std::cout << "Loading..." << std::endl;
+    un->readUsers(userinput);
+    un->readFriends(friendlist, 0);
+    un->readFriends(friendrequest, 1);
+    return welcome();
+  }
+
 }
 
 void socialNetwork::welcome()
@@ -104,9 +135,9 @@ void socialNetwork::createNewUser()
     {
       user newUser(username,password,realname,dob);
       un->addUser(newUser);
-      un->writeUserNetwork();
-      un->writeFriends(0);
-      un->writeFriends(1);
+      un->writeUserNetwork(userinput);
+      un->writeFriends(friendlist, 0);
+      un->writeFriends(friendrequest, 1);
       std::cout << "*******************************" << std::endl;
       std::cout<<"New user successfully created!"<<std::endl;
       std::cout << "*******************************" << std::endl;
@@ -186,7 +217,7 @@ void socialNetwork::userPage(user* usr)
   std::cout<< "*******************************" << std::endl;
   std::cout<<"Select an option"<<std::endl;
   std::cout<<"1.) View your wall"<<std::endl;
-  std::cout<<"2.) View another user's wall"<<std::endl;
+  std::cout<<"2.) View a friend's wall"<<std::endl;
   std::cout<<"3.) Create new wall post"<<std::endl;
   std::cout<<"4.) View friends menu" << std::endl;
   std::cout<<"5.) Search for users" << std::endl;
@@ -212,7 +243,14 @@ void socialNetwork::userPage(user* usr)
     return displayWall(usr);
 
   if (selection == 2)
+  {
+    if (usr->getFriends()->empty())
+    {
+      std::cout<<"You have no friends :(" << std::endl;
+      return userPage(usr);
+    }
     return otherUsersWall(usr);
+  }
 
   if (selection == 3)
     return newPost(usr);
@@ -248,9 +286,9 @@ void socialNetwork::userPage(user* usr)
       std::cout << "*******************************" << std::endl;
       std::cout<<"You have logged out."<<std::endl;
       std::cout << "*******************************" << std::endl;
-      un->writeUserNetwork();
-      un->writeFriends(0);
-      un->writeFriends(1);
+      un->writeUserNetwork(userinput);
+      un->writeFriends(friendlist, 0);
+      un->writeFriends(friendrequest, 1);
       return start();
     }
     
@@ -340,7 +378,7 @@ void socialNetwork::otherUsersWall(user *usr)
     std::getline(std::cin, uname);
     
     if(un->checkUsername(uname) == false) {
-      std::cout << "Person not found, please try again" << std::endl;
+      std::cout << "User not found." << std::endl;
       return userPage(usr);
     }
 
@@ -531,7 +569,7 @@ void socialNetwork::deletePost(user* usr)
     //std::cout << usr->getWall().getPost(num - 1)->getPost() << std::endl;
     
     do{
-      std::cout << "Enter the number corresponding to the response you wish to delete:";
+      std::cout << "Enter the number corresponding to the response you wish to delete: ";
       std::cin >> num2;
       if (!cin)
         cin.clear();
@@ -542,7 +580,7 @@ void socialNetwork::deletePost(user* usr)
 
     if(usr->getWall().getPost(num-1)->getResponse(num2-1)->getAuthor() != usr->getUsername()) {
       std::cout << "*******************************" << std::endl;
-      std::cout << "Invalid selection. You can only delete responses ypu have authored" << std::endl;
+      std::cout << "Invalid selection. You can only delete responses you have authored." << std::endl;
       return deletePost(usr);
     }
 
@@ -565,7 +603,7 @@ void socialNetwork::deletePost(user* usr)
     
     if(un->checkUsername(uname) == false) {
       std::cout << "*******************************" << std::endl;
-      std::cout << "Person not found, please try again" << std::endl;
+      std::cout << "User not found." << std::endl;
       return userPage(usr);
     }
 
@@ -656,9 +694,9 @@ void socialNetwork::deleteUser(user* usr)
       std::cout << "*******************************" << std::endl;
       std::cout << "Your account has been deleted." << std::endl;
       std::cout << "*******************************" << std::endl;
-      un->writeUserNetwork();
-      un->writeFriends(0);
-      un->writeFriends(1);
+      un->writeUserNetwork(userinput);
+      un->writeFriends(friendlist, 0);
+      un->writeFriends(friendrequest, 1);
       return start();
     }
 
@@ -750,7 +788,7 @@ void socialNetwork::deleteFriend(user* usr)
   std::cin >> frnd;
 
   un->removeFriend(usr->getUsername(), frnd);
-  un->writeFriends(0);
+  un->writeFriends(friendlist, 0);
 
   return friendMenu(usr);
 
@@ -1002,7 +1040,7 @@ void socialNetwork::sendFriendRequest(user* usr)
       std::cout << "*******************************" << std::endl;
       std::cout << "Friend request sent!" << std::endl;
       std::cout << "*******************************" << std::endl;
-      un->writeFriends(1);
+      un->writeFriends(friendrequest, 1);
       return friendMenu(usr);
     }
 }
@@ -1046,7 +1084,7 @@ void socialNetwork::sendFriendRequest(user* usr)
 	      std::cout << "*******************************" << std::endl;
 	      std::cout << "Friend request sent!" << std::endl;
 	      std::cout << "*******************************" << std::endl;
-	      un->writeFriends(1);
+	      un->writeFriends(friendrequest, 1);
 	      return friendMenu(usr);
 	    }
 	     }
@@ -1103,8 +1141,8 @@ void socialNetwork::manageRequests(user* usr)
       un->getUser(otherUser)->addFriend(thisUser); 
       usr->deleteRequest(otherUser);
 
-      un->writeFriends(0);
-      un->writeFriends(1);
+      un->writeFriends(friendlist, 0);
+      un->writeFriends(friendrequest, 1);
       std::cout << "*******************************" << std::endl;
       std::cout << "You and " << otherUser << " are now friends!" << std::endl;
       std::cout << "*******************************" << std::endl;
@@ -1115,8 +1153,8 @@ void socialNetwork::manageRequests(user* usr)
     {
       string otherUser = usr->getRequestName(num-1);
       usr->deleteRequest(otherUser);
-      un->writeFriends(0);
-      un->writeFriends(1);
+      un->writeFriends(friendlist, 0);
+      un->writeFriends(friendrequest, 1);
       std::cout << "*******************************" << std::endl;
       std::cout << "You have declined the friend request from " << otherUser << "." <<std::endl;
       std::cout << "*******************************" << std::endl;

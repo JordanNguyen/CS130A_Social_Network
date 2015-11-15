@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 {
 	
   socialNetwork sn;
-  sn.welcome();
+  sn.loadOption();
 
   //userNetwork un;
   //un.generateUsers();

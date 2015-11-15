@@ -13,8 +13,8 @@ class userNetwork {
   ~userNetwork();
   void addUser(user u);
   void deleteUser(string name);
-  void writeUserNetwork();
-  void writeFriends(int option);
+  void writeUserNetwork(const char* path);
+  void writeFriends(const char* path, int option);
   void readUsers(const char* filename);
   void readFriends(const char* filename, int option);
   void printUsernames();

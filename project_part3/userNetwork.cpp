@@ -186,11 +186,12 @@ list<user>* userNetwork::getUserList()
 }
 
 //write to userNetworkInput.txt in the correct format to be read back
-void userNetwork::writeUserNetwork()
+void userNetwork::writeUserNetwork(const char* path)
 {
 
   ofstream outfile;
-  outfile.open("userNetworkInput.txt");
+  outfile.open(path);
+  //outfile.open("userNetworkInput.txt");
   //outfile.open("test.txt");
 
   //string wholeUserNetwork = "";
@@ -209,7 +210,7 @@ void userNetwork::writeUserNetwork()
 
 // option 0 = friends list
 // option 1 = friend requests
-void userNetwork::writeFriends(int option)
+void userNetwork::writeFriends(const char* path, int option)
 {
   if (users->empty())
     {
@@ -217,11 +218,12 @@ void userNetwork::writeFriends(int option)
     }
 
   ofstream outfile;
-  if (option == 0)
-    outfile.open("friendList.txt");
+  outfile.open(path);
+  //if (option == 0)
+    //outfile.open("friendList.txt");
     //outfile.open("testlist.txt");
-  else if (option == 1)
-    outfile.open("friendRequests.txt");
+  //else if (option == 1)
+    //outfile.open("friendRequests.txt");
     //outfile.open("testrequests.txt");
 
   std::list<user>::iterator it;
@@ -652,9 +654,11 @@ void userNetwork::findDegreeOne(string usr)
     ++it;
   }
 
+  //now find all users two away
   return findDegreeTwo(usr, degreeOne);
 }
 
+//find all users two degree away from usr
 void userNetwork::findDegreeTwo(string usr, list<string> degreeOne)
 {
   list<string> degreeTwo;
@@ -677,9 +681,11 @@ void userNetwork::findDegreeTwo(string usr, list<string> degreeOne)
     ++it;
   }
 
+  //now find all users three away
   return findDegreeThree(usr, degreeOne, degreeTwo);
 }
 
+//find all users degree three away from usr
 void userNetwork::findDegreeThree(string usr, list<string> degreeOne, list<string> degreeTwo)
 {
   list<string> degreeThree;
@@ -703,6 +709,12 @@ void userNetwork::findDegreeThree(string usr, list<string> degreeOne, list<strin
     ++it;
   }
 
+  //print the results
+  if (degreeThree.empty())
+  {
+    std::cout<< "There are no users three degrees away from you." << std::endl;
+    return;
+  }
 
   for (it = degreeThree.begin(); it != degreeThree.end(); ++it)
   {

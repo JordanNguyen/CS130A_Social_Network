@@ -8,10 +8,14 @@ class socialNetwork {
   
  private:
   userNetwork *un;
+  const char *userinput;
+  const char *friendlist;
+  const char *friendrequest;
 
  public:
   socialNetwork();
   ~socialNetwork();
+  void loadOption();
   void welcome();
   void start();
   void createNewUser();
