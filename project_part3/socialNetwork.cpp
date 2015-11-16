@@ -39,8 +39,8 @@ void socialNetwork::loadOption()
 
   if (selection == 1)
   {
-    userinput = "userNetworkInput.txt";
-    friendlist = "friendList.txt";
+    userinput     = "userNetworkInput.txt";
+    friendlist    = "friendList.txt";
     friendrequest = "friendRequests.txt";
     un->readUsers(userinput);
     un->readFriends(friendlist, 0);
@@ -50,9 +50,9 @@ void socialNetwork::loadOption()
 
   if (selection == 2)
   {
-    userinput = "test.txt";
-    friendlist = "testlist.txt";
-    friendrequest = "testrequests.txt";
+    userinput     = "generatedUsers.txt";
+    friendlist    = "generatedFriends.txt";
+    friendrequest = "generatedRequests.txt";
     std::cout << "Loading..." << std::endl;
     un->readUsers(userinput);
     un->readFriends(friendlist, 0);
