@@ -25,15 +25,15 @@ void userNetwork::addUser(user u)
   std::list<user>::iterator it;
 
   for (it = users->begin(); it != users->end(); ++it)
+  {
+    if (it->getUsername() == un)
     {
-      if (it->getUsername() == un)
-	{
-	  cout << "Username " << un << " already taken." << endl;
-	  return;
-	}
-    }
+     cout << "Username " << un << " already taken." << endl;
+     return;
+   }
+ }
 
-  users->push_back(u);
+ users->push_back(u);
   //cout << "New user successfully created!" << endl;
 }
 
@@ -41,55 +41,55 @@ void userNetwork::deleteUser(string name)
 {
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
+  {
+    if (it->getUsername() == name)
     {
-      if (it->getUsername() == name)
-	{
-	  users->erase(it);
-	  return;
-	}
-    }
-  
-  return;
+     users->erase(it);
+     return;
+   }
+ }
+
+ return;
 }
 
 
 void userNetwork::printUsernames()
 {
   if (users->empty())
-    {
-      cout << "empty user network" << endl;
-      return;
-    }
+  {
+    cout << "empty user network" << endl;
+    return;
+  }
 
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
-    {
-      cout << it->getUsername() << endl;
-    }
+  {
+    cout << it->getUsername() << endl;
+  }
 }
 
 bool userNetwork::checkUsername(string usr)
 {
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
-    {
-      if (it->getUsername() == usr)
-	return true;
-    }
+  {
+    if (it->getUsername() == usr)
+     return true;
+ }
 
-  return false;
+ return false;
 }
 
 bool userNetwork::checkRealName(string rn)
 {
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
-    {
-      if (it->getRealName() == rn)
-	return true;
-    }
+  {
+    if (it->getRealName() == rn)
+     return true;
+ }
 
-  return false;
+ return false;
 
 }
 
@@ -98,13 +98,13 @@ int userNetwork::getUserIndex(string usr)
   std::list<user>::iterator it;
   int i = 0;
   for (it = users->begin(); it != users->end(); ++it)
-    {
-      if (it->getUsername() == usr)
-	return i; 
-      i++;
-    }
+  {
+    if (it->getUsername() == usr)
+     return i; 
+   i++;
+ }
 
-  return -1;
+ return -1;
 }
 
 bool userNetwork::checkLogin(string usr, string pw)
@@ -112,16 +112,16 @@ bool userNetwork::checkLogin(string usr, string pw)
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
+  {
+    if (it->getUsername() == usr)
     {
-      if (it->getUsername() == usr)
-	{
-	  if (it->getPassword() == pw)
-	    return true;
-	  else
-	    return false;
-	}
-    }
-  return false;
+     if (it->getPassword() == pw)
+       return true;
+     else
+       return false;
+   }
+ }
+ return false;
 }
 
 user* userNetwork::getUser(string usr)
@@ -129,33 +129,33 @@ user* userNetwork::getUser(string usr)
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
+  {
+    if (it->getUsername()==usr)
     {
-      if (it->getUsername()==usr)
-	{
-	  return &(*it);
-	}
-    }
-  return &(*it);
+     return &(*it);
+   }
+ }
+ return &(*it);
 }
 
 user* userNetwork::getUserRealName(string usr)
 {
-  
+
   //user temp;
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
+  {
+    if (it->getRealName()==usr)
     {
-      if (it->getRealName()==usr)
-	{
 	  // temp = *it;
 	  // return &temp;
-	  return &(*it);
-	}
-    }
+     return &(*it);
+   }
+ }
   //  temp = *it;
   // return &temp;
-  return &(*it);
+ return &(*it);
 }
 
 void userNetwork::removeFriend(string usr1, string usr2)
@@ -164,18 +164,18 @@ void userNetwork::removeFriend(string usr1, string usr2)
   user* temp2 = getUser(usr2);
 
   if (checkUsername(usr1) && checkUsername(usr2))
-    {
-      temp1->getFriends()->remove(usr2);
-      temp2->getFriends()->remove(usr1);
-      std::cout << "*******************************" << std::endl;
-      std::cout << "Your friend has been deleted." << std::endl;
-      std::cout << "*******************************" << std::endl;
-      return;
-    }
+  {
+    temp1->getFriends()->remove(usr2);
+    temp2->getFriends()->remove(usr1);
+    std::cout << "*******************************" << std::endl;
+    std::cout << "Your friend has been deleted." << std::endl;
+    std::cout << "*******************************" << std::endl;
+    return;
+  }
 
   else
     std::cout<<"Could not delete friend."<<std::endl;
-   
+
   return;
   
 }
@@ -198,11 +198,11 @@ void userNetwork::writeUserNetwork(const char* path)
   std::list<user>::iterator it;
   
   for (it = users->begin(); it != users->end(); ++it)
-    {
-      outfile << it->userInfoWrite();
-      outfile << it->getWall().WallToStringWrite();
-      outfile << "[/enduser]\n";
-    }
+  {
+    outfile << it->userInfoWrite();
+    outfile << it->getWall().WallToStringWrite();
+    outfile << "[/enduser]\n";
+  }
 
   outfile.close();
   return;
@@ -213,9 +213,9 @@ void userNetwork::writeUserNetwork(const char* path)
 void userNetwork::writeFriends(const char* path, int option)
 {
   if (users->empty())
-    {
-      cout << "Error: No users to write" << endl;
-    }
+  {
+    cout << "Error: No users to write" << endl;
+  }
 
   ofstream outfile;
   outfile.open(path);
@@ -228,10 +228,10 @@ void userNetwork::writeFriends(const char* path, int option)
 
   std::list<user>::iterator it;
   for (it = users->begin(); it != users->end(); ++it)
-    {
-      outfile << it->friendListWrite(option);
-      outfile << "[/enduser]\n";
-    }
+  {
+    outfile << it->friendListWrite(option);
+    outfile << "[/enduser]\n";
+  }
 
   outfile.close();
   return;
@@ -303,140 +303,140 @@ void userNetwork::readUsers(const char* filename)
   // find the end of first user
   //cout << "looking for userDelim" << endl;
   while ((posUser = s.find(userDelim)) != string::npos) 
-    {
+  {
       //save all the text to userToken
-      userToken = s.substr(0, posUser);
+    userToken = s.substr(0, posUser);
 
       //cout << "looking for infoDelim" << endl;
       //read in userToken and find the end of user info
-      while ((posInfo = userToken.find(infoDelim)) != string::npos )
-	{
-	  infoToken = userToken.substr(0,posInfo);
+    while ((posInfo = userToken.find(infoDelim)) != string::npos )
+    {
+     infoToken = userToken.substr(0,posInfo);
 
 	  //parse through the user info
-	  infoCounter = 0;
-	  while ((pos1 = infoToken.find(newlDelim)) != string::npos)
-	    {
-	      token1 = infoToken.substr(0,pos1);
+     infoCounter = 0;
+     while ((pos1 = infoToken.find(newlDelim)) != string::npos)
+     {
+       token1 = infoToken.substr(0,pos1);
 
-	      if (infoCounter == 0)
-		{
-		  un = token1;
-		}
-	      if (infoCounter == 1)
-		{
-		  pw = token1;
-		}
-	      if (infoCounter == 2)
-		{
-		  rn = token1;
-		}
+      if (infoCounter == 0)
+      {
+        un = token1;
+      }
+      if (infoCounter == 1)
+      {
+        pw = token1;
+      }
+      if (infoCounter == 2)
+      {
+        rn = token1;
+      }
 
-	      infoCounter++;
-	      infoToken.erase(0, pos1+newlDelim.length());
-	    }
-	  dob = token1;
-	  userToken.erase(0, posInfo + infoDelim.length());        
-	}
+      infoCounter++;
+      infoToken.erase(0, pos1+newlDelim.length());
+    }
+    dob = token1;
+    userToken.erase(0, posInfo + infoDelim.length());        
+  }
       //create the new user
       //user newUser(un,pw,rn,dob);
-      newUser = new user(un,pw,rn,dob);
+  newUser = new user(un,pw,rn,dob);
       //cout<<"user created"<<endl;
-      
+
       //start parsing through the wall posts [/endwallposts]
-      while ((posPost = userToken.find(postDelim)) != string::npos)
-	{
+  while ((posPost = userToken.find(postDelim)) != string::npos)
+  {
 	  //get the whole string of wall posts per each user
-	  postToken = userToken.substr(0, posPost);
-	    
+   postToken = userToken.substr(0, posPost);
+
 	  //parse through the wall posts and divide it into individual posts [/endpost]
-	  while ((pos2 = postToken.find(eachPost)) != string::npos)
-	    {
+   while ((pos2 = postToken.find(eachPost)) != string::npos)
+   {
 	      // get each individual post
-	      token2 = postToken.substr(0,pos2);
+     token2 = postToken.substr(0,pos2);
 
 	      // find the original post by user, before responses [/origpost]
-	      while ((pos3 = token2.find(origPost)) != string::npos)
-		{
+     while ((pos3 = token2.find(origPost)) != string::npos)
+     {
 		  //divide up each post into parts separated by newlines
-		  token3 = token2.substr(0,pos3);
-		  postCounter = 0;
+      token3 = token2.substr(0,pos3);
+      postCounter = 0;
 		  //divide up by newlines and get the post info \n
-		  while ((pos4 = token3.find(newlDelim)) != string::npos)
-		    {
-		      token4 = token3.substr(0,pos4);
-		      if (postCounter == 1)
-			{
-			  wp = token4;
-			}
-		      if (postCounter == 2)
-			{
-			  top = token4;
-			}
-		      
-		      postCounter++;
-		      token3.erase(0, pos4+newlDelim.length());
-		    }
-		    
-		  author = token4;
-		  token2.erase(0,pos3+origPost.length());
+      while ((pos4 = token3.find(newlDelim)) != string::npos)
+      {
+        token4 = token3.substr(0,pos4);
+        if (postCounter == 1)
+        {
+         wp = token4;
+        }
+        if (postCounter == 2)
+        {
+         top = token4;
+        }
+
+       postCounter++;
+       token3.erase(0, pos4+newlDelim.length());
+     }
+
+     author = token4;
+     token2.erase(0,pos3+origPost.length());
 		  //wallPost newpost(wp,top,author);
-		  newpost = new wallPost(wp,top,author);
-		  newUser->addToWall(*newpost);
+     newpost = new wallPost(wp,top,author);
+     newUser->addToWall(*newpost);
 		  //cout<<"wallpost added to user"<<endl;
-		}
+   }
 	      //newUser.addToWall(newPost);
-	            
+
 	      //find all responses
-	      while ((pos5 = token2.find(allResp)) != string::npos)
-		{
-		  token5 = token2.substr(0,pos5);
+   while ((pos5 = token2.find(allResp)) != string::npos)
+   {
+    token5 = token2.substr(0,pos5);
 
 		  //find each individual response
-		  while ((pos6 = token5.find(eachResp)) != string::npos)
-		    {
-		      token6 = token5.substr(0,pos6);
-		      respCounter = 0;
+    while ((pos6 = token5.find(eachResp)) != string::npos)
+    {
+      token6 = token5.substr(0,pos6);
+      respCounter = 0;
 		      //divide up each response by newlines and get the response info
-		      while ((pos7 = token6.find(newlDelim)) != string::npos)
-			{
-			  token7 = token6.substr(0,pos7);
-			  if (respCounter == 0)
-			    {
-			      rwp = token7;
-			    }
-			  if (respCounter == 1)
-			    {
-			      rtop = token7;
-			    }
-			  respCounter++;
-			  token6.erase(0, pos7+newlDelim.length());
-			}
-		      raut = token7;
-		      token5.erase(0,pos6+eachResp.length());
-		      newResp = new postResponse(rwp, rtop, raut);
-		      newpost->addResponse(*newResp);
+      while ((pos7 = token6.find(newlDelim)) != string::npos)
+       {
+       token7 = token6.substr(0,pos7);
+       if (respCounter == 0)
+       {
+         rwp = token7;
+       }
+       if (respCounter == 1)
+       {
+         rtop = token7;
+       }
+       respCounter++;
+       token6.erase(0, pos7+newlDelim.length());
+     }
+     raut = token7;
+     token5.erase(0,pos6+eachResp.length());
+     newResp = new postResponse(rwp, rtop, raut);
+     newpost->addResponse(*newResp);
 		      //cout << "response added" <<endl;
-		    }
-		  token2.erase(0,pos5+allResp.length());
+   }
+   token2.erase(0,pos5+allResp.length());
 		  //postResponse newResp(rwp, rtop, raut);
 		  //newpost.AddResponse(newResp);
-		}
-	        
-	      postToken.erase(0, pos2 +  eachPost.length());
-	    }
-	  userToken.erase(0, posPost + postDelim.length());
-	}
-      addUser(*newUser);
-      s.erase(0, posUser+userDelim.length());
+ }
+
+ postToken.erase(0, pos2 +  eachPost.length());
+}
+userToken.erase(0, posPost + postDelim.length());
+}
+addUser(*newUser);
+s.erase(0, posUser+userDelim.length());
       //cout << "user added" <<endl;
-    }
-  infile.close();
-  delete newUser;
-  delete newpost;
-  delete newResp;
+}
+infile.close();
+delete newUser;
+delete newpost;
+delete newResp;
   //cout << "end of function" << endl;
-  return;
+return;
 }
 
 /* readFriends takes in a formated text file
@@ -444,8 +444,8 @@ void userNetwork::readUsers(const char* filename)
  *  a friend request list. 
  *  0 = friends list, 1 = friend request
  */
-void userNetwork::readFriends(const char* filename, int option)
-{
+ void userNetwork::readFriends(const char* filename, int option)
+ {
 
   // read in input file
   ifstream infile(filename);
@@ -480,63 +480,63 @@ void userNetwork::readFriends(const char* filename, int option)
 
   // find the end of first user
   while ((pos1 = s.find(userDelim)) != string::npos)
-    {
+  {
       //save all the text to userToken
-      userToken = s.substr(0, pos1);
+    userToken = s.substr(0, pos1);
       user* temp; //changed this
 
       //read in userToken and find user name
       while ((pos2 = userToken.find(nameDelim)) != string::npos)
-	{
+      {
 	  // save the text to nameToken
-	  nameToken = userToken.substr(0,pos2);
+       nameToken = userToken.substr(0,pos2);
 
 	  //get the user name
-	  int counter = 0;
-	  while ((pos3 = nameToken.find(newlDelim)) != string::npos)
-	    {
-	      if (counter == 0)
-		username = nameToken.substr(0,pos3);
+       int counter = 0;
+       while ((pos3 = nameToken.find(newlDelim)) != string::npos)
+       {
+         if (counter == 0)
+          username = nameToken.substr(0,pos3);
 
-	      counter++;
-	      nameToken.erase(0, pos3+newlDelim.length());
-	    }
+        counter++;
+        nameToken.erase(0, pos3+newlDelim.length());
+      }
 
-	  userToken.erase(0, pos2+nameDelim.length());
-	}
+      userToken.erase(0, pos2+nameDelim.length());
+    }
 
       //set temp equal to the user so we can modify it
-      temp = getUser(username); 
+    temp = getUser(username); 
 
       //parse and find the friend delimiter
-      while ((pos4 = userToken.find(frndDelim)) != string::npos)
-	{
+    while ((pos4 = userToken.find(frndDelim)) != string::npos)
+    {
 	  //save the string to friendToken
-	  frndToken = userToken.substr(0,pos4);
+     frndToken = userToken.substr(0,pos4);
 
 	  // get friend names, save them to the appropriate linkedlist
-	  while ((pos5 = frndToken.find(newlDelim)) != string::npos)
-	    {
-	      frnd = frndToken.substr(0,pos5);
-	      if (frnd != "\n")
-		{
-		  if (option == 0)
+     while ((pos5 = frndToken.find(newlDelim)) != string::npos)
+     {
+       frnd = frndToken.substr(0,pos5);
+       if (frnd != "\n")
+       {
+        if (option == 0)
 		    temp->addFriend(frnd); //changed this
 		  else if (option == 1)
 		    temp->addRequest(frnd); //changed this
 		}
 
-	      frndToken.erase(0, pos5+newlDelim.length());
-	    }
+   frndToken.erase(0, pos5+newlDelim.length());
+ }
 
-	  userToken.erase(0, pos4+frndDelim.length());
-	}
+ userToken.erase(0, pos4+frndDelim.length());
+}
 
-      s.erase(0, pos1+userDelim.length());
+s.erase(0, pos1+userDelim.length());
 
-    }
+}
 
-  infile.close();
+infile.close();
 }
 
 void userNetwork::degreeOfSeparation(string usr1, string usr2)
