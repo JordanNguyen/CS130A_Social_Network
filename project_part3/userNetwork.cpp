@@ -539,55 +539,15 @@ void userNetwork::readFriends(const char* filename, int option)
   infile.close();
 }
 
-//check to see if there is a connection between two users
-bool userNetwork::checkConnected(string usr1, string usr2)
-{
-  //mark all the users as not visited
-  list<string> visited;
-
-  //created a queue for BFS
-  list<string> queue;
-
-  //marked the current user as visited and enqueue it
-  visited.push_back(usr1);
-  queue.push_back(usr1);
-
-  // it will be used to get all adjacent vertices (friends) of a user
-  std::list<string>::iterator it;
-
-  while (!queue.empty())
-  {
-    //dequeue a user from queue and print it
-    usr1 = queue.front();
-    //cout << usr1 << " ";
-    queue.pop_front();
-
-    //get all the adjacent vertices (friends) of the dequeued user usr1
-    //if an adjacent user has not been visited, then mark it visited and enqueue it
-    user *temp = getUser(usr1);
-    for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
-    {
-      if (*it == usr2)
-        return true;
-      //check if the friend has been visited or not yet
-      if (!checkVisited(*it, visited))
-      {
-        visited.push_back(*it);
-        queue.push_back(*it);
-      }
-    }
-  }
-  
-  return false;
-
-}
-
 void userNetwork::degreeOfSeparation(string usr1, string usr2)
 {
   list<string> queue;
   map<string, list<string>> pathToUser;
+  
+  list<string> userVisited;
 
   queue.push_back(usr1);
+  userVisited.push_back(usr1);
   pathToUser[usr1].push_back(usr1);
 
   std::list<string>::iterator it;
@@ -600,14 +560,14 @@ void userNetwork::degreeOfSeparation(string usr1, string usr2)
     user *temp = getUser(usr1);
     for (it = temp->getFriends()->begin(); it != temp->getFriends()->end(); ++it)
     {
-      if (pathToUser.find(*it) == pathToUser.end())
-      { 
+      if (pathToUser.find(*it) == pathToUser.end()) //if we havent reached user *it yet, add it to map
+      {                                             //and copy the path from it to its value, then add itself to the end of path
         pathToUser[*it] = pathToUser[usr1];
         pathToUser[*it].push_back(*it);
       }
 
-      if (usr2 == *it)
-      {
+      if (usr2 == *it)                              //if user *it is the user we are looking for
+      {                                             //print out the path to usr2 and return
         std::list<string>::iterator it2;
         it2 = pathToUser[usr2].begin();
         while (it2 != pathToUser[usr2].end())
@@ -620,20 +580,19 @@ void userNetwork::degreeOfSeparation(string usr1, string usr2)
         //return pathToUser[usr2];
       }
 
-      else
+      if (!checkVisited(*it,userVisited))           //add the user to queue if it hasnt been visited
+      {                                             //prevents infinite loops
+        userVisited.push_back(*it);        
         queue.push_back(*it);
+      }
+
     }
 
   }
 
-  std::list<string>::iterator it2;
-  it2 = pathToUser[usr2].begin();
-  while (it2 != pathToUser[usr2].end())
-  {
-    std::cout<< *it2 << " ";
-    ++it2;
-  }
-  std::cout<<std::endl;
+  // if we get this far, then usr2 wasnt found
+
+  std::cout << "There is no connection between you and " << usr2 << std::endl;
   return;
   //return pathToUser[usr2];
 
