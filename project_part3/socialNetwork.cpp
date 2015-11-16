@@ -524,7 +524,7 @@ void socialNetwork::deletePost(user* usr)
 
     if(usr->getWall().getPost(num-1)->getResponse(num2-1)->getAuthor() != usr->getUsername()) {
       std::cout << "*******************************" << std::endl;
-      std::cout << "Invalid selection. You can only delete responses ypu have authored" << std::endl;
+      std::cout << "Invalid selection. You can only delete responses you have authored" << std::endl;
       return deletePost(usr);
     }
 
